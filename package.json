@@ -1,0 +1,15 @@
+{
+  "name": "thecolorgreen",
+  "version": "1.0.0",
+  "description": "all seeds turn green",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Booker Robinson",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
