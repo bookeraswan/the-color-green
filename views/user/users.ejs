@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+        <title>The Color Green</title>
+            <link rel="stylesheet" type="text/css"href="../styles/navbar.css">
+            <link rel="stylesheet" type="text/css"href="../styles/users.css">
+    </head>
+        <body>
+
+            <% include ../partials/navbar %>
+
+            <% user.forEach(function(user){ %>
+
+                <div class="user">
+                    <div>
+                        <img src="<%= user.image %>">
+                    </div>
+                    <h1><a href="user/<%= user._id %>"><%= user.username %></a></h1>
+                </div>
+                
+
+            <% }); %> 
+
+
+        </body>
+</html>

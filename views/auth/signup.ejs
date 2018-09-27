@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+        <title>The Color Green</title>
+            <link rel="stylesheet" type="text/css"href="../styles/signup.css">
+    </head>
+    <body>
+        
+        <h1>Signup</h1>
+        
+        <div class="form">
+            <form action="/signup" method="POST">
+                <input type="text" name="newuser[username]" required placeholder="username">
+                <input type="password" name="password" required placeholder="password">
+                <input type="text" name="newuser[image]" required placeholder="Profile Image">
+                <input type="text" name="newuser[firstName]" required placeholder="first name">
+                <input type="text" name="newuser[lastName]" required placeholder="last name">
+                 <input type="date" name="newuser[birth]" required>
+                <input type="email" name="newuser[email]" required placeholder="email">
+                <p>
+                    I agree to the <a href="/">terms of service</a>
+                    <input id="checkbox" type="checkbox" name="agree" required>
+                </p>
+                <button>Signup</button>
+            </form>
+            <p>Have an account? <a href="/login">Login</a></p>
+        </div>
+        
+    </body>
+</html>

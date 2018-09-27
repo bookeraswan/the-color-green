@@ -1,0 +1,146 @@
+body{
+    padding-top: 100px;
+}
+
+h1{
+    text-align: center;
+    font-size: 50px;
+}
+
+h4{
+    text-align: center;
+}
+
+header p{
+    margin: 0 auto;
+    /*font-size: 20px;*/
+    width: 600px;
+}
+
+header{
+    margin: 0 auto;
+    width: 80%;
+    padding: 20px 30px;
+    background-color: #494;
+    border-radius: 20px;
+}
+
+.image-container{
+    margin: 0 auto;
+    width: 400px;
+}
+
+.image-container img{
+    width: 100%;
+    border-radius: 20px;
+}
+
+#birth{
+    /*margin: 0 20px 20px 0;*/
+    float: right;
+}
+
+#posts{
+    margin: 20px auto;
+    background-color: #ddd;
+    width: 85%;
+    min-height: 200px;
+}
+
+/*.created{*/
+/*    float: left;*/
+/*}*/
+
+.post{
+    /*position: relative;*/
+    margin: 10px auto;
+    width: 90%;
+    border-radius: 5px;
+    background-color: #eee;
+    border-bottom: 1px solid #000;
+}
+
+.post-image-container{
+    margin: 10px auto;
+    width: 600px;
+}
+
+.post-image{
+    width: 100%;
+}
+
+#options{
+    margin: 10px 45px;
+    float: right;
+    width: 20px;
+    height: 20px;
+}
+
+#button{
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+#options-list a{
+    display: block;
+    margin: 50px 0;
+}
+
+#options-list{
+    background-color: #ccc;
+    transform: translate(-50px, -50px) scaleX(0);
+    transform-origin: right;
+    transition-duration: 250ms;
+    width: 100px;
+    height: 150px;
+}
+
+#options:hover #options-list{
+    transform: translate(-50px, -50px) scaleX(1);
+}
+
+/*.post p{*/
+/*    width: 50%;*/
+/*}*/
+
+.form-container{
+    margin: 30px auto;
+    width: 85%;
+    height: 150px;
+    background-color: #9a9;
+    border-radius: 20px;
+}
+
+
+.form input{
+    /*display: inline-block;*/
+    float: left;
+    margin: 10px 5px;
+    padding: 0 10px;
+    width: 40%;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.form textarea{
+    display: inline-block;
+    margin: 5px;
+    width: 50%;
+    height: 80px;
+    border-radius: 5px;
+}
+
+.form button{
+    display: block;
+    margin: 0 auto;
+    width: 300px;
+    height: 45px;
+    background-color: #090;
+    color: #fff;
+    border-radius: 5px;
+}
+

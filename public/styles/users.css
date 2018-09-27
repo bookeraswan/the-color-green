@@ -1,0 +1,27 @@
+body{
+    padding-top: 100px;
+    background: #050 radial-gradient(#080, #060) /*url("https://res.cloudinary.com/ddxbyvkui/image/upload/v1536274994/kwh9yhx6icue5luibuu6.jpg")*/ repeat-y fixed center;
+}
+
+a{
+    text-decoration: none;
+    color: #0ff;
+}
+
+h1{
+    text-align: center;
+    height: 30px;
+}
+
+.user{
+    display: inline-block;
+    margin: 30px 30px;
+    width: 300px;
+    background-color: #000;
+    box-shadow: 5px 5px 20px 5px #000;
+}
+.user img{
+    display: block; 
+    width: 100%;
+    height: 90%;
+}

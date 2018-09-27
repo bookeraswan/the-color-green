@@ -1,0 +1,103 @@
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #0a0 url("../images/leaf.jpg") no-repeat fixed center;
+}
+
+#nav-header{
+    text-align: left;
+    /*margin-top: 15px;*/
+    display: inline-block;
+}
+
+#nav-header a{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: calc(20px + .5vw);
+    color: #0f0;
+}
+
+
+.sandwichh{
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: #0f0 linear-gradient(#0f0, #050, #0f0, #050);
+}
+
+ nav ul{
+        /*display: inline-block;*/
+        /*width: 70vw;*/
+        list-style: none;
+    }
+    
+    nav li{
+        display: inline-block;
+        margin: 3px 0 0 2vw;
+        padding: 7px 1vw;
+        /*font-size: 20px;*/
+        font-weight: bold;
+        font-family: serif;
+    }
+
+    nav li:hover{
+        border-bottom: 2px solid #fff;
+    }
+
+    nav li a{
+        text-decoration: none;
+        color: #fff;
+    }
+
+
+/*@media only screen and (max-width: 921px){*/
+    
+    /*nav ul{*/
+        /*width: 90vw;*/
+    /*}*/
+    
+    /*body{*/
+    /*    padding-top: 40px;*/
+    /*}*/
+    
+    /*#nav-header{*/
+    /*    margin: 15px 30vw 0 30vw;*/
+    /*    width: 300px;*/
+    /*}*/
+
+    nav{
+        height: 80px;
+    }
+    
+/*}*/
+
+
+
+    .nav-right{
+        display: flex;
+         float: right;
+        margin: 3px 2vw; 
+    }
+
+    .nav-right a{
+        color: #000;
+    }
+
+    .nav-right:hover{
+        border-bottom: 2px solid #000;
+    }
+    
+/*}*/
+
+
+/*@media only screen and (min-width: 700px) {*/
+    
+   
+/*}*/

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <style>
+            #post-image-container{
+                /*border: 10px solid #000;*/
+                margin: auto;
+                width: 800px;
+                height: auto;
+            }
+            #post-image-container img{
+                border: 10px solid #000;
+                /*height: 100%;*/
+                width: 100%;
+            }
+            
+            #post-text{
+                margin: auto;
+                width: 800px;
+            }
+            
+            #post-text span{
+                display: block;
+            }
+            
+            #comments{
+                margin: auto;
+                min-height: 200px;
+                width: 900px;
+                background-color: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="post">
+            <div id="post-image-container">
+                <img src="<%= post.image %>"> 
+            </div>
+            <div id="post-text">
+                <div>
+                    <span><em><%= post.owner.username %></em></span>
+                    <span><strong><%= post.created.toDateString() %></strong></span>
+                </div>
+                <p><%= post.text %></p>
+            </div>
+        </div>
+        <div id="comments">
+            <h1><h1>be the first to comment!!!</h1></h1>
+        </div>
+    </body>
+</html>

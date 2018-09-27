@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+        <title>The Color Green</title>
+            <link rel="stylesheet" type="text/css"href="../styles/login.css">
+    </head>
+    <body>
+        <h1>New Post</h1>
+
+        <div class="form">
+            <form action="/user/<%= user._id %>/post" method="post">
+                <input type="text" name="post[image]" required placeholder="image">
+                <textarea name="post[text]"></textarea>
+                <button>Post</button>
+            </form>
+            <p><a href="/">back</a></p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+        <title>The Color Green</title>
+        <link rel="stylesheet" type="text/css"href="../styles/profile.css">
+        <link rel="stylesheet" type="text/css"href="../styles/navbar.css">
+    </head>
+    <body>
+        <% include ../partials/navbar %>
+        <div class="container">
+            <header>
+                <div class="image-container">
+                    <img src="<%= user.image %>">
+                </div>
+                <h1><%= user.username %></h1>
+                <h4><em><%= user.firstName %> <%= user.lastName %></em></h4>
+                <p>kahdf k hkash ash faksh fashdf aklshf ahdflkahdslfashdkfshdlfkhsdkfh la</p>
+                <strong><span id="birth">Born <%= user.birth %></span></strong>
+            </header>
+            <% if(true){ %>
+            <div class="form-container">
+                <div class="form">
+                    <form action="/user/<%= user._id %>/post" method="post">
+                        <input type="text" name="post[image]" required placeholder="image">
+                        <textarea name="post[text]"></textarea>
+                        <button>Post</button>
+                    </form>
+                </div>
+            </div>
+            <% } %>
+            <div id="posts">
+                <% user.posts.forEach(function(post){ %>
+                    <div class="post">
+                        <div id="options">
+                            <button id="button"><></button>
+                            <div id="options-list">
+                                <a>Edit</a>
+                                <form action="/" method="Get">
+                                    <button>Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="post-image-container">
+                            <img class="post-image" src="<%= post.image %>">
+                        </div>
+                        <h3><em><%= post.owner.username %></em></h3>
+                        <h5 class="created"><%= post.created.toDateString() %></h5>
+                        <p>
+                            <%= post.text.substring(0, 290) %>...
+                            <a href="/user/<%= user._id %>/post/<%= post._id %>">
+                                read more
+                            </a>
+                        </p>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </body>
+</html>

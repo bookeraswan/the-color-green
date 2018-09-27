@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+        <title>The Color Green</title>
+            <link rel="stylesheet" type="text/css"href="../styles/navbar.css">
+            <link rel="stylesheet" type="text/css"href="../styles/featured.css">
+    </head>
+    <body>
+        <% include ../partials/navbar %>
+        <% featured.forEach(function(data){ %>
+            <div class="farm">
+                <img class="thumbail" src="<%= data.image %>">
+                <h2><%= data.name %></h2>
+            </div>
+        <% }); %>
+    </body>
+</html>
