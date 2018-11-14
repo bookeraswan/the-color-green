@@ -51,14 +51,14 @@ button{
     box-shadow: 2px 2px 5px 2px #000;
 }
 
-button:hover{
+button:active{
     margin: 71px auto;
     background-color: #0a3;
     height: 49px;
     box-shadow: 1px 1px 5px 2px #000;
 }
 
-button:focus{
+button:active{
     margin: 72px auto;
     outline: none;
     background-color: #081;

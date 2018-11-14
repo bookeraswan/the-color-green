@@ -2,7 +2,10 @@
 <html>
     <head>
         <meta name=”viewport” content=”width=device-width, initial-scale=1″>
-        <title>The Color Green</title>
+        <title><%= user.username %></title>
+        <!--<link rel="shortcut icon" type="image/x-icon" href="../images/favicon (2).ico" />-->
+        <link rel="shortcut icon" type="image/x-icon" href="<%= user.image %>" />
+        <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
         <link rel="stylesheet" type="text/css"href="../styles/profile.css">
         <link rel="stylesheet" type="text/css"href="../styles/navbar.css">
     </head>
@@ -10,15 +13,58 @@
         <% include ../partials/navbar %>
         <div class="container">
             <header>
-                <div class="image-container">
-                    <img src="<%= user.image %>">
+                <% if(currentUser && currentUser._id.equals(user._id)){ %>
+                    <aside class="e-p-icon"><a href="/user/<%= user._id %>/edit"><i class="fas fa-cog one"></i></a></aside>
+                <% }; %>
+                <div class="image-space-filler">
+                    <div class="image-container">
+                        <img src="<%= user.image %>">
+                    </div>
+                </div>
+                <div class="user-info">
+                <div class="follow_status">
+                <div class="add-friend">
+                    <p>
+                        <a href="/user/<%= user._id %>/followers">
+                            <%= user.followers.length %> 
+                            followers 
+                        </a>
+                        <a href="/user/<%= user._id %>/following">
+                            <%= user.following.length %> 
+                            following
+                        </a>
+                    </p>
+                    <% if(currentUser && !currentUser._id.equals(user._id)){ %>
+                        <% if(user.followers.indexOf(currentUser._id) === -1){ %>
+                            <form action="/user/<%= user._id %>/follow" method="post">
+                                <button>
+                                    <i class="fas fa-user-friends"></i>
+                                </button>
+                            </form>
+                        <% }else{ %>
+                                <form action="/user/<%= user._id %>/unfollow" method="post">
+                                    <button class="active">
+                                        <i class="fas fa-user-friends"></i>
+                                    </button>
+                                </form> 
+                        <% } %>
+                    <% } %>
+                </div>
                 </div>
                 <h1><%= user.username %></h1>
                 <h4><em><%= user.firstName %> <%= user.lastName %></em></h4>
-                <p>kahdf k hkash ash faksh fashdf aklshf ahdflkahdslfashdkfshdlfkhsdkfh la</p>
-                <strong><span id="birth">Born <%= user.birth %></span></strong>
+                <% if(user.bio){ %>
+                <!--<p><%=// user.bio.substring(0 , 100) %></p>-->
+                <% } %>
+                <% if(currentUser && currentUser._id.equals(user._id)){ %>
+                    <!--<strong><span id="birth"><a href="/user/<%=// user._id %>/delete_account">delete account</a><a href="/user/<%=// user._id %>/edit">Edit</a></span></strong>-->
+                <% }; %>
+                </div>
+                <% if(user.bio){ %>
+                    <p><%= user.bio.substring(0 , 1000) %></p>
+                <% } %>
             </header>
-            <% if(true){ %>
+            <% if(currentUser && currentUser._id.equals(user._id)){ %>
             <div class="form-container">
                 <div class="form">
                     <form action="/user/<%= user._id %>/post" method="post">
@@ -28,12 +74,12 @@
                     </form>
                 </div>
             </div>
-            <% } %>
+            <% }; %>
             <div id="posts">
                 <% user.posts.forEach(function(post){ %>
                     <div class="post">
                         <div id="options">
-                            <button id="button"><></button>
+                            <button id="button"><i class="fas fa-cog one"></i></button>
                             <div id="options-list">
                                 <a>Edit</a>
                                 <form action="/" method="Get">
@@ -44,17 +90,39 @@
                         <div class="post-image-container">
                             <img class="post-image" src="<%= post.image %>">
                         </div>
+                        <a href="/post/<%= post._id %>/comments">
+                            <aside class="comments">
+                                <strong><i class="far fa-comment"></i> <%= post.comments.length %></strong>
+                                <% if(post.comments.length === 1){ %>
+                                    <!--<i class="far fa-comment"></i>-->
+                                <% }else{ %>
+                                    <!--<i class="far fa-comment"></i>-->
+                                <% } %>
+                            </aside>
+                        </a>
                         <h3><em><%= post.owner.username %></em></h3>
                         <h5 class="created"><%= post.created.toDateString() %></h5>
-                        <p>
-                            <%= post.text.substring(0, 290) %>...
-                            <a href="/user/<%= user._id %>/post/<%= post._id %>">
-                                read more
-                            </a>
+                        <p class="read">
+                            <p class="text"><%= post.text.substring(0, 290) %></p>
+                            <% if(true){ %>
+                                ...
+                                <!--<span class="read-more">read more</span>-->
+                                <a href="/user/<%= user._id %>/post/<%= post._id %>">
+                                    read more
+                                </a>
+                            <% } %>
                         </p>
                     </div>
                 <% }); %>
             </div>
         </div>
+        
+    <script type="text/javascript">
+        var userInfo = document.querySelector(".user-info");
+        var profileImageHight = document.querySelector(".image-container img").clientHeight;
+        var profile_Image_Hight_Minus_Info_Height = profileImageHight - userInfo.clientHeight - 30;
+        var translateTo = "translateY(-" + profile_Image_Hight_Minus_Info_Height + "px)";
+        userInfo.style.transform = translateTo;
+    </script>
     </body>
 </html>

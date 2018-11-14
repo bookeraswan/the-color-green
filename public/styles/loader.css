@@ -1,0 +1,57 @@
+#loader-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #010;
+    z-index: 9998;
+}
+
+/*#load{*/
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*    position: absolute;*/
+/*    top: 40vh;*/
+/*    left: 45vw;*/
+/*    z-index:9999;*/
+/*    border-bottom: 50px solid #0a0;*/
+/*    border-top: 50px solid #0a0;*/
+/*    border-radius: 50%;*/
+/*    animation: loader 1s linear infinite;*/
+/*}*/
+
+/*@keyframes loader {*/
+/*    100%{*/
+/*        transform: rotate(360deg);*/
+/*    }*/
+/*}*/
+
+#load{
+  position: relative;
+  top: 30vh;
+  left: 45vw;
+}
+
+.inner-loader{
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 100px;
+  height: 200px;
+  border: 5px dotted #0a0;
+  border-radius: 50%;
+  animation: loader 3s cubic-bezier(0.4, 0.1, 0.71, 0.91) infinite;
+}
+
+@keyframes loader {
+  0%{
+    transform: rotate(0deg) translateX(0);
+  }
+  50%{
+    transform: rotate(180deg) translateX(-50px);
+  }
+  100%{
+    transform: rotate(360deg) translateX(0);
+  }
+}

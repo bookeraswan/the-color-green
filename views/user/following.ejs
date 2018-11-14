@@ -1,0 +1,18 @@
+
+<style>
+    .follower img{
+        width: 300px;
+    }
+</style>
+
+<h1>Following</h1>
+
+<% var following = user.followers; %>
+<% //following.sort(); %>
+<% user.following.forEach(function(following){ %>
+    <div class="follower">
+        <hr>
+        <img src="<%= following.image %>">
+        <h2><%= following.username %></h2>
+    </div>
+<% }) %>

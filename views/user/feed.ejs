@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+        <title>The Color Green</title>
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon (2).ico" />
+        <!--<link rel="shortcut icon" type="image/x-icon" href="<%=// user.image %>" />-->
+        <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
+        <link rel="stylesheet" type="text/css"href="../styles/newsfeed.css">
+        <link rel="stylesheet" type="text/css"href="../styles/navbar.css">
+    </head>
+    <body>
+        <% include ../partials/navbar %>
+        <section>
+            <form class="search" action="/users" method="get">
+                <input type="text" name="search" placeholder="Search users">
+            </form>
+            <h2><%= posts %></h2>
+        </section>
+    </body>
+</html>
+

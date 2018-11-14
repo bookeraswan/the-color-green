@@ -6,8 +6,18 @@ var postSchema = new mongoose.Schema({
     text: String,
     created: {type: Date, default: Date.now},
     owner: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
         username: String
-    }
+    },
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment"
+        }
+    ]
 });
 
 

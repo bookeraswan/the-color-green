@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+        <title>Edit <%= user.username %></title>
+        <link rel="shortcut icon" type="image/x-icon" href="/images/favicon (2).ico" />
+        <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
+        <link rel="stylesheet" type="text/css"href="/styles/edit.css">
+    </head>
+    <body>
+        <h1>Edit Profile</h1>
+        <div class="container">
+            
+            
+            <form action="/user/<%= user._id %>?_method=PUT" method="post">
+                
+                
+                <section>
+                    <img class="profile-image current-img" src="<%= user.image %>"> 
+                    <i class="fas fa-cog one"></i> 
+                    <div class="open-input-box-one">
+                        <input class="img" type="text" name="user[image]" value="<%= user.image %>" placeholder="profile image url">
+                    </div>
+                </section>
+                <section>
+                    <p class="current-email"><%= user.email %> </p>
+                    <i class="fas fa-cog two"></i> 
+                    <div class="open-input-box-two">
+                        <input class="email" type="text" name="user[email]" value="<%= user.email %>" placeholder="email">
+                    </div>
+                </section>
+                <% if(user.bio){ %>
+                    <section>
+                        <p class="current-bio"><%= user.bio %></p>
+                        <i class="fas fa-cog three"></i> 
+                        <div class="open-input-box-three">
+                            <textarea class="textarea" name="user[bio]"><%= user.bio %></textarea>
+                        </div>
+                    </section>
+                <% }else{ %>
+                    <section>
+                        add bio 
+                        <i class="fas fa-cog three"></i> 
+                        <div class="open-input-box-three">
+                            <textarea name="user[bio]" placeholder="Add bio"></textarea>
+                        </div>
+                    </section>
+                <% } %>
+                <button>Update</button>
+            </form>
+        </div>
+        <a href="/user/<%= user._id %>/delete_account"><button>delete account</button></a>
+        <script type="text/javascript" src="/js/edit.js"></script>
+    </body>
+</html>

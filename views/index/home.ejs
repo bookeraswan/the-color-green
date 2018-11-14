@@ -3,20 +3,54 @@
     <head>
         <meta name=”viewport” content=”width=device-width, initial-scale=1″>
         <title>The Color Green</title>
+            <link rel="stylesheet" type="text/css"href="../styles/loader.css">
             <link rel="stylesheet" type="text/css"href="../styles/landing.css">
+            <!--<link rel="shortcut icon" type="image/x-icon" href="images\favicon (2).ico" />-->
+            
+            
+            <link rel="apple-touch-icon" sizes="180x180" href="images\favicon (2).ico">
+            <link rel="icon" type="image/png" sizes="32x32" href="images\favicon (2).ico">
+            <link rel="icon" type="image/png" sizes="16x16" href="images\favicon (2).ico">
+            <link rel="manifest" href="images\favicon (2).ico">
+            <link rel="mask-icon" href="images\favicon (2).ico" color="#5bbad5">
+            <meta name="msapplication-TileColor" content="#da532c">
+            <meta name="theme-color" content="#ffffff">
+            
+            
     </head>
     <body>
+            <div id="loader-container">
+                <!--<div id="load"></div>-->
+                <div id="load">
+  <div class="inner-loader">
+    <div class="inner-loader">
+      <div class="inner-loader">
+        <div class="inner-loader"></div>
+      </div>
+    </div>
+  </div>
+</div>
+            </div>
         <nav>
             <ul>
                 <span id="nav-header"><a href="/">The Color Green</a></span>
                 <li><a href="/users">users</a></li>
-                <!--<li><a href="/">Activities</a></li>-->
-                <!--<li><a href="/featured">Featured</a></li>-->
-                <li class="nav-right"><a href="/signup">Signup</a></li>
-                <li class="nav-right"><a href="/login">Login</a></li>
+                <% if(currentUser){ %>
+                    <li class="nav-right"><a href="/logout">logout</a></li>
+            
+                    <a href="user/<%= currentUser._id %>">
+                        <img class="nav-right nav-img" src="<%= currentUser.image %>" style="width: 50px; height: 50px;">
+                    </a>
+                <% }else{ %>
+                    <li class="nav-right"><a href="/signup">Signup</a></li>
+                    <li class="nav-right"><a href="/login">Login</a></li>
+                <% } %>
             </ul>
         </nav>
         
         <h1>The Color Green</h1>
+        
+        
+<script type="text/javascript" src="../js/loader.js"></script>
     </body>
 </html>

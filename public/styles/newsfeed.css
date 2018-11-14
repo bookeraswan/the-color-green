@@ -1,0 +1,22 @@
+body{
+    background: #050 url("/images/leaf.jpg") no-repeat fixed center;
+}
+
+section{
+    padding-top: 100px;
+    margin: 0 auto;
+    width: 90vw;
+    height: 80vh;
+    background-color: #fff3;
+}
+
+.search{
+    margin: auto 10px auto auto;
+    width: 400px;
+}
+
+.search input{
+    width: 400px;
+    height: 40px;
+    font-size: 30px;
+}

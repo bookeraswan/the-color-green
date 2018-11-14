@@ -3,13 +3,13 @@ nav{
     top: 0;
     left: 0;
     right: 0;
+    z-index: 5;
     height: 80px;
     background: #0a0 url("../images/leaf.jpg") no-repeat fixed center;
 }
 
 #nav-header{
     text-align: left;
-    /*margin-top: 15px;*/
     display: inline-block;
 }
 
@@ -33,15 +33,15 @@ nav{
 }
 
  nav ul{
-        /*display: inline-block;*/
-        /*width: 70vw;*/
+     margin: 0;
         list-style: none;
+        font-size: 30px;
     }
     
     nav li{
         display: inline-block;
-        margin: 3px 0 0 2vw;
-        padding: 7px 1vw;
+        margin: 20px 0 0 2vw;
+        padding: 0 1vw;
         /*font-size: 20px;*/
         font-weight: bold;
         font-family: serif;
@@ -56,34 +56,19 @@ nav{
         color: #fff;
     }
 
-
-/*@media only screen and (max-width: 921px){*/
-    
-    /*nav ul{*/
-        /*width: 90vw;*/
-    /*}*/
-    
-    /*body{*/
-    /*    padding-top: 40px;*/
-    /*}*/
-    
-    /*#nav-header{*/
-    /*    margin: 15px 30vw 0 30vw;*/
-    /*    width: 300px;*/
-    /*}*/
-
     nav{
         height: 80px;
     }
-    
-/*}*/
 
-
+    .nav-img{
+        width: 50px;
+        height: 50px;
+    }
 
     .nav-right{
         display: flex;
          float: right;
-        margin: 3px 2vw; 
+        margin: 20px 2vw; 
     }
 
     .nav-right a{

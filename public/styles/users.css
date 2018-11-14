@@ -10,18 +10,43 @@ a{
 
 h1{
     text-align: center;
-    height: 30px;
+    margin: 0;
+    height: 100%;
+    background-color: #000;
+    
 }
 
 .user{
     display: inline-block;
     margin: 30px 30px;
     width: 300px;
-    background-color: #000;
+    background-color: #0af;
     box-shadow: 5px 5px 20px 5px #000;
 }
 .user img{
     display: block; 
     width: 100%;
     height: 90%;
+}
+
+.no-user-error-msg{
+    font-size: 22px;
+}
+
+.no-user-error-msg i{
+    display: inline-block;
+    margin-left: 30px;
+    font-size: 100px;
+    transform: rotate(80deg);
+}
+
+.search{
+    margin: auto 10px auto auto;
+    width: 400px;
+}
+
+.search input{
+    width: 400px;
+    height: 40px;
+    font-size: 30px;
 }

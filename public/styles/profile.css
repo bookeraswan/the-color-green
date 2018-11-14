@@ -1,32 +1,91 @@
 body{
+    /*background: #050 url("/images/leaf.jpg") no-repeat fixed center;*/
     padding-top: 100px;
 }
 
 h1{
     text-align: center;
-    font-size: 50px;
+    margin: 0;
+    font-size: 80px;
 }
 
 h4{
+    margin: 0;
     text-align: center;
 }
 
-header p{
+.add-friend{
+    display: inline-block;
+    /*width: 20px;*/
+    font-size: 22px;
+}
+
+.add-friend form{
+    display: block;
+    margin-left: 1vw;
+    width: 200px;
+}
+
+.add-friend form button{
     margin: 0 auto;
-    /*font-size: 20px;*/
-    width: 600px;
+    height: 50px;
+    width: 200px;
+}
+
+.follow_status{
+    position: relative;
+    top: -50px;
+    margin: 0 auto;
+}
+
+.follow_status p{
+    display: inline-block;
+}
+
+.follow_status p a{
+   text-decoration: none;
+   font-weight: bold;
+   color: #000;
+   display: inline-block;
+   margin: 0 1vw;
+}
+
+.active{
+    background-color: #0a0;
+}
+
+header p{
+    text-align: center;
+    /*font-size: 30px;*/
 }
 
 header{
+    /*position: relative;*/
+    /*background: #050 url("/images/leaf.jpg") no-repeat fixed center;*/
     margin: 0 auto;
-    width: 80%;
+    /*width: 80%;*/
     padding: 20px 30px;
     background-color: #494;
     border-radius: 20px;
 }
 
+.user-info{
+    display: inline-block;
+    width: 450px;
+}
+
+.image-space-filler{
+    /*position: relative;*/
+    display: inline-block;
+    width: 400px;
+    /*height: 600px;*/
+}
+
 .image-container{
-    margin: 0 auto;
+    /*position: absolute;*/
+    /*top:  2px;*/
+    /*left: 22px;*/
+    margin: 0 0 auto 0;
     width: 400px;
 }
 
@@ -67,6 +126,21 @@ header{
 
 .post-image{
     width: 100%;
+}
+
+.read-more{
+    cursor: pointer;
+    color: #0a0;
+}
+
+.comments{
+    float: right;
+    margin: 0 200px 0 0;
+}
+
+.comments strong{
+    font-size: 30px;
+    font-family: sans-serif;
 }
 
 #options{
@@ -144,3 +218,19 @@ header{
     border-radius: 5px;
 }
 
+.e-p-icon{
+    float: right;
+    font-size: 40px;
+}
+
+
+@media only screen and (min-width: 1100px){
+    .add-friend form{
+        display: inline-block;
+        width: 200px;
+    }
+    
+    .user-info{
+        width: 600px;
+    }
+}

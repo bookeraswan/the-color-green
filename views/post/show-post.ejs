@@ -2,7 +2,12 @@
 <html>
     <head>
         <title></title>
+        <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
         <style>
+            a{
+                text-decoration: none;
+            }
+        
             #post-image-container{
                 /*border: 10px solid #000;*/
                 margin: auto;
@@ -24,12 +29,13 @@
                 display: block;
             }
             
-            #comments{
-                margin: auto;
-                min-height: 200px;
-                width: 900px;
-                background-color: #ddd;
+            .comment{
+                margin: 10px 170px;
+                float: right;
+                font-size: 30px;
             }
+            
+            
         </style>
     </head>
     <body>
@@ -37,6 +43,7 @@
             <div id="post-image-container">
                 <img src="<%= post.image %>"> 
             </div>
+            <span class="comment"><a href="/post/<%= post._id %>/comments"><i class="far fa-comment"></i> <%= post.comments.length %></a></span>
             <div id="post-text">
                 <div>
                     <span><em><%= post.owner.username %></em></span>
@@ -44,9 +51,6 @@
                 </div>
                 <p><%= post.text %></p>
             </div>
-        </div>
-        <div id="comments">
-            <h1><h1>be the first to comment!!!</h1></h1>
         </div>
     </body>
 </html>

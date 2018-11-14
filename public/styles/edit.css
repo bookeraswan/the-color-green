@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    
+    background-color: #aae6b9;
+}
+
+h1{
+    text-align: center;
+    margin: 50px auto;
+    font-size: 100px;
+}
+
+button{
+    display: block;
+    margin: 50px auto;
+    font-size: 30px;
+    padding: 25px 70px;
+    background-color: #0af;
+}
+
+.container{
+    width: 70vw;
+    margin: 0 auto;
+}
+
+section{
+    padding: 25px 0;
+    border-bottom: 1px solid #aaa;
+    font-size: 30px;
+}
+
+section p{
+    display: inline-block;
+    max-width: 80%;
+}
+
+.profile-image{
+    display: inline-block;
+    width: 100px;
+}
+
+.fa-cog{
+    float: right;
+    font-size: 30px;
+}
+
+.open-input-box-one{
+    display: none;
+}
+
+.open-input-box-two{
+    display: none;
+}
+
+section div{
+    display: none;
+}
+
+section div input{
+    /*margin-top: 20px;*/
+    width: 100%;
+    height: 40px;
+    font-size: 25px;
+}
+
+section div textarea{
+    padding: 20px;
+    width: 100%;
+    height: 200px;
+    font-size: 30px;
+}
