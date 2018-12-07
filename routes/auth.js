@@ -2,12 +2,32 @@ var express                 =  require("express"),
     router                  =  express.Router(),
     passport                = require("passport"),
     middlewear              = require("../middlewear"),
-    User                    = require("../models/user");
+    User                    = require("../models/user"),
+    multer              = require('multer');
 
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter});
+
+var cloudinary = require('cloudinary');
+cloudinary.config({
+  cloud_name: 'ddxbyvkui',
+  api_key: process.env.THECOLORGREEN_CLOUDINARYAPIKEY,
+  api_secret: process.env.THECOLORGREEN_CLOUDINARYAPISECRET
+});
 
 
 router.get("/login", function(req, res) {
-   res.render("auth/login"); 
+   res.render("auth/login");
 });
 
 
@@ -24,13 +44,20 @@ router.get("/loginresponse",middlewear.isLoggedIn, function(req, res) {
 
 
 router.get("/signup", function(req, res) {
-   res.render("auth/signup"); 
+   res.render("auth/signup");
 });
 
+router.post("/signup", upload.single('image'), function(req, res){
 
-router.post("/signup", function(req, res){
-    req.body.username;
-    req.body.password;
+    cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        }
+
+  req.body.newuser.image = result.secure_url;
+  req.body.newuser.imageId = result.public_id;
+
    User.register(new User({username: req.body.username}), req.body.password, function(err, user){
       if(err){
           console.log(err);
@@ -50,9 +77,10 @@ router.post("/signup", function(req, res){
             });
       }
     });
+    });
   });
-  
-  
+
+
 router.get("/logout", function(req, res) {
    req.logout();
    res.redirect("/");

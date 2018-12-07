@@ -7,15 +7,21 @@
             <link rel="stylesheet" type="text/css"href="../styles/signup.css">
     </head>
     <body>
-        
+
         <h1>Signup</h1>
-        
+
         <div class="form">
-            <form onsubmit="return validateSignup();" action="/signup" method="POST">
+            <form action="/signup" method="POST" enctype="multipart/form-data"> <!-- enctype="multipart/form-data" -->
                 <input type="text" name="username" placeholder="username" minlength="3" required>
                 <input type="password" name="password" placeholder="password" class="password" required maxlength="30">
                 <p class="password-err-msg">your password must be more than 8 characters.</p>
-                <input type="text" name="newuser[image]" placeholder="Profile Image" minlength="1" required>
+                <div class="image-form-container">
+                    <div class="image-input-button">
+                      <span>Image</span>
+                      <input class="file-input" type="file" id="image" name="image" accept="image/*" required>
+                    </div>
+                    <p class="image-status"></p>
+                </div>
                 <input type="text" name="newuser[firstName]" placeholder="first name" minlength="1" required>
                 <input type="text" name="newuser[lastName]" placeholder="last name" minlength="1" required>
                  <input type="date" name="newuser[birth]" minlength="1" required>

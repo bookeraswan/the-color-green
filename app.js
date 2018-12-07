@@ -8,8 +8,7 @@ var express                 = require("express"),
     middlewear              = require("./middlewear"),
     User                    = require("./models/user"),
     Post                    = require("./models/post");
-    
-    
+
 // _____________________________________
 //          Require routes
         var GeneralRoutes   = require("./routes"),
@@ -19,15 +18,14 @@ var express                 = require("express"),
             commentRoutes   = require("./routes/comment");
 // _____________________________________
 
+// mongodb://localhost:27017/thecolorgreen-v1
+mongoose.connect(process.env.THECOLORGREEN_DATABASEURL,{ useNewUrlParser: true });
 
-mongoose.connect("mongodb://localhost:27017/thecolorgreen-v1");
-    
-    
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
-
+mongoose.set('useFindAndModify', false);
 
 // +++++++++++++++++++++++++++++++++++++++++++++++
 //      Autentication Set Up
@@ -37,7 +35,7 @@ app.use(require("express-session")({
     secret: "All seeds turn green, sin arboles no hay vida, trees grow",
     resave: false,
     saveUninitialized: false
-    
+
 }));
 
 app.use(passport.initialize());
@@ -57,7 +55,6 @@ app.use(function(req, res, next){
    next();
 });
 
-
 // ====================================
 //                ROUTES
 
@@ -66,11 +63,9 @@ app.use(function(req, res, next){
             app.use(postRoutes);
             app.use(commentRoutes);
             app.use(GeneralRoutes);
-            
+
 // ====================================
 
-
-
-app.listen(process.env.PORT, process.env.IP, function(){
-   console.log("all seeds turn green"); 
+app.listen(process.env.THECOLORGREEN_PORT, process.env.IP, function(){
+   console.log("all seeds turn green");
 });

@@ -1,5 +1,15 @@
-<h1>Deleting your account is pemanent</h1>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Delete account: <%= user.username %></title>
+    <link rel="stylesheet" href="../../styles/delete.css">
+  </head>
+  <body>
+    <h1>Deleting your account is permanent and cannot be undone.</h1>
 
-<form action="/user/<%= user._id %>?_method=DELETE" method="post">
-    <button>DELETE</button>
-</form>
+    <form action="/user/<%= user._id %>?_method=DELETE" method="post">
+      <button>DELETE</button>
+    </form>
+  </body>
+</html>

@@ -59,6 +59,45 @@ input{
     outline: none;
 }
 
+.image-form-container{
+  /* display: inline-block; */
+}
+
+.image-input-button{
+  float: left;
+  position: relative;
+  width: 300px;
+  height: 150px;
+  background: #0c45b9 linear-gradient(#0c45b9, #0ff);
+  border-radius: 10px;
+}
+
+.image-input-button span{
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    color: #000;
+    font-size: 50px;
+}
+
+.image-input-button input{
+    height: 98%;
+    opacity: 0;
+}
+
+.image-input-button:active{
+    background:  radial-gradient(#0c45b9, #0ff);
+}
+
+.image-status{
+  display: inline-block;
+  margin: 0 50px;
+  width: 500px;
+  height: 200px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
 button{
     display: block;
     margin: 70px auto;

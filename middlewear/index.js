@@ -15,7 +15,7 @@ middlewear.isLoggedIn = function (req, res, next){
 
 middlewear.checkPostOwnership = function (req, res, next) {
     if(req.isAuthenticated()){
-         Post.findById(req.params.id, function(err, foundPost){
+         Post.findById(req.params.post_id, function(err, foundPost){
         if(err || !foundPost){
            res.redirect("back");
         }

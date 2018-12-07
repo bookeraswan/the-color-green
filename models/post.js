@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 
 var postSchema = new mongoose.Schema({
     image: String,
+    imageId: String,
     text: String,
     created: {type: Date, default: Date.now},
     owner: {

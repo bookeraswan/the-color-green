@@ -4,13 +4,12 @@ var express             = require("express"),
     middlewear          = require("../middlewear"),
     Post                = require("../models/post"),
     Comment             = require("../models/comment");
-    
-    
+
 router.get("/post/:post_id/comment/new",middlewear.isLoggedIn, function(req, res){
     Post.findById(req.params.post_id, function(err, foundPost){
        if(err || !foundPost){
            res.redirect("/users");
-       } 
+       }
        else{
            res.render("post/comment/new", {post: foundPost});
        }
@@ -22,7 +21,7 @@ router.post("/post/:post_id/comment",middlewear.isLoggedIn, function(req, res){
        if(err || !foundPost){
            console.log(err);
            res.redirect("back");
-       } 
+       }
        else{
            Comment.create(req.body.comment, function(err, newComment){
                if(err){
@@ -41,7 +40,7 @@ router.post("/post/:post_id/comment",middlewear.isLoggedIn, function(req, res){
        }
    });
 });
-    
+
 router.get("/post/:post_id/comments", function(req, res){
    Post.findById(req.params.post_id).populate("comments").exec(function(err, foundPost) {
        if(err || !foundPost){
@@ -52,6 +51,6 @@ router.get("/post/:post_id/comments", function(req, res){
        }
    });
 });
-    
-    
+
+
 module.exports = router;

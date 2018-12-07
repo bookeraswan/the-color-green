@@ -21,7 +21,7 @@
   </div>
 </div>
             </div>
-            
+
         <div class="container">
             <% include ../partials/navbar %>
             <form class="search" action="/users" method="get">
@@ -31,16 +31,23 @@
                 <p class="no-user-error-msg">A user with the given username was not found <i>:(</i></p>
             <% } %>
             <% user.forEach(function(user){ %>
+                <a href="user/<%= user._id %>">
+                  <div class="user">
+                      <div class="profile-img">
+                          <img src="<%= user.image %>">
+                      </div>
+                      <div class="name">
+                        <h1><a href="user/<%= user._id %>"><%= user.username %></h1>
+                        <p>
+                          <em>
+                            <%= user.firstName %> <%= user.lastName %>
+                          </em>
+                        </p>
+                      </div>
+                  </div>
+                </a>
 
-                <div class="user">
-                    <div>
-                        <img src="<%= user.image %>">
-                    </div>
-                    <h1><a href="user/<%= user._id %>"><%= user.username %></a></h1>
-                </div>
-                
-
-            <% }); %> 
+            <% }); %>
 
         </div>
 

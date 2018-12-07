@@ -14,6 +14,8 @@ var currentImg = document.querySelector(".img");
 var currentEmail = document.querySelector(".email");
 var currentBio = document.querySelector(".textarea");
 
+var image = document.querySelector(".profile-image");
+
 
 
     iconOne.addEventListener("click", function(){
@@ -45,3 +47,8 @@ var currentBio = document.querySelector(".textarea");
             inputBoxThree.style.display = "block";
         }
     });
+    
+    // currentImg.addEventListener("input", function() {
+    //     console.log(this.value);
+    //     image.src = this.value;
+    // });

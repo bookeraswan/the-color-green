@@ -3,68 +3,91 @@ body{
     /*background-size: 350vw 260vw;*/
 }
 
-
-
 h1{
-    text-align: center;
-    margin-top: 100px;
+    float: left;
     font-size: 100px;
     color: #0a0;
 }
 
-
-nav{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+.signup-container{
+  margin: 50px auto;
+  width: 90vw;
+  height: 600px;
+  /* background-color: #00f; */
 }
 
-nav ul{
-    margin: 0;
-    list-style: none;
-    font-size: 30px;
+.signup-btn{
+  float: right;
+  margin: 100px 100px;
+  padding: 50px 100px;
+  color: #000;
+  text-decoration: none;
+  font-size: 60px;
+  font-weight: bold;
+  font-family: monospace;
+  background: #0f0 linear-gradient(#0a0, #0f0, #0a0, #0f0, #0a0, #0f0, #0a0, #0f0);
+  border: none;
+  border-radius: 10px;
 }
 
-#nav-header a{
-    text-decoration: none;
-    font-weight: bold;
-    font-size: calc(20px + .5vw);
-    color: #0f0;
+.login-container{
+  float: right;
+  margin-top: -30px;
+  /* width: 780px; */
 }
 
-nav li{
-    display: inline-block;
-    margin: 20px 0 0 2vw;
-    padding: 7px 1vw;
-    font-size: 2.3vw;
-    font-weight: bold;
-    font-family: serif;
+.login-form{
+  display: inline-block;
+  float: right;
 }
 
-nav li:hover{
-    border-bottom: 2px solid #fff;
+.x{
+  margin-right: 10px;
+  font-size: 40px;
+  font-family: monospace;
 }
 
-nav li a{
-    text-decoration: none;
-    color: #fff;
+.x-after{
+  display: inline-block;
+  float: right;
+  /* width: 30px; */
+  /* height: 30px; */
+  text-align: center;
+  /* border-radius: 50%; */
+  font-size: 50px;
+  color: #fff;
+  /* background-color: #000; */
 }
 
-.nav-img{
-    width: 50px;
-    height: 50px;
+.login-form input{
+  width: 300px;
+  height: 35px;
+  padding: 0;
+  font-size: 30px;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+  transition: all 1s;
 }
 
-.nav-right{
-    float: right;
-    margin: 20px 3vw;  
+.login-form input::placeholder{
+  color: #222;
 }
 
-.nav-right a{
-    color: #000;
+.login-form input[type=submit]{
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
 
-.nav-right:hover{
-    border-bottom: 2px solid #000;
-}
+                              /* ===================================== */
+                              /*           after form is clicked       */
+                              /* ===================================== */
+
+
+ @keyframes grow-input {
+   100%{
+      transform: translate(-500px, 200px) scale(2);
+   }
+ }

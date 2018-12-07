@@ -4,7 +4,7 @@
 }
 
 body{
-    
+
     background-color: #aae6b9;
 }
 
@@ -20,6 +20,19 @@ button{
     font-size: 30px;
     padding: 25px 70px;
     background-color: #0af;
+}
+
+#delete-btn{
+  display: block;
+  float: right;
+  margin: 50px;
+  width: 200px;
+  padding: 25px 0;
+  background-color: #a00;
+  font-size: 30px;
+  text-decoration: none;
+  text-align: center;
+  color: #000;
 }
 
 .container{

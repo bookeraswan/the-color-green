@@ -2,7 +2,7 @@ var express         = require("express"),
     router          = express.Router(),
     User            = require("../models/user"),
     middlewear      = require("../middlewear");
-    
+
     var data = [
         {
             name: "Sana",
@@ -16,6 +16,10 @@ var express         = require("express"),
         }
     ];
 
+
+// router.post("/", function(req, res) {
+//   console.log(req.body);
+// })
 
 router.get("/", function(req, res){
     if(!req.user){
@@ -52,15 +56,18 @@ router.get("/", function(req, res){
         // console.log("'''''''''''''''''''''''''''''''''''''''''''''''''");
         // console.log(currentDate);
         // console.log("'''''''''''''''''''''''''''''''''''''''''''''''''");
-        res.render("user/feed", {posts: recentPosts}); 
+        res.render("user/feed", {posts: recentPosts});
     }
 });
 
 router.get("/featured", function(req, res){
-   res.render("index/featured", {featured: data}); 
+   res.render("index/featured", {featured: data});
 });
 
 router.get("/users", function(req, res) {
+        if(req.query.search === "" || !req.query.search){
+            return res.redirect("back");
+        }
         User.find({ username: {$regex: req.query.search, $options: "i"}},
         {textScore: { $meta: 'textScore' }},
     function(err, foundUsers){
@@ -69,17 +76,17 @@ router.get("/users", function(req, res) {
             res.redirect("/login");
         }
         else{
-            
+
             // RESET FOLLOWERS AND FOLLOWING ON ALL USERS
-            
+
             // foundUsers.forEach(function(user){
             //     user.followers = [];
             //     user.following = [];
             //     user.save();
             // });
-            
-            
-            res.render("users/users", {user: foundUsers}); 
+
+
+            res.render("users/users", {user: foundUsers});
         }
 });
 
@@ -101,7 +108,7 @@ router.get("/users", function(req, res) {
 //              ELSE
 // ++++++++++++++++++++++++++++++++++++++++
 router.get("*", function(req, res) {
-   res.redirect("/users"); 
+   res.redirect("/users");
 });
 
 

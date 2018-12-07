@@ -7,7 +7,6 @@ h1{
     text-align: center;
     margin-top: 70px;
     font-size: 50px;
-    color: #fff;
 }
 
 p{
@@ -20,7 +19,7 @@ a{
 
 .form{
     margin: 0 auto;
-    width: 600px;
+    width: 800px;
 }
 
 input{
@@ -29,15 +28,20 @@ input{
     width: 100%;
     height: 40px;
     padding-left: 10px;
-    background-color: #fffe;
-    border: 1px solid #000;
-    font-size: 20px;
-    border-radius: 7px;
+    /* font-weight: bold; */
+    background-color: #fff0;
+    border: none;
+    border-bottom: 4px solid #000;
+    font-size: 40px;
+}
+
+input::placeholder{
+  font-size: 40px;
+  color: #000a;
 }
 
 input:focus{
     outline: none;
-    background-color: #fff;
 }
 
 button{

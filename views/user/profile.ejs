@@ -26,11 +26,11 @@
                 <div class="add-friend">
                     <p>
                         <a href="/user/<%= user._id %>/followers">
-                            <%= user.followers.length %> 
-                            followers 
+                            <%= user.followers.length %>
+                            followers
                         </a>
                         <a href="/user/<%= user._id %>/following">
-                            <%= user.following.length %> 
+                            <%= user.following.length %>
                             following
                         </a>
                     </p>
@@ -46,7 +46,7 @@
                                     <button class="active">
                                         <i class="fas fa-user-friends"></i>
                                     </button>
-                                </form> 
+                                </form>
                         <% } %>
                     <% } %>
                 </div>
@@ -54,21 +54,22 @@
                 <h1><%= user.username %></h1>
                 <h4><em><%= user.firstName %> <%= user.lastName %></em></h4>
                 <% if(user.bio){ %>
-                <!--<p><%=// user.bio.substring(0 , 100) %></p>-->
+                <!-- <p><%=// user.bio.substring(0 , 100) %></p> -->
                 <% } %>
                 <% if(currentUser && currentUser._id.equals(user._id)){ %>
                     <!--<strong><span id="birth"><a href="/user/<%=// user._id %>/delete_account">delete account</a><a href="/user/<%=// user._id %>/edit">Edit</a></span></strong>-->
                 <% }; %>
                 </div>
                 <% if(user.bio){ %>
-                    <p><%= user.bio.substring(0 , 1000) %></p>
+                    <p><%= user.bio.substring(0, 1000) %></p>
                 <% } %>
             </header>
             <% if(currentUser && currentUser._id.equals(user._id)){ %>
             <div class="form-container">
                 <div class="form">
-                    <form action="/user/<%= user._id %>/post" method="post">
-                        <input type="text" name="post[image]" required placeholder="image">
+                    <form action="/user/<%= user._id %>/post" method="post" enctype="multipart/form-data">
+                        <div class="image-input-button">Image</div>
+                        <input class="image-input" type="file" id="image-input" name="image" accept="image/*">
                         <textarea name="post[text]"></textarea>
                         <button>Post</button>
                     </form>
@@ -78,15 +79,11 @@
             <div id="posts">
                 <% user.posts.forEach(function(post){ %>
                     <div class="post">
+                      <% if(currentUser && currentUser._id.equals(user._id)){ %>
                         <div id="options">
-                            <button id="button"><i class="fas fa-cog one"></i></button>
-                            <div id="options-list">
-                                <a>Edit</a>
-                                <form action="/" method="Get">
-                                    <button>Delete</button>
-                                </form>
-                            </div>
+                            <button id="button"><a href="/post/<%= post._id %>/edit"><i class="fas fa-cog one"></i></a></button>
                         </div>
+                      <% } %>
                         <div class="post-image-container">
                             <img class="post-image" src="<%= post.image %>">
                         </div>
@@ -103,26 +100,33 @@
                         <h3><em><%= post.owner.username %></em></h3>
                         <h5 class="created"><%= post.created.toDateString() %></h5>
                         <p class="read">
-                            <p class="text"><%= post.text.substring(0, 290) %></p>
-                            <% if(true){ %>
-                                ...
-                                <!--<span class="read-more">read more</span>-->
-                                <a href="/user/<%= user._id %>/post/<%= post._id %>">
-                                    read more
-                                </a>
-                            <% } %>
+                          <p class="text"><%= post.text.substring(0, 290) %>
+                                      <% if(true){ %>
+                                          ...
+                                          <!--<span class="read-more">read more</span>-->
+                                          <a href="/user/<%= user._id %>/post/<%= post._id %>">
+                                              read more
+                                          </a>
+                                      <% } %>
+                           </p>
                         </p>
                     </div>
                 <% }); %>
             </div>
         </div>
-        
+
     <script type="text/javascript">
         var userInfo = document.querySelector(".user-info");
+        var imageInput = document.querySelector(".image-input");
+        var imageBtn = document.querySelector(".image-input-button");
         var profileImageHight = document.querySelector(".image-container img").clientHeight;
         var profile_Image_Hight_Minus_Info_Height = profileImageHight - userInfo.clientHeight - 30;
         var translateTo = "translateY(-" + profile_Image_Hight_Minus_Info_Height + "px)";
         userInfo.style.transform = translateTo;
+
+        imageInput.addEventListener("input", function() {
+              imageBtn.innerHTML = `Image Selected`;
+        });
     </script>
     </body>
 </html>

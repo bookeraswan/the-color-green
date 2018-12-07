@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Delete post: <%= post_id %></title>
+    <link rel="stylesheet" href="../../styles/delete.css">
+  </head>
+  <body>
+    <h1>Deleting is permanent and cannot be undone.</h1>
+    <form action="/post/<%= post_id %>?_method=DELETE" method="post">
+      <button>DELETE</button>
+    </form>
+  </body>
+</html>

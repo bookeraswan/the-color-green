@@ -2,10 +2,9 @@
     <ul>
         <span id="nav-header"><a href="/">The Color Green</a></span>
         <li><a href="/">Home</a></li>
-        <li><a href="/users">users</a></li>
         <% if(currentUser){ %>
             <li class="nav-right"><a href="/logout">logout</a></li>
-            
+
                 <a href="/user/<%= currentUser._id %>">
                     <img class="nav-right nav-img" src="<%= currentUser.image %>">
                 </a>
@@ -16,5 +15,3 @@
     </ul>
     <div class="sandwich"></div>
 </nav>
-
-
