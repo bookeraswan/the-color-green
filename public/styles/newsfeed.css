@@ -1,5 +1,23 @@
 body{
-    background: #050 url("/images/leaf.jpg") no-repeat fixed center;
+    font-family: monospace;
+    background-color: #000;
+}
+
+.background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff url("/images/leaf.jpg") no-repeat fixed center;
+  opacity: .6;
+  z-index: -1;
+}
+
+h1{
+  text-align: center;
+  font-size: 50px;
+  color: #fff;
 }
 
 section{
@@ -7,16 +25,55 @@ section{
     margin: 0 auto;
     width: 90vw;
     height: 80vh;
-    background-color: #fff3;
 }
 
-.search{
-    margin: auto 10px auto auto;
-    width: 400px;
+.post{
+  margin: 50px auto 0 auto;
+  width: 75vw;
+  padding: 20px;
+  color: #0f0;
+  font-size: 20px;
+}
+
+.post img{
+  display: block;
+  margin: 0 auto;
+  width: 700px;
+}
+
+.post p{
+  font-size: 40px;
+}
+
+.comments{
+  display: inline-block;
+  float: right;
+  margin-right: 20%;
+  width: 100px;
+  color: #0f0;
+  font-family: monospace;
+  font-size: 40px;
+}
+
+.readmore{
+  font-size: 30px;
+  color: #aaa;
+}
+
+.readmore a{
+  color: #aaa;
 }
 
 .search input{
-    width: 400px;
-    height: 40px;
-    font-size: 30px;
+  width: calc(100px + 15vw);
+  height: 40px;
+  font-size: 30px;
+}
+
+.search-two input{
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  height: 50px;
+  font-size: 40px;
 }

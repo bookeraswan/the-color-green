@@ -6,17 +6,80 @@
         <link rel="shortcut icon" type="image/x-icon" href="../images/favicon (2).ico" />
         <!--<link rel="shortcut icon" type="image/x-icon" href="<%=// user.image %>" />-->
         <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
+        <!-- <link rel="stylesheet" type="text/css"href="../styles/loader.css"> -->
         <link rel="stylesheet" type="text/css"href="../styles/newsfeed.css">
         <link rel="stylesheet" type="text/css"href="../styles/navbar.css">
     </head>
     <body>
-        <% include ../partials/navbar %>
+      <style media="screen">
+          .load-img{
+            position: fixed;
+            margin: 40vh 45vw;
+            animation: load 1s linear infinite;
+            z-index: 1000;
+          }
+          @keyframes load {
+              100%{
+                transform: rotate(360deg);
+              }
+          }
+      </style>
+      <div id="loader-container">
+        <div id="load">
+            <img class="load-img" src="../images/loading-icon.png" alt="">
+          </div>
+        </div>
+
+      <div id="container">
+      <div class="background"></div>
+      <nav>
+          <ul>
+              <span id="nav-header"><a href="/">The Color Green</a></span>
+                  <li class="nav-right"><a href="/logout">logout</a></li>
+
+                      <a href="/user/<%= currentUser._id %>">
+                          <img class="nav-right nav-img" src="<%= currentUser.image %>">
+                      </a>
+                        <form class="search nav-right" action="/users" method="get">
+                          <input type="text" name="search" placeholder="Search users">
+                        </form>
+          </ul>
+          <div class="sandwich"></div>
+      </nav>
         <section>
-            <form class="search" action="/users" method="get">
-                <input type="text" name="search" placeholder="Search users">
-            </form>
-            <h2><%= posts %></h2>
+            <div class="posts">
+              <% if(posts.length < 1){ %>
+                <h1>Follow more people to see their posts</h1>
+                <form class="search-two" action="/users" method="get">
+                  <input type="text" name="search" placeholder="Search users">
+                </form>
+              <% } %>
+              <% posts.forEach(function(post){%>
+                <div class="post">
+                  <img src="<%= post.image %>" alt="">
+                  <a class="comments" href="/post/<%= post._id %>/comments">
+                      <aside class="comments">
+                          <strong><i class="far fa-comment"></i> <%= post.comments.length %></strong>
+                      </aside>
+                  </a>
+                  <h2><a href="/user/<%= post.ownerId %>"></a><%= post.owner.username %></h2>
+                  <h3><%= post.created.toDateString() %></h3>
+                  <p><%= post.text.substring(0, 290) %>
+                                <span class="readmore">
+                                  ...
+                                  <a href="/post/<%= post._id %>">
+                                    read more
+                                  </a>
+                                </span>
+                   </p>
+                </div>
+                <% }); %>
+            </div>
         </section>
+      </div>
+      <script type="text/javascript">
+        console.log("%cThe Color Green", "color: #0a0; font-size: 40px;");
+      </script>
+      <script src="/js/loader.js" charset="utf-8"></script>
     </body>
 </html>
-

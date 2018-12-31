@@ -56,6 +56,32 @@ section p{
     width: 100px;
 }
 
+
+.image-input-btn{
+  position: relative;
+  width: 350px;
+  height: 125px;
+  background: #0065a7 linear-gradient(#0c45b9, #199daf);
+  border-radius: 5px;
+}
+
+.image-input-btn span{
+  position: absolute;
+  top: 27%;
+  left: 5%;
+  font-size: 40px;
+  font-family: monospace;
+  z-index: 1;
+}
+
+.img{
+  position: absolute;
+  width: 350px;
+  height: 125px;
+  opacity: 0;
+  z-index: 3;
+  cursor: pointer;
+}
 .fa-cog{
     float: right;
     font-size: 30px;

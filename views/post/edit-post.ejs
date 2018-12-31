@@ -4,47 +4,26 @@
         <meta name=”viewport” content=”width=device-width, initial-scale=1″>
         <title>Edit Post</title>
         <link rel="shortcut icon" type="image/x-icon" href="/images/favicon (2).ico" />
-        <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
+        <!-- <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css"> -->
         <link rel="stylesheet" type="text/css"href="/styles/edit.css">
+        <style media="screen">
+          textarea{
+            display: block;
+            margin: 0 auto;
+            width: 900px;
+            height: 500px;
+            font-size: 30px;
+          }
+        </style>
     </head>
     <body>
         <h1>Edit Post</h1>
-        <div class="container">
-
-
+        <div>
             <form action="/post/<%= post._id %>?_method=PUT" method="post">
-
-
-                <section>
-                    <img class="profile-image current-img" src="<%= post.image %>">
-                    <i class="fas fa-cog one"></i>
-                    <div class="open-input-box-one">
-                        <!--<input class="file-input" type="file" id="image" name="image" accept="image/*">-->
-                        <input class="img" type="text" name="post[image]" value="<%= post.image %>" placeholder="post image url">
-                    </div>
-                </section>
- <i class="fas fa-cog two" style="position: absolute; opacity: 0;"><!-- This element is a placeholder for a JavaScript Event listener --></i>
-                <% if(post.text){ %>
-                    <section>
-                        <p class="current-bio"><%= post.text %></p>
-                        <i class="fas fa-cog three"></i>
-                        <div class="open-input-box-three">
-                            <textarea class="textarea" name="post[text]"><%= post.text %></textarea>
-                        </div>
-                    </section>
-                <% }else{ %>
-                    <section>
-                        add text
-                        <i class="fas fa-cog three"></i>
-                        <div class="open-input-box-three">
-                            <textarea name="post[text]" placeholder="Add text"></textarea>
-                        </div>
-                    </section>
-                <% } %>
+                <textarea class="textarea" name="post[text]"><%= post.text %></textarea>
                 <button>Update</button>
             </form>
         </div>
         <a id="delete-btn" href="/post/<%= post._id %>/delete_post">delete Post</a>
-        <script type="text/javascript" src="/js/edit.js"></script>
     </body>
 </html>

@@ -19,15 +19,17 @@
                     <img class="profile-image current-img" src="<%= user.image %>">
                     <i class="fas fa-cog one"></i>
                     <div class="open-input-box-one">
-                        <input class="img" type="file" id="image" name="image" accept="image/*">
-                        <!--<input class="img" type="text" name="user[image]" value="<%=// user.image %>" placeholder="profile image url">-->
+                      <p class="image-input-btn">
+                        <span class="image-input-status-text">change image</span>
+                        <input class="img image-input" type="file" id="image" name="image" accept="image/*">
+                      </p>
                     </div>
                 </section>
                 <section>
                     <p class="current-email"><%= user.email %> </p>
                     <i class="fas fa-cog two"></i>
                     <div class="open-input-box-two">
-                        <input class="email" type="text" name="email" value="<%= user.email %>" placeholder="email">
+                        <input class="email" type="text" name="user[email]" value="<%= user.email %>" placeholder="email">
                     </div>
                 </section>
                 <% if(user.bio){ %>
@@ -35,7 +37,7 @@
                         <p class="current-bio"><%= user.bio %></p>
                         <i class="fas fa-cog three"></i>
                         <div class="open-input-box-three">
-                            <textarea class="textarea" name="bio"><%= user.bio %></textarea>
+                            <textarea class="textarea" name="user[bio]"><%= user.bio %></textarea>
                         </div>
                     </section>
                 <% }else{ %>
@@ -51,6 +53,7 @@
             </form>
         </div>
         <a id="delete-btn" href="/user/<%= user._id %>/delete_account">delete account</a>
+        <script type="text/javascript" src="/js/image-input.js"></script>
         <script type="text/javascript" src="/js/edit.js"></script>
     </body>
 </html>

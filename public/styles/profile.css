@@ -1,5 +1,4 @@
 body{
-    /*background: #050 url("/images/leaf.jpg") no-repeat fixed center;*/
     padding-top: 100px;
 }
 
@@ -31,14 +30,9 @@ h4{
     width: 200px;
 }
 
-.follow_status{
-    position: relative;
-    top: -50px;
-    margin: 0 auto;
-}
-
 .follow_status p{
     display: inline-block;
+    margin: 0;
 }
 
 .follow_status p a{
@@ -55,6 +49,7 @@ h4{
 
 header p{
     text-align: center;
+    font-size: 30px;
 }
 
 header{
@@ -64,9 +59,19 @@ header{
     border-radius: 20px;
 }
 
+.user-image-and-name{
+  display: table;
+}
+
 .user-info{
-    display: inline-block;
+    display: table-cell;
+    vertical-align: top;
+    table-layout: auto;
     width: 450px;
+}
+
+.other-info{
+  width: 100%;
 }
 
 .image-space-filler{
@@ -91,26 +96,22 @@ header{
 #posts{
     margin: 20px auto;
     background-color: #ddd;
-    width: 85%;
+    width: 75%;
     min-height: 200px;
 }
 
-/*.created{*/
-/*    float: left;*/
-/*}*/
-
 .post{
-    /*position: relative;*/
     margin: 10px auto;
-    width: 90%;
+    padding: 20px;
     border-radius: 5px;
     background-color: #eee;
+    font-size: 25px;
     border-bottom: 1px solid #000;
 }
 
 .post-image-container{
-    margin: 10px auto;
-    width: 600px;
+    margin: 0 auto;
+    width: 70%;
 }
 
 .post-image{
@@ -128,7 +129,7 @@ header{
 }
 
 .comments strong{
-    font-size: 30px;
+    font-size: 40px;
     font-family: sans-serif;
 }
 
@@ -142,7 +143,6 @@ header{
 .fa-cog{
   color: #000;
 }
-
 #button{
     width: 50px;
     height: 50px;
@@ -151,28 +151,6 @@ header{
     border: none;
     outline: none;
 }
-
-#options-list a{
-    display: block;
-    margin: 50px 0;
-}
-
-#options-list{
-    background-color: #ccc;
-    transform: translate(-50px, -50px) scaleX(0);
-    transform-origin: right;
-    transition-duration: 250ms;
-    width: 100px;
-    height: 150px;
-}
-
-#options:hover #options-list{
-    transform: translate(-50px, -50px) scaleX(1);
-}
-
-/*.post p{*/
-/*    width: 50%;*/
-/*}*/
 
 .form-container{
     margin: 30px auto;
@@ -189,7 +167,7 @@ header{
 .image-input{
     position: relative;
     float: left;
-    margin: 10px 100px 0 100px;
+    margin: 10px 5% 0 100px;
     padding: 0 10px;
     width: 200px;
     height: 100px;
@@ -214,7 +192,6 @@ header{
     text-align: center;
     padding-top: 30px;
     border-radius: 5px;
-    /*opacity: 0.2;*/
 }
 
 .form textarea{
@@ -232,6 +209,7 @@ header{
     height: 45px;
     background-color: #090;
     color: #fff;
+    font-size: 30px;
     border-radius: 5px;
 }
 

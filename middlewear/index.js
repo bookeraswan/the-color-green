@@ -1,8 +1,7 @@
 var User = require("../models/user"),
     Post = require("../models/post");
-    
-var middlewear = {};
 
+var middlewear = {};
 
 
 middlewear.isLoggedIn = function (req, res, next){
@@ -12,6 +11,11 @@ middlewear.isLoggedIn = function (req, res, next){
     res.redirect("/login");
 };
 
+middlewear.sanitizeLogin = function(req, res, next){
+  req.body.username = req.sanitize(req.body.username);
+  req.body.password = req.sanitize(req.body.password);
+  next();
+}
 
 middlewear.checkPostOwnership = function (req, res, next) {
     if(req.isAuthenticated()){
@@ -20,11 +24,11 @@ middlewear.checkPostOwnership = function (req, res, next) {
            res.redirect("back");
         }
         else{
-           
+
            if(foundPost.owner.id.equals(req.user._id)){
                next();
            }
-        
+
            else{
                res.redirect("back");
            }
@@ -43,11 +47,11 @@ middlewear.checkProfileOwnership = function (req, res, next) {
            res.redirect("back");
         }
         else{
-           
+
            if(foundProfile._id.equals(req.user._id)){
                next();
            }
-        
+
            else{
                res.redirect("back");
            }

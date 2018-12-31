@@ -13,62 +13,64 @@
         <% include ../partials/navbar %>
         <div class="container">
             <header>
-                <% if(currentUser && currentUser._id.equals(user._id)){ %>
-                    <aside class="e-p-icon"><a href="/user/<%= user._id %>/edit"><i class="fas fa-cog one"></i></a></aside>
+              <% if(currentUser && currentUser._id.equals(user._id)){ %>
+                <!--  -->
+                <aside class="e-p-icon"><a href="/user/<%= user._id %>/edit"><i class="fas fa-cog one"></i></a></aside>
+                <!--  -->
                 <% }; %>
-                <div class="image-space-filler">
+                <!--  -->
+              <div class="user-image-and-name">
+                  <div class="image-space-filler">
                     <div class="image-container">
-                        <img src="<%= user.image %>">
+                      <img src="<%= user.image %>">
                     </div>
-                </div>
-                <div class="user-info">
-                <div class="follow_status">
-                <div class="add-friend">
-                    <p>
-                        <a href="/user/<%= user._id %>/followers">
+                  </div>
+                  <div class="user-info">
+                    <div class="follow_status">
+                      <div class="add-friend">
+                        <p>
+                          <a href="/user/<%= user._id %>/followers">
                             <%= user.followers.length %>
                             followers
-                        </a>
-                        <a href="/user/<%= user._id %>/following">
+                          </a>
+                          <a href="/user/<%= user._id %>/following">
                             <%= user.following.length %>
                             following
-                        </a>
-                    </p>
-                    <% if(currentUser && !currentUser._id.equals(user._id)){ %>
-                        <% if(user.followers.indexOf(currentUser._id) === -1){ %>
+                          </a>
+                        </p>
+                        <% if(currentUser && !currentUser._id.equals(user._id)){ %>
+                          <% if(user.followers.indexOf(currentUser._id) === -1){ %>
                             <form action="/user/<%= user._id %>/follow" method="post">
-                                <button>
-                                    <i class="fas fa-user-friends"></i>
-                                </button>
+                              <button>
+                                <i class="fas fa-user-friends"></i>
+                              </button>
                             </form>
-                        <% }else{ %>
-                                <form action="/user/<%= user._id %>/unfollow" method="post">
-                                    <button class="active">
-                                        <i class="fas fa-user-friends"></i>
-                                    </button>
-                                </form>
-                        <% } %>
+                            <% }else{ %>
+                              <form action="/user/<%= user._id %>/unfollow" method="post">
+                                <button class="active">
+                                  <i class="fas fa-user-friends"></i>
+                                </button>
+                              </form>
+                              <% } %>
+                              <% } %>
+                            </div>
+                          </div>
+                          <h1><%= user.username %></h1>
+                          <h4><em><%= user.firstName %> <%= user.lastName %></em></h4>
+                        </div>
+              </div>
+              <!--  -->
+                <div class="other-info">
+                  <% if(user.bio){ %>
+                    <p><%= user.bio.substring(0, 1000) %></p>
                     <% } %>
                 </div>
-                </div>
-                <h1><%= user.username %></h1>
-                <h4><em><%= user.firstName %> <%= user.lastName %></em></h4>
-                <% if(user.bio){ %>
-                <!-- <p><%=// user.bio.substring(0 , 100) %></p> -->
-                <% } %>
-                <% if(currentUser && currentUser._id.equals(user._id)){ %>
-                    <!--<strong><span id="birth"><a href="/user/<%=// user._id %>/delete_account">delete account</a><a href="/user/<%=// user._id %>/edit">Edit</a></span></strong>-->
-                <% }; %>
-                </div>
-                <% if(user.bio){ %>
-                    <p><%= user.bio.substring(0, 1000) %></p>
-                <% } %>
             </header>
             <% if(currentUser && currentUser._id.equals(user._id)){ %>
             <div class="form-container">
                 <div class="form">
                     <form action="/user/<%= user._id %>/post" method="post" enctype="multipart/form-data">
-                        <div class="image-input-button">Image</div>
+                        <div class="image-input-button image-input-status-text">Image</div>
                         <input class="image-input" type="file" id="image-input" name="image" accept="image/*">
                         <textarea name="post[text]"></textarea>
                         <button>Post</button>
@@ -90,43 +92,22 @@
                         <a href="/post/<%= post._id %>/comments">
                             <aside class="comments">
                                 <strong><i class="far fa-comment"></i> <%= post.comments.length %></strong>
-                                <% if(post.comments.length === 1){ %>
-                                    <!--<i class="far fa-comment"></i>-->
-                                <% }else{ %>
-                                    <!--<i class="far fa-comment"></i>-->
-                                <% } %>
                             </aside>
                         </a>
                         <h3><em><%= post.owner.username %></em></h3>
                         <h5 class="created"><%= post.created.toDateString() %></h5>
-                        <p class="read">
-                          <p class="text"><%= post.text.substring(0, 290) %>
+                          <p><%= post.text.substring(0, 290) %>
                                       <% if(true){ %>
                                           ...
-                                          <!--<span class="read-more">read more</span>-->
                                           <a href="/user/<%= user._id %>/post/<%= post._id %>">
                                               read more
                                           </a>
                                       <% } %>
                            </p>
-                        </p>
                     </div>
                 <% }); %>
             </div>
         </div>
-
-    <script type="text/javascript">
-        var userInfo = document.querySelector(".user-info");
-        var imageInput = document.querySelector(".image-input");
-        var imageBtn = document.querySelector(".image-input-button");
-        var profileImageHight = document.querySelector(".image-container img").clientHeight;
-        var profile_Image_Hight_Minus_Info_Height = profileImageHight - userInfo.clientHeight - 30;
-        var translateTo = "translateY(-" + profile_Image_Hight_Minus_Info_Height + "px)";
-        userInfo.style.transform = translateTo;
-
-        imageInput.addEventListener("input", function() {
-              imageBtn.innerHTML = `Image Selected`;
-        });
-    </script>
+      <script type="text/javascript" src="/js/image-input.js"></script>
     </body>
 </html>

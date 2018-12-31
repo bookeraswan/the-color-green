@@ -3,31 +3,52 @@ body{
     /*background-size: 350vw 260vw;*/
 }
 
-h1{
-    float: left;
+.thecolorgreen{
+    text-align: center;
     font-size: 100px;
-    color: #0a0;
+    color: #0f0;
+    text-shadow:
+    10px 10px 5px #000;
 }
 
-.signup-container{
-  margin: 50px auto;
-  width: 90vw;
-  height: 600px;
-  /* background-color: #00f; */
-}
-
-.signup-btn{
-  float: right;
-  margin: 100px 100px;
+.signup{
+  display: inline-block;
+  margin: 100px 10vw;
   padding: 50px 100px;
   color: #000;
   text-decoration: none;
   font-size: 60px;
   font-weight: bold;
   font-family: monospace;
-  background: #0f0 linear-gradient(#0a0, #0f0, #0a0, #0f0, #0a0, #0f0, #0a0, #0f0);
+  background: #0f0 linear-gradient(#afa, #0f0);
   border: none;
   border-radius: 10px;
+}
+
+.login{
+  display: inline-block;
+  margin: 100px 10vw;
+  padding: 50px 100px;
+  color: #000;
+  text-decoration: none;
+  font-size: 60px;
+  font-weight: bold;
+  font-family: monospace;
+  background: #0f0 linear-gradient(#aaf, #0af);
+  border: none;
+  border-radius: 10px;
+}
+
+.btn{
+  transition: all .2s;
+}
+
+.btn:hover{
+  transform: scale(.9);
+}
+
+.btn:active{
+  transform: scale(.8);
 }
 
 .login-container{

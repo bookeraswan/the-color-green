@@ -1,14 +1,15 @@
 var express                 = require("express"),
     app                     = express(),
+    flash                   = require("connect-flash"),
     mongoose                = require("mongoose"),
     passport                = require("passport"),
     bodyParser              = require("body-parser"),
     LocalStratigy           = require("passport-local"),
     methodOverride          = require("method-override"),
+    expressSanitizer        = require("express-sanitizer"),
     middlewear              = require("./middlewear"),
     User                    = require("./models/user"),
-    Post                    = require("./models/post");
-
+    Post                    = require("./models/post")
 // _____________________________________
 //          Require routes
         var GeneralRoutes   = require("./routes"),
@@ -23,16 +24,18 @@ mongoose.connect(process.env.THECOLORGREEN_DATABASEURL,{ useNewUrlParser: true }
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressSanitizer());
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 mongoose.set('useFindAndModify', false);
+app.use(flash());
 
 // +++++++++++++++++++++++++++++++++++++++++++++++
 //      Autentication Set Up
 // +++++++++++++++++++++++++++++++++++++++++++++++
 
 app.use(require("express-session")({
-    secret: "All seeds turn green, sin arboles no hay vida, trees grow",
+    secret: process.env.THECOLORGREEN_SECRET,
     resave: false,
     saveUninitialized: false
 
@@ -52,6 +55,8 @@ passport.deserializeUser(User.deserializeUser());
 // add values to all templates
 app.use(function(req, res, next){
    res.locals.currentUser = req.user;
+   res.locals.error = req.flash("error");
+   res.locals.success = req.flash("success");
    next();
 });
 
@@ -66,6 +71,6 @@ app.use(function(req, res, next){
 
 // ====================================
 
-app.listen(process.env.THECOLORGREEN_PORT, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
    console.log("all seeds turn green");
 });

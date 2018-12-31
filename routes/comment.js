@@ -1,5 +1,6 @@
 var express             = require("express"),
     router              = express.Router(),
+    expressSanitizer    = require("express-sanitizer"),
     moment              =require("moment"),
     middlewear          = require("../middlewear"),
     Post                = require("../models/post"),
@@ -17,6 +18,7 @@ router.get("/post/:post_id/comment/new",middlewear.isLoggedIn, function(req, res
 });
 
 router.post("/post/:post_id/comment",middlewear.isLoggedIn, function(req, res){
+   req.body.comment.text = req.sanitize(req.body.comment.text);
    Post.findById(req.params.post_id, function(err, foundPost){
        if(err || !foundPost){
            console.log(err);

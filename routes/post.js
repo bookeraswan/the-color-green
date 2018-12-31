@@ -1,5 +1,6 @@
 var express             = require("express"),
     router              = express.Router(),
+    expressSanitizer    = require("express-sanitizer"),
     middlewear          = require("../middlewear"),
     User                = require("../models/user"),
     Post                = require("../models/post"),
@@ -52,6 +53,7 @@ router.get("/user/:id/post/new", middlewear.checkProfileOwnership, function(req,
 });
 
 router.post("/user/:id/post", middlewear.checkProfileOwnership, upload.single('image'), function(req, res){
+  req.body.post.text = req.sanitize(req.body.post.text);
    User.findById(req.params.id, function(err, foundUser) {
        if(err || !foundUser){
            res.redirect("back");
@@ -114,6 +116,7 @@ router.get("/post/:post_id/edit", middlewear.checkPostOwnership, function(req, r
 });
 
 router.put("/post/:post_id", middlewear.checkPostOwnership, function(req, res){
+    req.body.post.text = req.sanitize(req.body.post.text);
     Post.findByIdAndUpdate(req.params.post_id, req.body.post, function(err, updatedPost){
        if(err || !updatedPost){
            res.redirect("/");

@@ -1,5 +1,6 @@
 var express             = require("express"),
     router              = express.Router(),
+    expressSanitizer    = require("express-sanitizer"),
     User                = require("../models/user"),
     Post                = require("../models/post"),
     Comment             = require("../models/comment"),
@@ -55,6 +56,8 @@ router.get("/user/:id/edit",middlewear.checkProfileOwnership, function(req, res)
 });
 
 router.put("/user/:id",middlewear.checkProfileOwnership, upload.single("image"), function(req, res) {
+  req.body.user.bio = req.sanitize(req.body.user.bio);
+  req.body.user.email = req.sanitize(req.body.user.email);
   User.findById(req.params.id, async function(err, foundUser){
       if(err || !foundUser){
           res.redirect("back");

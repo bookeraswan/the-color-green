@@ -1,9 +1,10 @@
 var express                 =  require("express"),
     router                  =  express.Router(),
     passport                = require("passport"),
+    expressSanitizer        = require("express-sanitizer"),
     middlewear              = require("../middlewear"),
     User                    = require("../models/user"),
-    multer              = require('multer');
+    multer                  = require('multer');
 
 var storage = multer.diskStorage({
   filename: function(req, file, callback) {
@@ -30,8 +31,7 @@ router.get("/login", function(req, res) {
    res.render("auth/login");
 });
 
-
-router.post("/login", passport.authenticate("local",{
+router.post("/login", middlewear.sanitizeLogin, passport.authenticate("local",{
     successRedirect: "/loginresponse",
     failureRedirect: "/login"
 }),function(req, res){
@@ -48,35 +48,41 @@ router.get("/signup", function(req, res) {
 });
 
 router.post("/signup", upload.single('image'), function(req, res){
+    req.body.username = req.sanitize(req.body.username);
+    req.body.password = req.sanitize(req.body.password);
+    req.body.newuser.firstName = req.sanitize(req.body.newuser.firstName);
+    req.body.newuser.lastName = req.sanitize(req.body.newuser.lastName);
+    req.body.newuser.email = req.sanitize(req.body.newuser.email);
 
     cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
-        if(err){
+        if(err || !result){
             console.log(err);
-            res.redirect("back");
+            req.flash('error', "Some thing is wrong!!!");
+            return res.redirect("/signup");
         }
 
-  req.body.newuser.image = result.secure_url;
-  req.body.newuser.imageId = result.public_id;
+      req.body.newuser.image = result.secure_url;
+      req.body.newuser.imageId = result.public_id;
 
-   User.register(new User({username: req.body.username}), req.body.password, function(err, user){
-      if(err){
-          console.log(err);
-          return res.redirect("back");
-      }
-      else{
+       User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+          if(err){
+              console.log(err);
+              return res.redirect("back");
+          }
+          else{
             User.findByIdAndUpdate(user._id, req.body.newuser, function(err, newUser){
                 if(err){
                     console.log(err);
                     res.redirect("/login");
                 }
                 else{
-                    passport.authenticate("local")(req, res, function(){
+                  passport.authenticate("local")(req, res, function(){
                     res.redirect("/user/" + user._id);
-            });
+                  });
                 }
             });
-      }
-    });
+          }
+       });
     });
   });
 

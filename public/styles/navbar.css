@@ -11,6 +11,7 @@ nav{
 #nav-header{
     text-align: left;
     display: inline-block;
+    margin-top: 20px;
 }
 
 #nav-header a{
@@ -37,7 +38,7 @@ nav{
         list-style: none;
         font-size: 30px;
     }
-    
+
     nav li{
         display: inline-block;
         margin: 20px 0 0 2vw;
@@ -68,7 +69,7 @@ nav{
     .nav-right{
         display: flex;
          float: right;
-        margin: 20px 2vw; 
+        margin: 20px 2vw;
     }
 
     .nav-right a{
@@ -78,11 +79,11 @@ nav{
     .nav-right:hover{
         border-bottom: 2px solid #000;
     }
-    
+
 /*}*/
 
 
 /*@media only screen and (min-width: 700px) {*/
-    
-   
+
+
 /*}*/

@@ -1,55 +1,64 @@
-            
-            hr{
-                margin: 0;
-                border: 1px solid #ddd;
-            }
-            
-            .post-container{
-                margin: 0 auto;
-                width: 900px;
-            }
-            
-            #comments{
-                margin: auto;
-                min-height: 200px;
-                /*width: 900px;*/
-                background-color: #ddd;
-            }
-            
-            .comment{
-                background-color: #f1fff0;
-                /*margin: 20px 0;*/
-                padding: 10px 20px;
-            }
-            
-            .comment:nth-of-type(2n){
-                /*background-color: #c4dcbd;*/
-            }
-            
-            .comment span{
-                float: right;
-            }
-            
-            .comment-body{
-                max-width: 80%;
-            }
-            
-            .add-comment{
-                margin: 0 auto;
-                width: 900px;
-            }
-            
-            .add-comment input{
-                width: 80%;
-                height: 50px;
-                border: none;
-                border-bottom: 2px solid #000;
-                font-size: 30px;
-                outline: none;
-            }
-            
-            .add-comment img{
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-            }
+body{
+  margin: 0;
+}
+
+hr{
+    margin: 0;
+    border: 1px solid #ddd;
+}
+
+.post-container{
+    margin: 0 auto;
+    width: 900px;
+}
+
+#comments{
+    margin: auto;
+    min-height: 200px;
+    font-family: monospace;
+    background-color: #ddd;
+}
+
+.comment{
+    background-color: #f1fff0;
+    padding: 10px 20px;
+    font-size: 30px;
+}
+
+.comment strong a{
+    text-decoration: none;
+    color: #000;
+}
+
+.comment strong a:hover{
+  text-decoration: underline;
+}
+
+.comment span{
+    float: right;
+}
+
+.comment-body{
+    max-width: 80%;
+    font-size: 40px;
+}
+
+.add-comment{
+    margin: 0 auto;
+    width: 900px;
+}
+
+.add-comment input{
+    width: 80%;
+    height: 50px;
+    border: none;
+    border-bottom: 2px solid #000;
+    font-size: 30px;
+    outline: none;
+}
+
+.add-comment img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}

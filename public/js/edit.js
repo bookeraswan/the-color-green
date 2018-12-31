@@ -27,7 +27,7 @@ var image = document.querySelector(".profile-image");
             inputBoxOne.style.display = "block";
         }
     });
-    
+
     iconTwo.addEventListener("click", function(){
         if(inputBoxTwo.style.display === "block"){
             inputBoxTwo.style.display = "none";
@@ -36,7 +36,7 @@ var image = document.querySelector(".profile-image");
             inputBoxTwo.style.display = "block";
         }
     });
-    
+
     iconThree.addEventListener("click", function(){
         if(inputBoxThree.style.display === "block"){
             console.log(inputBoxThree.textContent);
@@ -47,8 +47,3 @@ var image = document.querySelector(".profile-image");
             inputBoxThree.style.display = "block";
         }
     });
-    
-    // currentImg.addEventListener("input", function() {
-    //     console.log(this.value);
-    //     image.src = this.value;
-    // });

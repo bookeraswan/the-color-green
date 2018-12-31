@@ -9,20 +9,19 @@
             <link rel="shortcut icon" type="image/x-icon" href="images\favicon (2).ico" />
     </head>
         <body>
-            <div id="loader-container">
-                <!--<div id="load"></div>-->
-                <div id="load">
-  <div class="inner-loader">
-    <div class="inner-loader">
-      <div class="inner-loader">
-        <div class="inner-loader"></div>
-      </div>
-    </div>
-  </div>
-</div>
+    <div id="loader-container">
+      <div id="load">
+          <div class="inner-loader">
+            <div class="inner-loader">
+              <div class="inner-loader">
+                <div class="inner-loader"></div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-        <div class="container">
+        <div id="container" class="container">
             <% include ../partials/navbar %>
             <form class="search" action="/users" method="get">
                 <input type="text" name="search" placeholder="Search users">
