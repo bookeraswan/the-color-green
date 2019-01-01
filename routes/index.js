@@ -6,6 +6,14 @@ var express           = require("express"),
     middlewear        = require("../middlewear");
 
 
+function resetFollowersAndFollowing() {
+  foundUsers.forEach(function(user){
+    user.followers = [];
+    user.following = [];
+    user.save();
+  });
+}
+
 router.get("/", async function(req, res){
     if(!req.user){
         res.render("index/home");
@@ -34,35 +42,27 @@ router.get("/", async function(req, res){
     }
 });
 
-router.get("/featured", function(req, res){
-   res.render("index/featured", {featured: data});
-});
-
 router.get("/users", function(req, res) {
         req.query.search = req.sanitize(req.query.search);
         if(req.query.search === "" || !req.query.search){
             return res.redirect("back");
         }
-        User.find({ username: {$regex: req.query.search, $options: "i"}},{textScore: { $meta: 'textScore' }}, function(err, foundUsers){
+        console.log("________________________");
+        console.log(req.query.search);
+        console.log("________________________");
+        // { username: {$regex: req.query.search, $options: "i"}},{textScore: { $meta: 'textScore' }}
+        User.find({username: req.query.search}, function(err, foundUsers){
           if(err){
               console.log(err);
               res.redirect("/login");
           }
           else{
-
-              // RESET FOLLOWERS AND FOLLOWING ON ALL USERS
-
-              // foundUsers.forEach(function(user){
-              //     user.followers = [];
-              //     user.following = [];
-              //     user.save();
-              // });
-              var s = foundUsers.sort({username: req.query.search});
-
-              res.render("users/users", {user: s});
+              // resetFollowersAndFollowing()
+              res.render("users/users", {user: foundUsers});
           }
       });
     });
+
 
 // ++++++++++++++++++++++++++++++++++++++++
 //              ELSE

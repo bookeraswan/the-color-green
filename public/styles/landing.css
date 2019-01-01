@@ -1,6 +1,5 @@
 body{
     background: #050 url("/images/leaf.jpg") no-repeat fixed center;
-    /*background-size: 350vw 260vw;*/
 }
 
 .thecolorgreen{
@@ -51,64 +50,9 @@ body{
   transform: scale(.8);
 }
 
-.login-container{
-  float: right;
-  margin-top: -30px;
-  /* width: 780px; */
+@media only screen and (max-width: 1150px) {
+  .btn{
+    float: right;
+    margin: 100px 25%;
+  }
 }
-
-.login-form{
-  display: inline-block;
-  float: right;
-}
-
-.x{
-  margin-right: 10px;
-  font-size: 40px;
-  font-family: monospace;
-}
-
-.x-after{
-  display: inline-block;
-  float: right;
-  /* width: 30px; */
-  /* height: 30px; */
-  text-align: center;
-  /* border-radius: 50%; */
-  font-size: 50px;
-  color: #fff;
-  /* background-color: #000; */
-}
-
-.login-form input{
-  width: 300px;
-  height: 35px;
-  padding: 0;
-  font-size: 30px;
-  background-color: rgba(255, 255, 255, 0);
-  border: none;
-  border-bottom: 2px solid #000;
-  outline: none;
-  transition: all 1s;
-}
-
-.login-form input::placeholder{
-  color: #222;
-}
-
-.login-form input[type=submit]{
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-
-                              /* ===================================== */
-                              /*           after form is clicked       */
-                              /* ===================================== */
-
-
- @keyframes grow-input {
-   100%{
-      transform: translate(-500px, 200px) scale(2);
-   }
- }
