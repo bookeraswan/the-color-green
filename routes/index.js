@@ -44,17 +44,14 @@ router.get("/", async function(req, res){
 
 router.get("/users", function(req, res) {
         req.query.search = req.sanitize(req.query.search);
-        if(req.query.search === "" || !req.query.search){
+        if(!req.query.search || req.query.search === ""){
             return res.redirect("back");
         }
-        console.log("________________________");
-        console.log(req.query.search);
-        console.log("________________________");
         // { username: {$regex: req.query.search, $options: "i"}},{textScore: { $meta: 'textScore' }}
         User.find({username: req.query.search}, function(err, foundUsers){
           if(err){
               console.log(err);
-              res.redirect("/login");
+              res.redirect("/");
           }
           else{
               // resetFollowersAndFollowing()
@@ -68,7 +65,7 @@ router.get("/users", function(req, res) {
 //              ELSE
 // ++++++++++++++++++++++++++++++++++++++++
 router.get("*", function(req, res) {
-   res.redirect("/users");
+   res.render("/index/404");
 });
 
 

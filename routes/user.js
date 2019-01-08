@@ -5,7 +5,8 @@ var express             = require("express"),
     Post                = require("../models/post"),
     Comment             = require("../models/comment"),
     middlewear          = require("../middlewear"),
-    multer              = require('multer');
+    cloudinary          = require("cloudinary"),
+    multer              = require("multer");
 
 var storage = multer.diskStorage({
   filename: function(req, file, callback) {
@@ -20,7 +21,6 @@ var imageFilter = function (req, file, cb) {
 };
 var upload = multer({ storage: storage, fileFilter: imageFilter});
 
-var cloudinary = require('cloudinary');
 cloudinary.config({
   cloud_name: 'ddxbyvkui',
   api_key: process.env.THECOLORGREEN_CLOUDINARYAPIKEY,

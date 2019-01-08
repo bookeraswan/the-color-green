@@ -8,6 +8,12 @@ a{
     color: #000;
 }
 
+h1.top{
+  margin-top: -75px;
+  text-align: center;
+  font-size: 50px;
+}
+
 .name{
     display: table-cell;
     vertical-align: middle;
@@ -31,7 +37,7 @@ a{
   width: 400px;
 }
 
-.user img{
+.profile-img img{
     width: 100%;
 }
 
