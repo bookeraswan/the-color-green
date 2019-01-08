@@ -1,20 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>followers</title>
+    <link rel="stylesheet" type="text/css"href="../../styles/users.css">
+  </head>
+  <body>
+    <style media="screen">
+      body{
+        background: #aaa;
+      }
+    </style>
+    <h1 class="top">Followers</h1>
 
-<style>
-    .follower img{
-        width: 300px;
-    }
-</style>
-
-
-<h1>Followers</h1>
-
-
-<% var followers = user.followers; %>
-<% //followers.sort(); %>
-<% user.followers.forEach(function(follower){ %>
-    <div class="follower">
-        <hr>
-        <img src="<%= follower.image %>">
-        <h2><%= follower.username %></h2>
-    </div>
-<% }) %>
+    <% user.followers.forEach(function(follower){ %>
+      <a href="/user/<%= follower._id %>">
+        <div class="user">
+            <div class="profile-img">
+              <img src="<%= follower.image %>">
+            </div>
+            <div class="name">
+              <h1><%= follower.username %></h1>
+            </div>
+        </div>
+      </a>
+      <% }); %>
+  </body>
+</html>

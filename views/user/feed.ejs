@@ -62,7 +62,7 @@
                           <strong><i class="far fa-comment"></i> <%= post.comments.length %></strong>
                       </aside>
                   </a>
-                  <h2><a href="/user/<%= post.ownerId %>"></a><%= post.owner.username %></h2>
+                  <h2><a href="/user/<%= post.owner.id %>"><%= post.owner.username %></a></h2>
                   <h3><%= post.created.toDateString() %></h3>
                   <p><%= post.text.substring(0, 290) %>
                                 <span class="readmore">

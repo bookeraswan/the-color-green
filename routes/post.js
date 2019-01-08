@@ -54,6 +54,9 @@ router.get("/user/:id/post/new", middlewear.checkProfileOwnership, function(req,
 
 router.post("/user/:id/post", middlewear.checkProfileOwnership, upload.single('image'), function(req, res){
   req.body.post.text = req.sanitize(req.body.post.text);
+  if(!req.body.post.text || !req.body.post.text === "" || !req.file){
+    return res.redirect("back");
+  }
    User.findById(req.params.id, function(err, foundUser) {
        if(err || !foundUser){
            res.redirect("back");

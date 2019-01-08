@@ -27,7 +27,7 @@ password.addEventListener('input', function(){
     }
 });
 
-imageInput.addEventListener("input", function() {
+imageInput.addEventListener("click", function() {
       imageStatus.innerHTML = `Image Selected <br>` + imageInput.value;
 });
 

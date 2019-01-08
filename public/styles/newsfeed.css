@@ -35,6 +35,11 @@ section{
   font-size: 20px;
 }
 
+.post h2 a{
+  text-decoration: none;
+  color: #0f0;
+}
+
 .post img{
   display: block;
   margin: 0 auto;

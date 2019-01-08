@@ -3,8 +3,7 @@
     <head>
         <meta name=”viewport” content=”width=device-width, initial-scale=1″>
         <title><%= user.username %></title>
-        <!--<link rel="shortcut icon" type="image/x-icon" href="../images/favicon (2).ico" />-->
-        <link rel="shortcut icon" type="image/x-icon" href="<%= user.image %>" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon (2).ico" />
         <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
         <link rel="stylesheet" type="text/css"href="../styles/profile.css">
         <link rel="stylesheet" type="text/css"href="../styles/navbar.css">
@@ -14,11 +13,8 @@
         <div class="container">
             <header>
               <% if(currentUser && currentUser._id.equals(user._id)){ %>
-                <!--  -->
                 <aside class="e-p-icon"><a href="/user/<%= user._id %>/edit"><i class="fas fa-cog one"></i></a></aside>
-                <!--  -->
-                <% }; %>
-                <!--  -->
+              <% }; %>
               <div class="user-image-and-name">
                   <div class="image-space-filler">
                     <div class="image-container">
@@ -71,8 +67,8 @@
                 <div class="form">
                     <form action="/user/<%= user._id %>/post" method="post" enctype="multipart/form-data">
                         <div class="image-input-button image-input-status-text">Image</div>
-                        <input class="image-input" type="file" id="image-input" name="image" accept="image/*">
-                        <textarea name="post[text]"></textarea>
+                        <input class="image-input" type="file" id="image-input" name="image" required accept="image/*">
+                        <textarea name="post[text]" required></textarea>
                         <button>Post</button>
                     </form>
                 </div>

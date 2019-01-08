@@ -19,7 +19,6 @@ var express                 = require("express"),
             commentRoutes   = require("./routes/comment");
 // _____________________________________
 
-// mongodb://localhost:27017/thecolorgreen-v1
 mongoose.connect(process.env.THECOLORGREEN_DATABASEURL,{ useNewUrlParser: true });
 
 app.set("view engine", "ejs");
