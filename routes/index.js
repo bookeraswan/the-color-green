@@ -65,7 +65,7 @@ router.get("/users", function(req, res) {
 //              ELSE
 // ++++++++++++++++++++++++++++++++++++++++
 router.get("*", function(req, res) {
-   res.render("/index/404");
+   res.render("index/404");
 });
 
 

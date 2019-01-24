@@ -16,13 +16,20 @@ hr{
     margin: auto;
     min-height: 200px;
     font-family: monospace;
-    background-color: #ddd;
+    /* background-color: #ddd; */
 }
 
 .comment{
-    background-color: #f1fff0;
+    margin: 30px;
+    width: 80vw;
+    background-color: #568d8f;
     padding: 10px 20px;
     font-size: 30px;
+    border-radius: 20px;
+}
+
+.owner{
+    margin-left: 14vw;
 }
 
 .comment strong a{

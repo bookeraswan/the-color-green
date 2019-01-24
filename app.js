@@ -22,6 +22,7 @@ var express                 = require("express"),
 mongoose.connect(process.env.THECOLORGREEN_DATABASEURL,{ useNewUrlParser: true });
 
 app.set("view engine", "ejs");
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSanitizer());
 app.use(methodOverride("_method"));
@@ -70,6 +71,6 @@ app.use(function(req, res, next){
 
 // ====================================
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(process.env.THECOLORGREEN_PORT, process.env.IP, function(){
    console.log("all seeds turn green");
 });

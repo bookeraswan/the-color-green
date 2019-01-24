@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name=”viewport” content=”width=device-width, initial-scale=1″>
-        <title>The Color Green Login</title>
+        <title>Comments</title>
         <link rel="shortcut icon" type="image/x-icon" href="../images/favicon (2).ico" />
             <link rel="stylesheet" type="text/css"href="../../styles/comments.css">
     </head>
@@ -15,27 +15,29 @@
         <% if(currentUser){ %>
             <div class="add-comment">
                 <img src="<%= currentUser.image %>">
-                <form action="/post/<%= post._id %>/comment" method="post">
-                    <input type="text" name="comment[text]" required placeholder="add a public comment">
-                </form>
+                    <input class="comment-input" type="text" name="comment[text]" required placeholder="add a public comment">
+                    <span id="data" style="opacity: 0;"><%= post._id %></span>
             </div>
         <% } %>
 
         <div id="comments">
-            <!--<a href="/post/<%=// post._id %>/comment/new">comment</a>-->
             <% post.comments.forEach(function(comment){ %>
-                <div class="comment">
+                <% if(currentUser && currentUser._id.equals(comment.owner.id)){ %>
+                    <div class="comment owner">
+                <% }else{ %>
+                    <div class="comment">
+                <% } %>
                     <strong><a href="/user/<%= comment.owner.id %>"><%= comment.owner.username %></a></strong>
                     <span><%= moment(comment.created).startOf('second').fromNow() %></span>
                     <div class="comment-body">
                         <p><%= comment.text %></p>
                     </div>
                 </div>
-                <hr>
             <% }) %>
         </div>
         
-        
+        <script src="/js/framework.js"></script>
+        <script src="/js/comments.js"></script>
     </body>
 </html>
 

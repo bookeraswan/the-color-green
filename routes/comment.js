@@ -1,7 +1,7 @@
 var express             = require("express"),
     router              = express.Router(),
     expressSanitizer    = require("express-sanitizer"),
-    moment              =require("moment"),
+    moment              = require("moment"),
     middlewear          = require("../middlewear"),
     Post                = require("../models/post"),
     Comment             = require("../models/comment");
@@ -17,15 +17,18 @@ router.get("/post/:post_id/comment/new",middlewear.isLoggedIn, function(req, res
     });
 });
 
-router.post("/post/:post_id/comment",middlewear.isLoggedIn, function(req, res){
-   req.body.comment.text = req.sanitize(req.body.comment.text);
+router.post("/api/post/:post_id/comment",middlewear.isLoggedIn, function(req, res){
+    if(!req.body.text || req.body.text === ""){
+        return res.json("a comment needs text");
+    }
+   req.body.text = req.sanitize(req.body.text);
    Post.findById(req.params.post_id, function(err, foundPost){
        if(err || !foundPost){
            console.log(err);
-           res.redirect("back");
+           res.json(err);
        }
        else{
-           Comment.create(req.body.comment, function(err, newComment){
+           Comment.create(req.body, function(err, newComment){
                if(err){
                    console.log(err);
                    res.redirect("back");
@@ -34,9 +37,9 @@ router.post("/post/:post_id/comment",middlewear.isLoggedIn, function(req, res){
                    newComment.owner.username = req.user.username;
                    newComment.owner.id = req.user._id;
                    newComment.save();
-                   foundPost.comments.push(newComment);
+                   foundPost.comments.unshift(newComment);
                    foundPost.save();
-                   res.redirect("/post/" + req.params.post_id + "/comments");
+                   res.json(newComment);
                }
            });
        }
