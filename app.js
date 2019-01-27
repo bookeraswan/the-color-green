@@ -71,6 +71,8 @@ app.use(function(req, res, next){
 
 // ====================================
 
-app.listen(process.env.THECOLORGREEN_PORT, process.env.IP, function(){
+var port = 9000 || process.env.PORT;
+
+app.listen(port, process.env.IP, function(){
    console.log("all seeds turn green");
 });
