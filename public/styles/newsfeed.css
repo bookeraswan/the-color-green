@@ -9,7 +9,7 @@ body{
   left: 0;
   right: 0;
   bottom: 0;
-  background: #fff url("/images/leaf.jpg") no-repeat fixed center;
+  background: #fff url("/images/leaf-compressed.jpeg") no-repeat fixed center;
   opacity: .6;
   z-index: -1;
 }

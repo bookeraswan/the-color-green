@@ -1,5 +1,5 @@
 body{
-    background: #0a0 url("../images/leaf.jpg") no-repeat fixed center;
+    background: #0a0 url("../images/leaf-compressed.jpeg") no-repeat fixed center;
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -13,10 +13,6 @@ p{
     font-size: 50px;
     /*color: #ddd;*/
 }
-
-/*.password:invalid{*/
-/*  border: 2px dashed red;*/
-/*}*/
 
 .password-err-msg{
     color: #f00;
