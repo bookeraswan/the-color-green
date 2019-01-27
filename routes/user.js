@@ -55,6 +55,10 @@ router.get("/user/:id/edit",middlewear.checkProfileOwnership, function(req, res)
     });
 });
 
+router.post("/api/image", function(req, res){
+    console.log(req.body);
+});
+
 router.put("/user/:id",middlewear.checkProfileOwnership, upload.single("image"), function(req, res) {
   req.body.user.bio = req.sanitize(req.body.user.bio);
   req.body.user.email = req.sanitize(req.body.user.email);
@@ -65,7 +69,9 @@ router.put("/user/:id",middlewear.checkProfileOwnership, upload.single("image"),
       else{
             if(req.file){
                 try{
-                    await cloudinary.v2.uploader.destroy(foundUser.imageId);
+                    if(foundUser.imageId){
+                        await cloudinary.v2.uploader.destroy(foundUser.imageId);
+                    }
                     let result = await cloudinary.v2.uploader.upload(req.file.path);
 
                     foundUser.imageId = result.public_id;
@@ -182,7 +188,9 @@ router.delete("/user/:id",middlewear.checkProfileOwnership, function(req, res){
       else{
 
             try{
+                if(foundUser.imageId){
                     await cloudinary.v2.uploader.destroy(foundUser.imageId);
+                }
             }
             catch(err){
                     console.log(err);
@@ -191,13 +199,17 @@ router.delete("/user/:id",middlewear.checkProfileOwnership, function(req, res){
 
 
           foundUser.posts.forEach(function(post){
-              Post.findById(post._id).populate("comments").exec(function(err, foundPost) {
+              Post.findById(post._id).populate("comments").exec( async function(err, foundPost) {
                   if(err || !foundPost){
 
                   }
                   else{
 
-
+                    if(foundPost.imageId){
+                        await cloudinary.v2.uploader.destroy(foundPost.imageId, function(err){
+                            console.log(err);
+                        });
+                    }
                     post.comments.forEach(function(comment){
                         Comment.findByIdAndRemove(comment._id, function(err){
                             if(err){

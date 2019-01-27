@@ -1,5 +1,6 @@
 body{
     background: #0a0 url("../images/leaf.jpg") no-repeat fixed center;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 h1{
@@ -9,7 +10,7 @@ h1{
 
 p{
     margin-top: 30px;
-    font-size: 30px;
+    font-size: 50px;
     /*color: #ddd;*/
 }
 
@@ -19,6 +20,12 @@ p{
 
 .password-err-msg{
     color: #f00;
+    opacity: 0;
+}
+
+.username-taken-msg{
+    color: rgb(255, 136, 0);
+    font-weight: bold;
     opacity: 0;
 }
 
@@ -55,7 +62,7 @@ input{
     width: 100%;
     height: 60px;
     font-size: 50px;
-    background-color: transparent;
+    background: none;
     border: none;
     border-bottom: 5px solid black;
     outline: none;
@@ -64,10 +71,6 @@ input{
 input::placeholder{
   color: #dfd;
   letter-spacing: 2px;
-}
-
-.image-form-container{
-  /* display: inline-block; */
 }
 
 .image-input-button{

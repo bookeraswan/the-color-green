@@ -64,9 +64,9 @@ router.post("/user/:id/post", middlewear.checkProfileOwnership, upload.single('i
        else{
             cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
                 if(err){
-                console.log(err);
-                res.redirect("back");
-            }
+                    console.log(err);
+                    return res.redirect("/?error=Therewasanerror!!!");
+                }
 
                 req.body.post.image = result.secure_url;
                 req.body.post.imageId = result.public_id;
@@ -135,12 +135,26 @@ router.get("/post/:post_id/delete_post", middlewear.checkPostOwnership, function
 });
 
 router.delete("/post/:post_id", function(req, res){
-   Post.findByIdAndRemove(req.params.post_id, function(err) {
-       if(err){
-           return res.redirect("back");
-       }
-       res.redirect("/user/" + req.user._id);
-   });
+    Post.findById(req.params.post_id, async function(err, foundPost){
+        if(err || !foundPost){
+            console.log(err);
+            return res.redirect("back");
+        }
+        console.log("way before " + foundPost.imageId);
+        if(foundPost.imageId){
+            console.log("before " + foundPost.imageId);
+            await cloudinary.v2.uploader.destroy(foundPost.imageId, function(err){
+                if(err){
+                    console.log(err);
+                }
+            });
+            console.log("after");
+        }
+        console.log(foundPost + "+++");
+        foundPost.remove();
+        console.log(foundPost + "---");
+        res.redirect("/");
+    });
 });
 
 

@@ -1,19 +1,10 @@
-var password = document.getElementsByName("password")[0];
-var passwordErrorMesage = document.querySelector(".password-err-msg");
-var imageStatus = document.querySelector(".image-status");
-var imageInput = document.querySelector(".file-input");
-var submitBtn = document.querySelector("button");
-var adminBtn = document.querySelector("#admin-btn");
-var admin = document.querySelector("#admin");
+var passwordErrorMesage = S(".password-err-msg"),
+    username = S("#username"),
+    password = S("#password");
 
-var username = document.querySelector("#username");
-var password = document.querySelector("#password");
-var firstName = document.querySelector("#firstName");
-var lastName = document.querySelector("#lastName");
-var birth = document.querySelector("#birth");
-var email = document.querySelector("#email");
+    var notTaken;
 
-document.getElementById('loader-container').style.visibility="hidden";
+S("#loader-container").style.visibility="hidden";
 
 password.addEventListener('input', function(){
     if(this.value.length < 8){
@@ -27,27 +18,75 @@ password.addEventListener('input', function(){
     }
 });
 
-imageInput.addEventListener("click", function() {
-      imageStatus.innerHTML = `Image Selected <br>` + imageInput.value;
-});
+username.addEventListener("input", checkAvailability);
 
-adminBtn.addEventListener("click", function() {
-  admin.style.opacity = 1;
-});
+S("button").addEventListener("click", submit);
 
-submitBtn.addEventListener("click", function() {
-  console.log(password.value.length);
-  if(username.value.length > 2 && password.value.length > 7 && imageInput.value && firstName.value && lastName.value && birth.value && validateEmail(email.value)){
-    setTimeout(function() {
-      document.getElementById('loader-container').style.visibility="visible";
-    }, 1000);
+username.addEventListener("keypress", keySubmit);
+
+password.addEventListener("keypress", keySubmit);
+
+function keySubmit(event){
+  console.log(event.key);
+  if(event.key === "Enter"){
+    submit();
   }
-  else {
-    console.log("something is not filled in");
-  }
-});
+}
 
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+function submit(){
+  if(checkAvailability()){
+    if(username.value.length < 3){
+      alert("username must be longer than two characters");
+    }
+    else if(password.value.length < 8){
+      alert("password must be longer than eight characters");
+    }
+    else{
+      var data = {
+        username: username.value,
+        password: password.value
+      };
+      var signup = JSON.stringify(data);
+      Ajax("POST", "/api/signup", signup)
+      .then(function(res){
+        if(res.error){
+          alert(res.error);
+        }
+        else{
+          window.location = `/user/${res.id}`;
+        }
+      })
+      .catch(function(err){
+        alert(err);
+      });
+    }
+  }
+  else{
+    alert("Username is not available");
+  }
+}
+
+function checkAvailability(){
+  var name = {
+    "username": username.value
+  };
+  var nameToJson = JSON.stringify(name);
+  Ajax("POST", "/api/checkusername", nameToJson)
+  .then(function(isAvailable){
+    if(!isAvailable){
+      S(".username-taken-msg").style.opacity = 1;
+      S(".username-taken-msg").textContent = `username ${username.value} is not aviailable.`;
+      notTaken = false;
+    }
+    else{
+      S(".username-taken-msg").style.opacity = 0;
+      S(".username-taken-msg").textContent = ".";
+      notTaken = true;
+    }
+  })
+  .catch(function(err){
+    alert(err);
+    return false;
+  });
+  return notTaken;
 }

@@ -47,42 +47,41 @@ router.get("/signup", function(req, res) {
    res.render("auth/signup");
 });
 
-router.post("/signup", upload.single('image'), function(req, res){
+router.post("/api/checkusername", function(req, res){
+    User.find({username: req.body.username}, function(err, found){
+        if(err){
+            res.json(err);
+        }
+        else if(found.length > 0){
+            res.json(false);
+        }
+        else{
+            res.json(true);
+        }
+    })
+});
+
+router.post("/api/signup",// upload.single('image'),
+ function(req, res){
     req.body.username = req.sanitize(req.body.username);
     req.body.password = req.sanitize(req.body.password);
-    req.body.newuser.firstName = req.sanitize(req.body.newuser.firstName);
-    req.body.newuser.lastName = req.sanitize(req.body.newuser.lastName);
-    req.body.newuser.email = req.sanitize(req.body.newuser.email);
+    if(req.body.username.length < 3){
+        return res.json({error: "username must be longer than two characters"});
+    }
+    if(req.body.password.length < 8){
+        return res.json({error: "password must be longer than eight characters"});
+    }
 
-    cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
-        if(err || !result){
+    User.register(new User({username: req.body.username}), req.body.password, function(err, user){
+        if(err){
             console.log(err);
-            req.flash('error', "Some thing is wrong!!!");
-            return res.redirect("/signup");
+            return res.json({error: err.message});
         }
-
-      req.body.newuser.image = result.secure_url;
-      req.body.newuser.imageId = result.public_id;
-
-       User.register(new User({username: req.body.username}), req.body.password, function(err, user){
-          if(err){
-              console.log(err);
-              return res.redirect("back");
-          }
-          else{
-            User.findByIdAndUpdate(user._id, req.body.newuser, function(err, newUser){
-                if(err){
-                    console.log(err);
-                    res.redirect("/login");
-                }
-                else{
-                  passport.authenticate("local")(req, res, function(){
-                    res.redirect("/user/" + user._id);
-                  });
-                }
+        else{
+            passport.authenticate("local")(req, res, function(){
+                res.json({id: user._id});
             });
-          }
-       });
+        }
     });
   });
 

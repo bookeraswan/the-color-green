@@ -21,29 +21,14 @@
       </div>
         <h1>Signup</h1>
         <div class="form">
-            <form action="/signup" method="POST" enctype="multipart/form-data"> <!-- enctype="multipart/form-data" -->
-                <input id="username" type="text" name="username" placeholder="username" minlength="3" required>
-                <input id="password" type="password" name="password" placeholder="password" class="password" required maxlength="30">
+                <input type="text" id="username" name="username" placeholder="username">
+                <p class="username-taken-msg">.</p>
+                <input id="password" type="password" name="password" placeholder="password" class="password">
                 <p class="password-err-msg">your password must be more than 8 characters.</p>
-                <div class="image-form-container">
-                    <div class="image-input-button">
-                      <span>Image</span>
-                      <input class="file-input" type="file" id="image" name="image" accept="image/*" required>
-                    </div>
-                    <p class="image-status"></p>
-                </div>
-                <input id="firstName" type="text" name="newuser[firstName]" placeholder="first name" minlength="1" required>
-                <input id="lastName" type="text" name="newuser[lastName]" placeholder="last name" minlength="1" required>
-                 <input id="birth" type="date" name="newuser[birth]" minlength="1" required>
-                <input id="email" type="email" name="newuser[email]" placeholder="email" minlength="1" required>
-                <p>
-                    <span id="admin-btn">admin code:</span>
-                    <input id="admin" type="password" name="admin">
-                </p>
                 <button>Signup</button>
-            </form>
             <p>Have an account? <a href="/login">Login</a></p>
         </div>
+        <script src="/js/framework.js"></script>
         <script type="text/javascript" src="js/signup.js"></script>
     </body>
 </html>

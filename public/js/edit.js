@@ -16,7 +16,7 @@ var currentBio = document.querySelector(".textarea");
 
 var image = document.querySelector(".profile-image");
 
-
+console.log(image);
 
     iconOne.addEventListener("click", function(){
         if(inputBoxOne.style.display === "block"){
