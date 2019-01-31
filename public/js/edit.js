@@ -14,9 +14,7 @@ var currentImg = document.querySelector(".img");
 var currentEmail = document.querySelector(".email");
 var currentBio = document.querySelector(".textarea");
 
-var image = document.querySelector(".profile-image");
-
-console.log(image);
+var img = document.querySelector(".profile-image");
 
     iconOne.addEventListener("click", function(){
         if(inputBoxOne.style.display === "block"){
@@ -47,3 +45,19 @@ console.log(image);
             inputBoxThree.style.display = "block";
         }
     });
+
+    var imageInput = document.querySelector(".image-input");
+
+    imageInput.addEventListener("change", function(){
+        var reader = new FileReader();
+        currentImg.file = this.files[0];
+        reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+        reader.readAsDataURL(this.files[0]);
+    });
+
+
+//     var formData = new FormData();  
+// formData.append(
+//     "PostImage", 
+//     document.getElementById("PostImage").files[0]
+// );
