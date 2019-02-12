@@ -35,14 +35,13 @@
       <nav>
           <ul>
               <span id="nav-header"><a href="/">The Color Green</a></span>
-                  <li class="nav-right"><a href="/logout">logout</a></li>
-
-                      <a href="/user/<%= currentUser._id %>">
-                          <img class="nav-right nav-img" src="<%= currentUser.image %>">
-                      </a>
-                        <form class="search nav-right" action="/users" method="get">
-                          <input type="text" name="search" placeholder="Search users">
-                        </form>
+              <li class="nav-right"><a href="/logout">logout</a></li>
+              <a href="/user/<%= currentUser._id %>">
+                <img class="nav-right nav-img" src="<%= currentUser.image %>">
+              </a>
+              <form class="search nav-right" action="/users" method="get">
+                <input type="text" name="search" autocomplete="off" placeholder="Search users">
+              </form>
           </ul>
           <div class="sandwich"></div>
       </nav>
