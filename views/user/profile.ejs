@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name=”viewport” content=”width=device-width, initial-scale=1″>
-        <title><%= user.username %></title>
+        <title><%= user.username %> - The Color Green</title>
         <link rel="shortcut icon" type="image/x-icon" href="../images/favicon (2).ico" />
         <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
         <link rel="stylesheet" type="text/css"href="../styles/profile.css">
@@ -13,7 +13,7 @@
         <div class="container">
             <header>
               <% if(currentUser && currentUser._id.equals(user._id)){ %>
-                <aside class="e-p-icon"><a href="/user/<%= user._id %>/edit"><i class="fas fa-cog one"></i></a></aside>
+                <aside class="edit-profile-icon"><a href="/user/<%= user._id %>/edit"><i class="fas fa-cog one"></i></a></aside>
               <% }; %>
               <div class="user-image-and-name">
                   <div class="image-space-filler">
@@ -84,8 +84,8 @@
                 <% user.posts.forEach(function(post){ %>
                     <div class="post">
                       <% if(currentUser && currentUser._id.equals(user._id)){ %>
-                        <div id="options">
-                            <button id="button"><a href="/post/<%= post._id %>/edit"><i class="fas fa-cog one"></i></a></button>
+                        <div class="edit-post-icon">
+                            <a href="/post/<%= post._id %>/edit"><i class="fas fa-cog"></i></a>
                         </div>
                       <% } %>
                         <div class="post-image-container">

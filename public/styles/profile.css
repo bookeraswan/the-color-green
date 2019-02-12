@@ -13,6 +13,10 @@ h4{
     text-align: center;
 }
 
+.fa-cog{
+    color: #000;
+}
+
 #loader-container{
     display: none;
     position: fixed;
@@ -118,21 +122,13 @@ header{
     border-radius: 20px;
 }
 
-#birth{
-    float: right;
-}
-
 #posts{
     margin: 50px auto;
-    background-color: #ddd;
-    width: 75%;
     min-height: 200px;
 }
 
 .post{
-    margin: 10px auto;
-    padding: 20px;
-    border-radius: 5px;
+    padding: 20px 0;
     background-color: #eee;
     font-size: 25px;
     border-bottom: 1px solid #000;
@@ -140,11 +136,14 @@ header{
 
 .post-image-container{
     margin: 0 auto;
-    width: 70%;
 }
 
 .post-image{
     width: 100%;
+}
+
+.post h5{
+    margin: 0;
 }
 
 .read-more{
@@ -158,33 +157,19 @@ header{
 }
 
 .comments strong{
-    font-size: 40px;
+    font-size: 80px;
     font-family: sans-serif;
 }
 
-#options{
+.edit-post-icon{
     display: block;
-    margin: 10px 45px;
+    position: relative;
+    margin: 0 10px 20px 0;
+}
+
+.edit-post-icon a{
     float: right;
-    width: 20px;
-    height: 20px;
-}
-
-.fa-cog{
-  color: #000;
-}
-
-#button{
-    width: 50px;
-    height: 50px;
     font-size: 50px;
-    background: none;
-    border: none;
-    outline: none;
-}
-
-#button a{
-  text-decoration: none;
 }
 
 #form-container{
@@ -202,10 +187,10 @@ header{
 
 #exit{
     float: right;
-    padding: 7px 40px 15px 40px;
+    padding: 0 40px 15px 40px;
     background-color: rgb(139, 0, 0);
     color: #fff;
-    font-size: 50px;
+    font-size: 70px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-left: 2px solid #000;
     border-bottom: 2px solid #000;
@@ -264,7 +249,7 @@ header{
 }
 
 #new-post-btn{
-    margin-left: 50vw;
+    margin-left: calc(75vw - 300px);
     margin-top: 50px;
     width: 250px;
     padding: 50px 100px;
@@ -280,9 +265,9 @@ header{
     background-color: #060;
 }
 
-.e-p-icon{
+.edit-profile-icon{
     float: right;
-    font-size: 40px;
+    font-size: 60px;
 }
 
 
@@ -294,5 +279,20 @@ header{
 
     .user-info{
         width: 600px;
+    }
+}
+
+@media only screen and (min-device-width: 8in){
+    #posts{
+        width: 80vw;
+    }
+    .post{
+        padding: 20px;
+    }
+    .post-image-container{
+        width: 60%;
+    }
+    .comments strong{
+        font-size: 40px;
     }
 }
