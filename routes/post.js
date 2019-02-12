@@ -59,7 +59,6 @@ router.post("/user/:id/post", middlewear.checkProfileOwnership, upload.single('i
         res.redirect("back");
        }
        else{
-           console.log(req.file.path);
             cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
                 if(err){
                     console.log(err);
