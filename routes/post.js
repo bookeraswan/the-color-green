@@ -1,5 +1,6 @@
 var express             = require("express"),
     router              = express.Router(),
+    path                = require('path'),
     expressSanitizer    = require("express-sanitizer"),
     middlewear          = require("../middlewear"),
     User                = require("../models/user"),
@@ -26,9 +27,6 @@ cloudinary.config({
   api_secret: process.env.THECOLORGREEN_CLOUDINARYAPISECRET
 });
 
-
-
-
 router.get("/post/:post_id", function(req, res) {
     Post.findById(req.params.post_id).populate("comments").exec(function(err, foundPost) {
         if(err || !foundPost){
@@ -39,7 +37,6 @@ router.get("/post/:post_id", function(req, res) {
         }
     });
 });
-
 
 router.get("/user/:id/post/new", middlewear.checkProfileOwnership, function(req, res) {
    User.findById(req.params.id, function(err, foundUser){
@@ -59,13 +56,14 @@ router.post("/user/:id/post", middlewear.checkProfileOwnership, upload.single('i
   }
    User.findById(req.params.id, function(err, foundUser) {
        if(err || !foundUser){
-           res.redirect("back");
+        res.redirect("back");
        }
        else{
+           console.log(req.file.path);
             cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
                 if(err){
                     console.log(err);
-                    return res.redirect("/?error=Therewasanerror!!!");
+                    return res.redirect("back");
                 }
 
                 req.body.post.image = result.secure_url;
@@ -73,7 +71,7 @@ router.post("/user/:id/post", middlewear.checkProfileOwnership, upload.single('i
 
            Post.create(req.body.post, function(err, post){
                if(err){
-                   res.redirect("/");
+                res.redirect("back");
                }
                else{
                    post.owner.username = req.user.username;
@@ -81,7 +79,7 @@ router.post("/user/:id/post", middlewear.checkProfileOwnership, upload.single('i
                    post.save();
                    foundUser.posts.unshift(post);
                    foundUser.save();
-                   res.redirect("/user/" + req.params.id);
+                   res.redirect("back");
                }
            });
            });

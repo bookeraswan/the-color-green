@@ -13,6 +13,24 @@ h4{
     text-align: center;
 }
 
+#loader-container{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #333d;
+}
+
+#loader{
+    position: fixed;
+    top: 40vh;
+    right: 40vw;
+    font-size: 50px;
+    color: #fff;
+}
+
 .add-friend{
     transform: translateY(-15px);
     display: inline-block;
@@ -105,7 +123,7 @@ header{
 }
 
 #posts{
-    margin: 20px auto;
+    margin: 50px auto;
     background-color: #ddd;
     width: 75%;
     min-height: 200px;
@@ -169,29 +187,37 @@ header{
   text-decoration: none;
 }
 
-.form-container{
-    margin: 30px auto;
-    width: 85%;
-    height: 150px;
-    background-color: #9a9;
-    border-radius: 20px;
+#form-container{
+    transform: scale(0);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: scroll;
+    background-color: #ccc;
+    transition: transform 250ms ease-out;
+    z-index: 999;
 }
 
-.form{
-    position: relative;
+#exit{
+    float: right;
+    padding: 7px 40px 15px 40px;
+    background-color: rgb(139, 0, 0);
+    color: #fff;
+    font-size: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+    cursor: pointer;
+}
+
+#exit:hover{
+    background-color: rgb(100, 0, 0);
 }
 
 .image-input{
-    position: relative;
-    float: left;
-    margin: 10px 5% 0 100px;
-    padding: 0 10px;
-    width: 200px;
-    height: 100px;
-    background-color: #0af;
-    z-index: 2;
-    opacity: 0;
-    cursor: pointer;
+    display: none;
 }
 
 .image-status{
@@ -199,35 +225,59 @@ header{
 }
 
 .image-input-button{
-    position: absolute;
-    top: 10px;
-    left: 100px;
-    font-size: 30px;
+    margin: 50px 100px;
+    font-size: 50px;
     background: #0065a7 linear-gradient(#0c45b9, #0cc);
-    width: 220px;
-    height: 70px;
+    width: 300px;
     text-align: center;
-    padding-top: 30px;
+    padding: 40px 0;
     border-radius: 5px;
 }
 
 .form textarea{
-    display: inline-block;
-    margin: 5px;
-    width: 50%;
-    height: 80px;
+    display: block;
+    margin: 0 auto 50px auto;
+    padding: 10px;
+    width: 90vw;
+    height: 30vh;
+    color: rgb(51, 25, 0);
+    font-size: 30px;
     border-radius: 5px;
 }
 
 .form button{
     display: block;
-    margin: 0 auto;
-    width: 300px;
-    height: 45px;
+    margin: 0 auto 100px auto;
+    width: 400px;
+    height: 150px;
     background-color: #090;
     color: #fff;
-    font-size: 30px;
+    font-size: 50px;
     border-radius: 5px;
+}
+
+.form .img{
+    display: block;
+    margin: 50px auto 0 auto;
+    width: 40vw;
+    border: 2px solid rgb(51, 25, 0);
+}
+
+#new-post-btn{
+    margin-left: 50vw;
+    margin-top: 50px;
+    width: 250px;
+    padding: 50px 100px;
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #090;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 250ms;
+}
+
+#new-post-btn:hover{
+    background-color: #060;
 }
 
 .e-p-icon{

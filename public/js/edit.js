@@ -54,10 +54,3 @@ var img = document.querySelector(".profile-image");
         reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
         reader.readAsDataURL(this.files[0]);
     });
-
-
-//     var formData = new FormData();  
-// formData.append(
-//     "PostImage", 
-//     document.getElementById("PostImage").files[0]
-// );

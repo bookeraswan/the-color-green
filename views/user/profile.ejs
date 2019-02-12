@@ -55,7 +55,6 @@
                           <h4><em><%= user.firstName %> <%= user.lastName %></em></h4>
                         </div>
               </div>
-              <!--  -->
                 <div class="other-info">
                   <% if(user.bio){ %>
                     <p><%= user.bio.substring(0, 1000) %></p>
@@ -63,17 +62,24 @@
                 </div>
             </header>
             <% if(currentUser && currentUser._id.equals(user._id)){ %>
-            <div class="form-container">
+            <div id="form-container">
+                <div id="exit">x</div>
                 <div class="form">
-                    <form action="/user/<%= user._id %>/post" method="post" enctype="multipart/form-data">
-                        <div class="image-input-button image-input-status-text">Image</div>
-                        <input class="image-input" type="file" id="image-input" name="image" required accept="image/*">
-                        <textarea name="post[text]" required></textarea>
+                    <form id="new-post-form" action="/user/<%= user._id %>/post" method="post" enctype="multipart/form-data">
+                      <input class="image-input" type="file" id="image-input" name="image" required accept="image/*">
+                      <img src="/images/post-placeholder.png" class="img">
+                      <div class="image-input-button image-input-status-text">Image</div>
+                        <textarea name="post[text]" required placeholder="Text"></textarea>
                         <button>Post</button>
                     </form>
+                    <div id="loader-container">
+                      <div id="loader">Uploading...</div>
+                    </div>
+                  </div>
                 </div>
             </div>
             <% }; %>
+            <div id="new-post-btn">New Post</div>
             <div id="posts">
                 <% user.posts.forEach(function(post){ %>
                     <div class="post">
@@ -104,6 +110,6 @@
                 <% }); %>
             </div>
         </div>
-      <script type="text/javascript" src="/js/image-input.js"></script>
+    <script type="text/javascript" src="/js/profile.js"></script>
     </body>
 </html>
