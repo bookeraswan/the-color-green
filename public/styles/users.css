@@ -1,6 +1,9 @@
 body{
-    padding-top: 100px;
+    padding-top: 120px;
     background: #050 radial-gradient(#080, #060) repeat-y fixed center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 a{

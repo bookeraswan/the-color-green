@@ -1,6 +1,9 @@
 body{
     font-family: monospace;
     background-color: #000;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .background{
@@ -51,7 +54,6 @@ section{
 }
 
 .comments{
-  display: inline-block;
   float: right;
   margin-right: 20%;
   width: 100px;

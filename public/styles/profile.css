@@ -1,12 +1,18 @@
 body{
     margin: 0;
-    padding-top: 100px;
+    padding-top: 120px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 h1{
     text-align: center;
     margin: 0;
     font-size: 80px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 h4{

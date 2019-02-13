@@ -4,8 +4,10 @@
 }
 
 body{
-
     background-color: #aae6b9;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 h1{
