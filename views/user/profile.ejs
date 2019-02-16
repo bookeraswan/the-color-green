@@ -12,9 +12,6 @@
         <% include ../partials/navbar %>
         <div class="container">
             <header>
-              <% if(currentUser && currentUser._id.equals(user._id)){ %>
-                <aside class="edit-profile-icon"><a href="/user/<%= user._id %>/edit"><i class="fas fa-cog one"></i></a></aside>
-              <% }; %>
               <div class="user-image-and-name">
                   <div class="image-space-filler">
                     <div class="image-container">
