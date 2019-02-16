@@ -1,17 +1,68 @@
 <nav>
     <ul>
-        <span id="nav-header"><a href="/">The Color Green</a></span>
-        <li><a href="/">Home</a></li>
-        <% if(currentUser){ %>
-            <li class="nav-right"><a href="/logout">logout</a></li>
-
-                <a href="/user/<%= currentUser._id %>">
-                    <img class="nav-right nav-img" src="<%= currentUser.image %>">
-                </a>
-        <% }else{ %>
-            <li class="nav-right"><a href="/signup">Signup</a></li>
-            <li class="nav-right"><a href="/login">Login</a></li>
-        <% } %>
+        <!-- <span id="nav-header"><a href="/">The Color Green</a></span> -->
+        <li><a href="/"><i class="fas fa-home"></i></a></li>
+        <li id="search-icon"><i class="fas fa-search"></i></li>
+        <div id="search-container">
+            <form action="/users" method="get"> 
+                <input id="search" type="text" name="search" autocomplete="off" placeholder="Search users">
+                <button id="search-Btn"><i class="fas fa-search"></i></button>
+            </form>
+            <div id="results"></div>
+        </div>
+        <div class="sandwich">|||</div>
+        <div class="list">
+            <% if(currentUser){ %>
+                <p>
+                    <a href="/user/<%= currentUser._id %>">
+                        <img class="nav-img" src="<%= currentUser.image %>">
+                    </a>
+                    <a href="/user/<%= currentUser._id %>">Profile</a>
+                </p>
+                <p><a href="/user/<%= currentUser._id %>/edit">Edit profile</a></p>
+                <p><a href="/logout">logout</a></p>
+            <% }else{ %>
+                <p class="nav-right"><a href="/signup">Signup</a></p>
+                <p class="nav-right"><a href="/login">Login</a></p>
+            <% } %>
+        </div>
     </ul>
-    <div class="sandwich"></div>
 </nav>
+
+<!-- <script>
+    var search = document.querySelector("#search");
+    var results = document.querySelector("#results");
+    var users = [
+        {name: "Booker", id: "7a755787a68a"},
+        {name: "Mels",   id: "7a755787a68a"},
+        {name: "Te5la",  id: "7a755787a68a"},
+        {name: "Swan",   id: "7a755787a68a"},
+        {name: "Buzzy",  id: "7a755787a68a"},
+        {name: "Buzzy2", id: "7a755787a68a"},
+        {name: "Buzzy3", id: "7a755787a68a"},
+        {name: "Buzzy",  id: "7a755787a68a"},
+        {name: "Buzzy2", id: "7a755787a68a"}
+    ];
+    search.addEventListener("input", function(){
+        if(search.value){
+
+            var found = users.filter(function(person){
+                var name = person.name.toLowerCase();
+                var bool = name.indexOf(search.value.toLowerCase()) > -1;
+                return bool;
+            });
+            results.innerHTML = "";
+            found.forEach(function(person){
+                var li = document.createElement("div");
+                var a = document.createElement("a");
+                a.href = person.id;
+                a.textContent = person.name;
+                li.append(a);
+                results.append(li);
+            });
+        }
+        else{
+            results.innerHTML = "";
+        }
+    });
+</script> -->
