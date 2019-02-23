@@ -10,11 +10,11 @@ password.addEventListener('input', function(){
     if(this.value.length < 8){
         this.style.borderBottom = "5px dashed red";
         this.style.borderTop = "5px dashed red";
-        passwordErrorMesage.style.opacity = 1;
+        passwordErrorMesage.style.display = "block";
     }if(this.value.length >= 8 || this.value.length === 0){
         this.style.borderBottom = "5px solid black";
         this.style.borderTop = "none";
-        passwordErrorMesage.style.opacity = 0;
+        passwordErrorMesage.style.display = "none";
     }
 });
 

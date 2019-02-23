@@ -6,6 +6,7 @@ h1{
     margin-top: 70px;
     text-align: center;
     font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 p{
@@ -61,16 +62,35 @@ button{
 }
 
 button:active{
-    margin: 71px auto;
-    background-color: #0a3;
-    height: 49px;
-    box-shadow: 1px 1px 5px 2px #000;
-}
-
-button:active{
     margin: 72px auto;
     outline: none;
     background-color: #081;
-        height: 48px;
+    height: 48px;
     box-shadow: 0px 0px 5px 2px #000;
+}
+
+@media only screen and (max-device-width: 8in){
+    h1{
+        font-size: 150px;
+    }
+    p{
+        font-size: 70px;
+    }
+    .form{
+        width: 95%;
+    }
+    input{
+        margin: 100px auto;
+        height: 100px;
+        font-size: 100px;
+    }
+    button{
+        height: 100px;
+        font-size: 50px;
+        border-radius: 50px;
+    }
+    button:active{
+        height: 90px;
+        margin-bottom: 10px;
+    }
 }
