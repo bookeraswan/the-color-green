@@ -28,7 +28,9 @@ cloudinary.config({
 });
 
 
-
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+};
 
 
 router.get("/user/:id", function(req, res) {
@@ -74,8 +76,13 @@ router.put("/user/:id",middlewear.checkProfileOwnership, upload.single("image"),
                     }
                     let result = await cloudinary.v2.uploader.upload(req.file.path);
 
+                    var fullSizeImage = result.secure_url;
+                    var image = result.secure_url.splice(result.secure_url.indexOf("upload/")+7,0,"w_500/");
+                    var profileIconImage = result.secure_url.splice(result.secure_url.indexOf("upload/")+7,0,"w_100/");
                     foundUser.imageId = result.public_id;
-                    foundUser.image = result.secure_url;
+                    foundUser.fullSizeImage = fullSizeImage;
+                    foundUser.image = image;
+                    foundUser.profileIconImage = profileIconImage;
                 }catch(err){
                     console.log(err);
                     return res.redirect("back");

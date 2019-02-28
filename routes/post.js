@@ -27,6 +27,10 @@ cloudinary.config({
   api_secret: process.env.THECOLORGREEN_CLOUDINARYAPISECRET
 });
 
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+};
+
 router.get("/post/:post_id", function(req, res) {
     Post.findById(req.params.post_id).populate("comments").exec(function(err, foundPost) {
         if(err || !foundPost){
@@ -64,8 +68,8 @@ router.post("/user/:id/post", middlewear.checkProfileOwnership, upload.single('i
                     console.log(err);
                     return res.redirect("back");
                 }
-
-                req.body.post.image = result.secure_url;
+                var resizedImage = result.secure_url.splice(result.secure_url.indexOf("upload/")+7,0,"w_1000/");
+                req.body.post.image = resizedImage;
                 req.body.post.imageId = result.public_id;
 
            Post.create(req.body.post, function(err, post){
