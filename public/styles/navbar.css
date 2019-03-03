@@ -4,23 +4,14 @@ nav{
     left: 0;
     right: 0;
     height: 100px;
-    background: #0a0 url("../images/leaf-compressed.jpeg") no-repeat fixed center;
+    background: #0a0 url("../images/leaf-nav.jpeg") no-repeat;
+    background-size: cover;
     font-family: 'Courier New', Courier, monospace;
 }
 
-#nav-header{
-    text-align: left;
-    display: inline-block;
-    margin-top: 20px;
+i{
+    cursor: pointer;
 }
-
-#nav-header a{
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 50px;
-    color: #000;
-}
-
 
 .sandwich{
     display: block;
@@ -35,102 +26,128 @@ nav{
     background-color: #000;
     transform: rotate(90deg);
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .list{
-    transform: scaleX(0);
-    transform-origin: right;
-    position: absolute;
-    top: 0;
-    right: 0;
-    float: right;
-    padding-left: 50px;
-    background-color: #333;
-    width: 400px;
-    min-height: 400px;
-    z-index: 50;
-    transition: transform 250ms ease;
+transform: scaleX(0);
+transform-origin: right;
+position: absolute;
+top: 0;
+right: 0;
+float: right;
+padding-left: 50px;
+background-color: #333;
+width: 400px;
+min-height: 400px;
+z-index: 50;
+transition: transform 250ms ease;
+}
+
+.exit-navbar{
+display: block;
+float: right;
+margin-right: 20px;
+color: #0f0;
+font-size: 100px;
 }
 
 .nav-img{
-    width: 100px;
-    transform: translateY(15px);
-    border-radius: 50%;
+width: 100px;
+transform: translateY(15px);
+border-radius: 50%;
 }
 
 .list p a{
+text-decoration: none;
+color: #fff;
+font-size: 50px;
+}
+
+.open-navbar{
+transform: scaleX(1);
+}
+
+nav ul{
+margin: 0;
+list-style: none;
+font-size: 70px;
+}
+
+nav li{
+/* Icons */
+display: inline-block;
+margin: 10px 5vw 0 15vw;
+padding: 0 1vw;
+font-weight: bold;
+font-family: serif;
+}
+
+nav li a{
     text-decoration: none;
-    color: #fff;
-    font-size: 50px;
+    color: #000;
 }
 
-.sandwich:hover ~ .list, .list:hover{
-    transform: scaleX(1);
+nav li a:hover{
+    color: #0d0;
 }
 
- nav ul{
+.search-container{
+    transform: scaleY(0);
+    transform-origin: top;
+    padding: 0 0 400px 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    max-height: 600px;
+    background-color: #454;
+    z-index: 20;
+    text-align: center;
+    transition: transform 250ms;
+    box-shadow: 10px 10px 20px #000;
+}
+
+.search-container div a{
+    text-decoration: none;
+    color: #000;
+}
+
+.search-container form{
+    margin: 150px auto;
+    height: 35px;
+    width: 70%;
+    background-color: #aaa;
+}
+#search{
+    float: left;
     margin: 0;
-    list-style: none;
-    font-size: 70px;
+    padding: 5px 0 5px 15px;
+    width: 82.6%;
+    height: 72px;
+    font-size: 50px;
+    border: none;
 }
 
-    nav li{
-        /* Icons */
-        display: inline-block;
-        margin: 10px 5vw 0 15vw;
-        padding: 0 1vw;
-        font-weight: bold;
-        font-family: serif;
-    }
+#search-Btn{
+    display: block;
+    float: right;
+    width: 15%;
+    height: 82px;
+    font-size: 50px;
+    background-color: #fff;
+    border: none;
+    border-left: 1px solid #000;
+    outline: none;
+}
 
-    nav li a{
-        text-decoration: none;
-        color: #000;
-    }
-
-    nav li a:hover{
-        color: #0d0;
-    }
-
-    #search-container{
-        transform: scaleY(0);
-        transform-origin: top;
-        padding-bottom: 50px;
-        position: absolute;
-        top: 20px;
-        right: 10vw;
-        left: 10vw;
-        max-height: 600px;
-        background-color: #050;
-        z-index: 20;
-        text-align: center;
-        transition: transform 250ms;
-        box-shadow: 10px 10px 20px #000;
-    }
-
-    #search{
-        display: block;
-        margin: 50px auto;
-        padding: 5px 10px;
-        width: 70%;
-        height: 60px;
-        font-size: 50px;
-        border: 1px solid #000;
-        outline: none;
-    }
-
-    #search-Btn{
-        display: none;
-    }
-
-    #search-icon:hover + #search-container, #search-container:hover{
-        transform: scaleY(1);
-    }
-
-    #search-container div a{
-        text-decoration: none;
-        color: #000;
-    }
+.exit-search-container{
+    display: block;
+    float: right;
+    margin-right: 20px;
+    font-size: 100px;
+    color: #0f0;
+}
 
 @media only screen and (min-device-width: 8in) {
     nav li{
@@ -141,7 +158,7 @@ nav{
         padding-right: 50px;
     }
 
-    #search-container{
+    .search-container{
         transform: scaleX(0);
         transform-origin: left;
         display: inline-block;
@@ -153,10 +170,11 @@ nav{
         background-color:   #fff;
         transition: transform 250ms;
     }
-    #search-container form{
+    .search-container form{
         margin: 0;
         height: 35px;
         width: 100%;
+        background-color: #fff;
     }
     #search{
         float: left;
@@ -173,14 +191,22 @@ nav{
         float: right;
         width: calc(5% + 20px);
         height: 42px;
+        font-size: 1rem;
         background-color: #fff;
         border: none;
         border-left: 1px solid #000;
         outline: none;
     }
 
+    .exit-search-container{
+        display: none;
+    }
+
     .list p{
         margin: 50px 0;
         font-size: 30px;
     }
+}
+.open-search-container{
+    transform: scaleY(1);
 }
