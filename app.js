@@ -1,6 +1,7 @@
 var express                 = require("express"),
     app                     = express(),
     mongoose                = require("mongoose"),
+    compression             = require("compression"),
     passport                = require("passport"),
     bodyParser              = require("body-parser"),
     LocalStratigy           = require("passport-local"),
@@ -21,6 +22,7 @@ var express                 = require("express"),
 mongoose.connect(process.env.THECOLORGREEN_DATABASEURL,{ useNewUrlParser: true });
 
 app.set("view engine", "ejs");
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSanitizer());
