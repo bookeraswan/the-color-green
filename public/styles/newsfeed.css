@@ -1,4 +1,5 @@
 body{
+  margin: 0;
     font-family: monospace;
     background-color: #000;
     word-wrap: break-word;
@@ -13,29 +14,30 @@ body{
   right: 0;
   bottom: 0;
   background: #fff url("/images/leaf-compressed.jpeg") no-repeat fixed center;
-  opacity: .6;
+  opacity: .3;
   z-index: -1;
 }
 
 h1{
   text-align: center;
-  font-size: 50px;
   color: #fff;
 }
 
 section{
     padding-top: 100px;
     margin: 0 auto;
-    width: 90vw;
     height: 80vh;
 }
 
 .post{
   margin: 50px auto 0 auto;
-  width: 75vw;
-  padding: 20px;
   color: #0f0;
-  font-size: 20px;
+  font-size: 40px;
+  border-bottom: 1px solid #fff;
+}
+
+.post h2, .post h3{
+  margin: 0 0 0 10px;
 }
 
 .post h2 a{
@@ -46,41 +48,44 @@ section{
 .post img{
   display: block;
   margin: 0 auto;
-  width: 700px;
+  width: 100%;
 }
 
 .post p{
-  font-size: 40px;
+  font-size: 60px;
+  color: #fff;
 }
 
 .comments{
   float: right;
-  margin-right: 20%;
-  width: 100px;
+  width: 300px;
   color: #0f0;
   font-family: monospace;
-  font-size: 40px;
+  font-size: 100px;
 }
 
 .readmore{
-  font-size: 30px;
   color: #aaa;
+  font-size: 60px;
 }
 
 .readmore a{
   color: #aaa;
 }
 
-.search input{
-  width: calc(100px + 15vw);
-  height: 40px;
-  font-size: 30px;
-}
-
-.search-two input{
-  display: block;
-  margin: 0 auto;
-  width: 70%;
-  height: 50px;
-  font-size: 40px;
+@media only screen and (min-device-width: 8in){
+  .post{
+    width: 55vw;
+    font-size: 20px;
+  }
+  .comments{
+    width: 100px;
+    font-size: 30px;
+  }
+  .post p{
+    font-size: 30px;
+  }
+  .readmore{
+    font-size: 30px;
+  }
 }
