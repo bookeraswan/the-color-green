@@ -15,31 +15,19 @@ function resetFollowersAndFollowing() {
 }
 
 router.get("/", async function(req, res){
-    if(!req.user){
-        res.render("index/home");
-    }
-    else{
-      if(!req.user.following[0]){
-        return res.render("user/feed", {posts: []});
-      }
-      var followingArr = req.user.following.reduce(function(acc, val) {
-        var obj = {
-          "owner.id": val.toString()
-        };
-        acc.push(obj);
-        return acc;
-      }, []);
+    if(!req.user) return res.render("index/landing");
+    if(!req.user.following[0]) return res.render("user/feed", {posts: []});
 
-              Post.find({$or: followingArr}).sort({"created": -1}).exec(function(err, recentPosts){
-                  if(err || !recentPosts){
-                      console.log(err + " PERSON NOT FOUND");
-                  }
-                  else{
-                    recentPosts = recentPosts.splice(0, 10);
-                    res.render("user/feed", {posts: recentPosts});
-                  }
-              });
-    }
+    var followingArr = req.user.following.reduce(function(acc, val) {
+      acc.push({"owner.id": val.toString()});
+      return acc;
+    }, []);
+
+    Post.find({$or: followingArr}).sort({"created": -1}).exec(function(err, recentPosts){
+        if(err || !recentPosts) return res.render("user/feed", {posts: []});
+        recentPosts = recentPosts.splice(0, 10);
+        res.render("user/feed", {posts: recentPosts});
+    });
 });
 
 router.get("/users", function(req, res) {
