@@ -1,6 +1,5 @@
 var express                 = require("express"),
     app                     = express(),
-    flash                   = require("connect-flash"),
     mongoose                = require("mongoose"),
     passport                = require("passport"),
     bodyParser              = require("body-parser"),
@@ -28,7 +27,6 @@ app.use(expressSanitizer());
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 mongoose.set('useFindAndModify', false);
-app.use(flash());
 
 // +++++++++++++++++++++++++++++++++++++++++++++++
 //      Autentication Set Up
@@ -55,8 +53,6 @@ passport.deserializeUser(User.deserializeUser());
 // add values to all templates
 app.use(function(req, res, next){
    res.locals.currentUser = req.user;
-   res.locals.error = req.flash("error");
-   res.locals.success = req.flash("success");
    next();
 });
 
