@@ -10,13 +10,23 @@
       <h1>Login</h1>
       <div class="container">
         <div class="form">
-            <form action="/login" method="post">
-                <input type="text" name="username" required placeholder="username">
-                <input type="password" name="password" required placeholder="password">
+            <form action="/login" method="post" onsubmit="">
+                <input type="text" name="username" autocomplete="off" placeholder="username">
+                <input type="password" name="password" autocomplete="off" placeholder="password">
                 <button>Login</button>
             </form>
             <p>Don't have an account? <a href="/signup">signup</a></p>
         </div>
       </div>
+      <script>
+        var form = document.querySelector("form");
+        var input = document.querySelectorAll("input");
+        form.addEventListener("submit", function(e){
+          if(!input[0].value || !input[1].value){
+            e.preventDefault();
+            return false;
+          }
+        });
+      </script>
     </body>
 </html>
