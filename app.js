@@ -7,9 +7,7 @@ var express                 = require("express"),
     LocalStratigy           = require("passport-local"),
     methodOverride          = require("method-override"),
     expressSanitizer        = require("express-sanitizer"),
-    middlewear              = require("./middlewear"),
-    User                    = require("./models/user"),
-    Post                    = require("./models/post")
+    User                    = require("./models/user");
 // _____________________________________
 //          Require routes
         var GeneralRoutes   = require("./routes"),

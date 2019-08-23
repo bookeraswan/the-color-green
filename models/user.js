@@ -16,18 +16,8 @@ String.prototype.splice = function(idx, rem, str) {
        bio: String,
        email: {type: String, default: "@"},
        birth: String,
-       followers:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        ],
-        following: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        ],
+       followers:[],
+       following: [],
        posts: [
             {
                 type: mongoose.Schema.Types.ObjectId,

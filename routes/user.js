@@ -1,103 +1,24 @@
 var express             = require("express"),
     router              = express.Router(),
-    expressSanitizer    = require("express-sanitizer"),
     User                = require("../models/user"),
     Post                = require("../models/post"),
     Comment             = require("../models/comment"),
     middlewear          = require("../middlewear"),
-    cloudinary          = require("cloudinary"),
-    multer              = require("multer");
-
-var storage = multer.diskStorage({
-  filename: function(req, file, callback) {
-    callback(null, Date.now() + file.originalname);
-  }
-});
-var imageFilter = function (req, file, cb) {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-        return cb(new Error('Only image files are allowed!'), false);
-    }
-    cb(null, true);
-};
-var upload = multer({ storage: storage, fileFilter: imageFilter});
-
-cloudinary.config({
-  cloud_name: 'ddxbyvkui',
-  api_key: process.env.THECOLORGREEN_CLOUDINARYAPIKEY,
-  api_secret: process.env.THECOLORGREEN_CLOUDINARYAPISECRET
-});
-
+    deleteFns           = require("../helpers/delete"),
+    upload              = require("../middlewear/upload");
 
 String.prototype.splice = function(idx, rem, str) {
     return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
 };
 
 
-router.get("/user/:id", function(req, res) {
-    User.findById(req.params.id).populate("posts").exec(function(err, foundUser){
-        if(err || !foundUser){
-            console.log(err + " err Lorem");
-            console.log(foundUser + " foundUser");
-            res.redirect("/");
-        }
-        else{
-            res.render("user/profile", {user: foundUser});
-        }
-    });
+router.get("/user/:id/edit",middlewear.checkProfileOwnership, (req, res) => {
+    User.findById(req.params.id, (err, foundUser) => {
+        if(err || !foundUser) return res.redirect("back");
+        res.render("user/edit-profile", {user: foundUser});
+    })
 });
 
-router.get("/user/:id/edit",middlewear.checkProfileOwnership, function(req, res) {
-    User.findById(req.params.id, function(err, foundUser) {
-        if(err || !foundUser){
-            res.redirect("back");
-        }
-        else{
-            res.render("user/edit-profile", {user: foundUser});
-        }
-    });
-});
-
-router.post("/api/image", function(req, res){
-    console.log(req.body);
-});
-
-router.put("/user/:id",middlewear.checkProfileOwnership, upload.single("image"), function(req, res) {
-  req.body.user.bio = req.sanitize(req.body.user.bio);
-  req.body.user.email = req.sanitize(req.body.user.email);
-  User.findById(req.params.id, async function(err, foundUser){
-      if(err || !foundUser){
-          res.redirect("back");
-      }
-      else{
-            if(req.file){
-                try{
-                    if(foundUser.imageId){
-                        await cloudinary.v2.uploader.destroy(foundUser.imageId);
-                    }
-                    let result = await cloudinary.v2.uploader.upload(req.file.path);
-
-                    var fullSizeImage = result.secure_url;
-                    var image = result.secure_url.splice(result.secure_url.indexOf("upload/")+7,0,"w_500/");
-                    var profileIconImage = result.secure_url.splice(result.secure_url.indexOf("upload/")+7,0,"w_100/");
-                    foundUser.imageId = result.public_id;
-                    foundUser.fullSizeImage = fullSizeImage;
-                    foundUser.image = image;
-                    foundUser.profileIconImage = profileIconImage;
-                }catch(err){
-                    console.log(err);
-                    return res.redirect("back");
-                }
-            }
-
-
-            foundUser.email = req.body.user.email;
-            foundUser.bio = req.body.user.bio;
-            foundUser.save();
-          res.redirect("/user/" + req.params.id);
-
-      }
-  });
-});
 
 router.get("/user/:id/delete_account",middlewear.checkProfileOwnership, function(req, res) {
     User.findById(req.params.id, function(err, foundUser) {
@@ -111,14 +32,28 @@ router.get("/user/:id/delete_account",middlewear.checkProfileOwnership, function
 });
 
 
-router.get("/user/:id/followers", function(req, res){
-    User.findById(req.params.id).populate("followers").exec(function(err, foundUser) {
-        if(err || !foundUser){
-            res.redirect("back");
-        }
+router.get("/user/:id/followers",function(req, res, next){
+    User.findById(req.params.id, function(err, foundUser){
+        if(err || !foundUser) res.redirect("back");
         else{
-            res.render("user/followers", {user: foundUser});
+            // HACK: To fix refer to line 150 and /helpers/delete.js line 40
+                foundUser.followers.forEach((follower, idx) => {
+                    User.findById(follower, function(err, sdfhhjhghjklhgkgjhkjlkljkhgjjhklhkgfhjkg){
+
+                    })
+                    if(!follower.username){
+                        foundUser.followers.splice(idx, 1);
+                        foundUser.save();
+                    }
+                });
+            // --------------------------------------------------------------
+            next();
         }
+    })
+}, function(req, res){
+    User.findById(req.params.id).populate("followers").exec(function(err, foundUser) {
+        if(err || !foundUser) res.redirect("back");
+        else res.render("user/followers", {user: foundUser});
     });
 });
 
@@ -185,122 +120,82 @@ router.post("/user/:id/unfollow",middlewear.isLoggedIn, function(req, res){
     });
 });
 
+router.route("/user/:id")
+    .get((req, res) => {
+        User.findById(req.params.id).populate("posts")
+            .exec((err, foundUser) => {
+                if(err || !foundUser) return res.redirect("/");
+                res.render("user/profile", {user: foundUser});
+            })
+    })
+    .put(middlewear.checkProfileOwnership, upload.file.single("image"), function(req, res) {
+        req.body.user.bio = req.sanitize(req.body.user.bio);
+        req.body.user.email = req.sanitize(req.body.user.email);
+        User.findById(req.params.id, async function(err, foundUser){
+                if(err || !foundUser) return res.redirect("back");
+                if(req.file){
+                    try{
+                        if(foundUser.imageId){
+                            await upload.cloudinary().v2.uploader.destroy(foundUser.imageId);
+                        }
+                        let result = await upload.cloudinary().v2.uploader.upload(req.file.path);
 
-router.delete("/user/:id",middlewear.checkProfileOwnership, function(req, res){
-    User.findById(req.params.id).populate("posts").exec( async function(err, foundUser) {
-      if(err || !foundUser){
-          console.log(err);
-          res.redirect("back");
-      }
-      else{
+                        var fullSizeImage = result.secure_url;
+                        var image = result.secure_url.splice(result.secure_url.indexOf("upload/")+7,0,"w_500/");
+                        var profileIconImage = result.secure_url.splice(result.secure_url.indexOf("upload/")+7,0,"w_100/");
+                        foundUser.imageId = result.public_id;
+                        foundUser.fullSizeImage = fullSizeImage;
+                        foundUser.image = image;
+                        foundUser.profileIconImage = profileIconImage;
+                    }catch(err){
+                        return res.redirect("back");
+                    }
+                }
+                foundUser.email = req.body.user.email;
+                foundUser.bio = req.body.user.bio;
+                foundUser.save();
+                res.redirect("/user/" + req.params.id);
+        })
+    })
+    .delete(middlewear.checkProfileOwnership, function(req, res){
+        User.findById(req.params.id).populate("posts").exec( async function(err, foundUser) {
+            if(err || !foundUser) return res.redirect("back");
 
             try{
-                if(foundUser.imageId){
-                    await cloudinary.v2.uploader.destroy(foundUser.imageId);
-                }
+                if(foundUser.imageId) await upload.cloudinary().v2.uploader.destroy(foundUser.imageId);
             }
             catch(err){
-                    console.log(err);
                     return res.redirect("back");
             }
 
 
-          foundUser.posts.forEach(function(post){
-              Post.findById(post._id).populate("comments").exec( async function(err, foundPost) {
-                  if(err || !foundPost){
 
-                  }
-                  else{
+            await foundUser.posts.forEach(deleteFns.post);
 
-                    if(foundPost.imageId){
-                        await cloudinary.v2.uploader.destroy(foundPost.imageId, function(err){
-                            console.log(err);
-                        });
-                    }
-                    post.comments.forEach(function(comment){
-                        Comment.findByIdAndRemove(comment._id, function(err){
-                            if(err){
-                                console.log(err);
-                                console.log("comment remove ERROR");
-                            }
-                            else{
-                                console.log("comment removed");
-                            }
-                        });
-                    });
-                    Post.findByIdAndRemove(post._id, function(err){
-                      if(err){
-                            console.log(err);
-                            console.log("post remove ERROR");
-                      }
-                      else{
-                          console.log("post removed");
-                          console.log("________________________________________");
-                      }
-                    });
-                  }
-              });
-          });
+    // NOTE: this code is not working. Hack is on line 67. To fix go to /helpers/delete.js line 40
+            /* 
+                await foundUser.followers.forEach( follower => {
+                    deleteFns.removeFollowers(follower, foundUser)
+                });
+            */   
+    // NOTE: this code is not working. Hack is on line 86. To fix go to /helpers/delete.js line 55           
+            /*
+                await foundUser.following.forEach(people => {
+                    deleteFns.removeFollowing(people, foundUser)
+                });
+            */
 
-
-
-        foundUser.followers.forEach(function(follower){
-                User.findById(follower, function(err, foundfollower){
-                  if(err){
-                      console.log(err);
-                      console.log("remove follower ERROR");
-                  }
-                  else{
-                      var index = foundfollower.following.indexOf(foundUser._id);
-                      console.log("following Before " + foundfollower.username);
-                      console.log("following Before " + "followers: " + foundfollower.followers + " following: " + foundfollower.following);
-                      console.log("follower array index:" + index);
-                      if(index > -1){
-                            foundfollower.following.splice(index, 1);
-                            foundfollower.save();
-                            console.log("removed follower");
-                      }
-                      console.log("following After " + foundfollower.username);
-                      console.log("following After " + "followers: " + foundfollower.followers + " following: " + foundfollower.following);
-                  }
-              });
-          });
-
-
-          foundUser.following.forEach(function(following){
-                User.findById(following, function(err, foundperson){
-                  if(err || !foundperson){
-                      console.log(err);
-                      console.log("remove person ERROR");
-                  }
-                  else{
-                      var index = foundperson.followers.indexOf(foundUser._id);
-                      console.log("following Before " + foundperson.username);
-                      console.log("following Before " + "followers: " + foundperson.followers + " following: " + foundperson.following);
-                      console.log("following array index: " + index);
-                      if(index > -1){
-                            foundperson.followers.splice(index, 1);
-                            foundperson.save();
-                            console.log("removed person");
-                      }
-                      console.log("following After " + foundperson.username);
-                      console.log("following After " + "followers: " + foundperson.followers + " following: " + foundperson.following);
-                  }
-              });
-          });
-
-          User.findByIdAndRemove(foundUser._id, function(err){
-              if(err){
-                  console.log(err);
-              }
-              else{
-                  console.log("removed User!!!");
-                  res.redirect("/signup");
-              }
-          });
-        }
+            User.findByIdAndRemove(foundUser._id, function(err){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log("removed User!!!");
+                    res.redirect("/signup");
+                }
+            });
+        });
     });
-});
 
 
 module.exports = router;

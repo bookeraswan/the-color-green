@@ -47,7 +47,7 @@ function submit(){
         password: password.value
       };
       var signup = JSON.stringify(data);
-      Ajax("POST", "/api/signup", signup)
+      Ajax("POST", "/signup", signup)
       .then(function(res){
         if(res.error){
           alert(res.error);

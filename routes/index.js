@@ -1,18 +1,7 @@
 var express           = require("express"),
     router            = express.Router(),
-    expressSanitizer  = require("express-sanitizer"),
     User              = require("../models/user"),
-    Post              = require("../models/post"),
-    middlewear        = require("../middlewear");
-
-
-function resetFollowersAndFollowing() {
-  foundUsers.forEach(function(user){
-    user.followers = [];
-    user.following = [];
-    user.save();
-  });
-}
+    Post              = require("../models/post");
 
 router.get("/", async function(req, res){
     if(!req.user) return res.render("index/landing");
@@ -31,30 +20,15 @@ router.get("/", async function(req, res){
 });
 
 router.get("/users", function(req, res) {
-        req.query.search = req.sanitize(req.query.search);
-        if(!req.query.search || req.query.search === ""){
-            return res.redirect("back");
-        }
-        // { username: {$regex: req.query.search, $options: "i"}},{textScore: { $meta: 'textScore' }}
-        User.find({username: req.query.search}, function(err, foundUsers){
-          if(err){
-              console.log(err);
-              res.redirect("/");
-          }
-          else{
-              // resetFollowersAndFollowing()
-              res.render("users/users", {user: foundUsers});
-          }
+        var query = req.sanitize(req.query.search);
+        if(!query) return res.redirect("back");
+        // { username: {$regex: query, $options: "i"}},{textScore: { $meta: 'textScore' }}
+        User.find({username: query}, (err, foundUsers) => {
+          if(err) return res.redirect("/");
+          res.render("users/users", {user: foundUsers});
       });
     });
 
-
-// ++++++++++++++++++++++++++++++++++++++++
-//              ELSE
-// ++++++++++++++++++++++++++++++++++++++++
-router.get("*", function(req, res) {
-   res.render("index/404");
-});
-
+router.get("*", (req, res) => res.render("index/404"));
 
 module.exports = router;
