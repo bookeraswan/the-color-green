@@ -1,9 +1,10 @@
 body{
     margin: 0;
-    padding-top: 120px;
+    padding-top: 100px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
+    background-color: rgb(198, 255, 198);
 }
 
 h1{
@@ -48,28 +49,27 @@ h4{
     font-size: 22px;
 }
 
-.add-friend form{
-    display: block;
-    margin-left: 1vw;
-    width: 200px;
+.user-info form{
+    text-align: center;
 }
 
-.add-friend form button{
-    display: inline-block;
-    margin: 0 10px;
-    height: 50px;
-    border-radius: 25px;
-    background-color: transparent;
-    border: none;
+.user-info form button{
+  font-size: 30px;
+  background-color: transparent;
+  border: none;
+  box-shadow: 4px 4px 9px #000;
+  outline: none;
+  transition: transform 100ms;
 }
 
-.add-friend form button i{
-  font-size: 60px;
+.user-info form button:active{
+    transform: translateY(5px);
+    box-shadow: 2px 2px 4px #000;
 }
 
 .active{
   /* background-color: #0f0; */
-  color: #afa;
+  color: rgb(0, 255, 0);
 }
 
 .follow_status p{
@@ -88,45 +88,43 @@ h4{
 
 
 header p{
+    width: 100%;
     text-align: center;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 header{
     margin: 0 auto;
-    padding: 20px 30px;
-    background-color: #494;
-    border-radius: 20px;
-}
-
-.user-image-and-name{
-  display: table;
+    padding: 30px 30px;
+    background-color: #037500;
+    /* border-radius: 20px; */
+    border-top: 5px solid #000;
+    border-bottom: 5px solid #000;
 }
 
 .user-info{
-    display: table-cell;
-    vertical-align: top;
-    table-layout: auto;
-    width: 450px;
+    width: 60%;
 }
 
-.other-info{
-  width: 100%;
+.name_and_button{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 300px;
 }
 
-.image-space-filler{
-    display: inline-block;
-    width: 400px;
+#image_and_info{
+    display: flex;
 }
 
 .image-container{
     margin: 0 0 auto 0;
-    width: 400px;
+    width: 40%;
 }
 
 .image-container img{
     width: 100%;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 
 #posts{
@@ -136,7 +134,7 @@ header{
 
 .post{
     padding: 20px 0;
-    background-color: #eee;
+    /* background-color: #eee; */
     font-size: 25px;
     border-bottom: 1px solid #000;
 }
@@ -277,19 +275,13 @@ header{
     font-size: 60px;
 }
 
-
-@media only screen and (min-width: 1100px){
-    .add-friend form{
-        display: inline-block;
-        width: 200px;
-    }
-
-    .user-info{
-        width: 600px;
-    }
-}
-
 @media only screen and (min-device-width: 8in){
+    .user-info{
+        width: 70%;
+    }
+    .image-container{
+        width: 30%;
+    }
     #posts{
         width: 80vw;
     }

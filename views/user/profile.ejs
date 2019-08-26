@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+        <meta name=”viewport” content='width=device-width, initial-scale=1'>
         <title><%= user.username %> - The Color Green</title>
         <link rel="shortcut icon" type="image/x-icon" href="../images/favicon (2).ico" />
         <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
@@ -12,50 +12,47 @@
         <% include ../partials/navbar %>
         <div class="container">
             <header>
-              <div class="user-image-and-name">
-                  <div class="image-space-filler">
-                    <div class="image-container">
-                      <img src="<%= user.image %>">
-                    </div>
-                  </div>
+              <div id="image_and_info">
+                  <div class="image-container"><img src="<%= user.image %>"></div>
                   <div class="user-info">
                     <div class="follow_status">
-                      <div class="add-friend">
-                        <p>
-                          <a href="/user/<%= user._id %>/followers">
-                            <%= user.followers.length %>
-                            followers
-                          </a>
-                          <a href="/user/<%= user._id %>/following">
-                            <%= user.following.length %>
-                            following
-                          </a>
-                        </p>
+                                    <p>
+                                      <a href="/user/<%= user._id %>/followers">
+                                        <%= user.followers.length %>
+                                        followers
+                                      </a>
+                                      <a href="/user/<%= user._id %>/following">
+                                        <%= user.following.length %>
+                                        following
+                                      </a>
+                                    </p>
+                    </div>
+
+                    <div class="name_and_button">
+                        <h1><%= user.username %></h1>
+                        <!-- <h4><em><%= user.firstName %> <%= user.lastName %></em></h4> -->
                         <% if(currentUser && !currentUser._id.equals(user._id)){ %>
                           <% if(user.followers.indexOf(currentUser._id) === -1){ %>
                             <form action="/user/<%= user._id %>/follow" method="post">
                               <button>
-                                <i class="fas fa-user-friends"></i>
+                                follow<i class="fas fa-user-friends"></i>
                               </button>
                             </form>
-                            <% }else{ %>
+                          <% }else{ %>
                               <form action="/user/<%= user._id %>/unfollow" method="post">
                                 <button class="active">
-                                  <i class="fas fa-user-friends"></i>
+                                  unfollow<i class="fas fa-user-friends"></i>
                                 </button>
                               </form>
-                              <% } %>
-                              <% } %>
-                            </div>
-                          </div>
-                          <h1><%= user.username %></h1>
-                          <h4><em><%= user.firstName %> <%= user.lastName %></em></h4>
-                        </div>
-              </div>
+                          <% } %>
+                          <% } %>
+                    </div>
+                  </div>
+                </div> 
                 <div class="other-info">
                   <% if(user.bio){ %>
                     <p><%= user.bio.substring(0, 1000) %></p>
-                    <% } %>
+                  <% } %>
                 </div>
             </header>
             <% if(currentUser && currentUser._id.equals(user._id)){ %>
