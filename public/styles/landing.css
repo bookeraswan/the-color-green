@@ -2,7 +2,7 @@ body{
     background: #050 url("/images/leaf-compressed.jpeg") no-repeat fixed center;
 }
 
-.thecolorgreen{
+#thecolorgreen{
     text-align: center;
     font-size: 100px;
     color: #0f0;
@@ -10,36 +10,51 @@ body{
     10px 10px 5px #000;
 }
 
+.description{
+  font-size: 30px;
+  text-shadow: 1px 1px 1px rgb(170, 255, 181);
+  font-weight: bold;
+  color: #000;
+}
+
+.thecolorgreen{
+  text-shadow: 1px 1px 1px rgb(136, 255, 152);
+  color: #0f0;
+}
+
 .signup{
-  display: inline-block;
-  margin: 100px 10vw;
-  padding: 50px 100px;
   color: #000;
   text-decoration: none;
-  font-size: 60px;
   font-weight: bold;
   font-family: monospace;
-  background: #0f0 linear-gradient(#afa, #0f0);
+  background: #0f0 linear-gradient(#0f0, rgb(208, 255, 0));
   border: none;
   border-radius: 10px;
 }
 
 .login{
-  display: inline-block;
-  margin: 100px 10vw;
-  padding: 50px 100px;
   color: #000;
   text-decoration: none;
-  font-size: 60px;
   font-weight: bold;
   font-family: monospace;
-  background: #0f0 linear-gradient(#aaf, #0af);
+  background: #0f0 linear-gradient(#aaf, #056);
   border: none;
   border-radius: 10px;
 }
 
 .btn{
+  margin: 0 20px;
+  padding: 30px 50px;
+  font-size: 20px;
   transition: all .2s;
+}
+
+.signup-container{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 40px;
+  text-align: right;
+  width: 90%;
 }
 
 .btn:hover{
@@ -50,9 +65,16 @@ body{
   transform: scale(.8);
 }
 
-@media only screen and (max-width: 1150px) {
+@media only screen and (max-width: 8in) {
+  #thecolorgreen{
+    font-size: 12.5vw;
+  }
   .btn{
-    float: right;
-    margin: 100px 25%;
+    margin: 0 3vw;
+    padding: calc(2vw + 10px) calc(3vw + 10px);
+    font-size: calc(2vw + 7px);
+  }
+  .description{
+    font-size: 25px;
   }
 }
