@@ -18,7 +18,7 @@
                     <div class="follow_status">
                                     <p>
                                       <a href="/user/<%= user._id %>/followers">
-                                        <%= user.followers.length %>
+                                        <span id="num-followers"><%= user.followers.length %></span>
                                         followers
                                       </a>
                                       <a href="/user/<%= user._id %>/following">
@@ -30,22 +30,19 @@
 
                     <div class="name_and_button">
                         <h1><%= user.username %></h1>
-                        <!-- <h4><em><%= user.firstName %> <%= user.lastName %></em></h4> -->
-                        <% if(currentUser && !currentUser._id.equals(user._id)){ %>
-                          <% if(user.followers.indexOf(currentUser._id) === -1){ %>
-                            <form action="/user/<%= user._id %>/follow" method="post">
-                              <button>
-                                follow<i class="fas fa-user-friends"></i>
-                              </button>
-                            </form>
-                          <% }else{ %>
-                              <form action="/user/<%= user._id %>/unfollow" method="post">
-                                <button class="active">
-                                  unfollow<i class="fas fa-user-friends"></i>
+                        <div class="center-text">
+                          <% if(currentUser && !currentUser._id.equals(user._id)){ %>
+                            <% if(user.followers.indexOf(currentUser._id) === -1){ %>
+                                <button id="follow_unfollow-btn" data-url="/user/<%= user._id %>/follow" class="active">
+                                  <span id="follow-status">follow</span><i class="fas fa-user-friends"></i>
                                 </button>
-                              </form>
+                            <% }else{ %>
+                                <button id="follow_unfollow-btn" data-url="/user/<%= user._id %>/unfollow">
+                                  <span id="follow-status">unfollow</span><i class="fas fa-user-friends"></i>
+                                </button>
+                            <% } %>
                           <% } %>
-                          <% } %>
+                        </div>
                     </div>
                   </div>
                 </div> 

@@ -32,25 +32,7 @@ router.get("/user/:id/delete_account",middlewear.checkProfileOwnership, function
 });
 
 
-router.get("/user/:id/followers",function(req, res, next){
-    User.findById(req.params.id, function(err, foundUser){
-        if(err || !foundUser) res.redirect("back");
-        else{
-            // HACK: To fix refer to line 150 and /helpers/delete.js line 40
-                foundUser.followers.forEach((follower, idx) => {
-                    User.findById(follower, function(err, sdfhhjhghjklhgkgjhkjlkljkhgjjhklhkgfhjkg){
-
-                    })
-                    if(!follower.username){
-                        foundUser.followers.splice(idx, 1);
-                        foundUser.save();
-                    }
-                });
-            // --------------------------------------------------------------
-            next();
-        }
-    })
-}, function(req, res){
+router.get("/user/:id/followers", function(req, res){
     User.findById(req.params.id).populate("followers").exec(function(err, foundUser) {
         if(err || !foundUser) res.redirect("back");
         else res.render("user/followers", {user: foundUser});
@@ -72,18 +54,20 @@ router.get("/user/:id/following", function(req, res){
 router.post("/user/:id/follow",middlewear.isLoggedIn, function(req, res){
     User.findById(req.params.id, function(err, foundUser) {
        if(err || !foundUser || foundUser._id.equals(req.user._id)){
-           res.redirect("back");
+           res.json("server error")
        }
        else{
             if(foundUser.followers.indexOf(req.user._id) === -1){
                 foundUser.followers.push(req.user._id);
+                foundUser.markModified('followers')
                 foundUser.save();
                 req.user.following.push(foundUser._id);
+                req.user.markModified('following')
                 req.user.save();
-                res.redirect("back");
+                res.json(true);
             }
             else{
-                res.redirect("/");
+                res.json("you are already following this person");
             }
        }
     });
@@ -99,22 +83,22 @@ router.post("/user/:id/unfollow",middlewear.isLoggedIn, function(req, res){
             var me = req.user.following.indexOf(foundUser._id);
             if(account > -1  && me > -1){
                 foundUser.followers.splice(account, 1);
+                foundUser.markModified('followers')
                 foundUser.save();
                 User.findById(req.user._id, function(err, myaccount) {
-                    if(err){
-
-                    }
+                    if(err) res.json("server error");
                     else{
                         myaccount.following.splice(me, 1);
+                        myaccount.markModified('following')
                         myaccount.save();
                     }
                 });
-                res.redirect("back");
+                res.json(true);
             }
             else{
                 console.log(me);
                 console.log(account);
-                res.redirect("/users");
+                res.json("you are already following this person");
             }
        }
     });
