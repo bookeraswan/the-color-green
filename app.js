@@ -14,7 +14,8 @@ var express                 = require("express"),
             authRoutes      = require("./routes/auth"),
             userRoutes      = require("./routes/user"),
             postRoutes      = require("./routes/post"),
-            commentRoutes   = require("./routes/comment");
+            commentRoutes   = require("./routes/comment"),
+            appApiRoutes    = require("./routes/app_apis");
 // _____________________________________
 
 mongoose.connect(process.env.THECOLORGREEN_DATABASEURL,{ useNewUrlParser: true });
@@ -63,6 +64,7 @@ app.use(function(req, res, next){
             app.use(userRoutes);
             app.use(postRoutes);
             app.use(commentRoutes);
+            app.use("/app", appApiRoutes);
             app.use(GeneralRoutes);
 
 // ====================================
