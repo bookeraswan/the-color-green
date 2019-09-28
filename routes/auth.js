@@ -24,7 +24,7 @@ router.route("/signup")
             return res.json({error: "username must be longer than two characters"});
         }
         if(password.length < 8){
-            return res.json({error: "password must be longer than eight characters"});
+            return res.json({error: `password (${password}) must be longer than eight characters`});
         }
 
         User.register(new User({username: username}), password, (err, user) => {

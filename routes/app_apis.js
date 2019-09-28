@@ -11,9 +11,8 @@ router.get("/isLoggedin", function(req, res){
     else return res.json(false)
 })
 
-router.post("/login", passport.authenticate("local"),
+router.post("/login",(req, res, next) => {lastUser = req.body; next()}, passport.authenticate("local"),
  function(req, res){
-    lastUser = req.body
     res.json(req.user)
 })
 
