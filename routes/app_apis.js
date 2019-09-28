@@ -5,17 +5,12 @@
        User                    =  require("../models/user");
 
 router.get("/isLoggedin", function(req, res){
-    if(req.user) res.json(true)
-    else return res.json(false)
+    if(req.user) res.json("/isLoggedin" + true)
+    else return res.json("/isLoggedin" + false)
 })
 
-router.post("/login", middlewear.sanitizeLogin, passport.authenticate("local",{
-    successRedirect: "/app/loginresponse",
-    failureRedirect: "/app/isLoggedin"
-}))
-
-router.get("/loginresponse", function(req, res){
-    res.json(true)
+router.post("/login", passport.authenticate("local"), function(req, res){
+    res.json(req.user)
 })
 
 router.get("/currentuser", function(req, res){
