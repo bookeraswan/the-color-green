@@ -7,6 +7,15 @@ router.get("/isLoggedin", function(req, res){
     else return res.json(false)
 })
 
+router.post("/login", middlewear.sanitizeLogin, passport.authenticate("local",{
+    successRedirect: "/app/loginresponse",
+    failureRedirect: "/app/isLoggedin"
+}))
+
+router.get("/loginresponse", function(req, res){
+    res.json(true)
+})
+
 router.get("/currentuser", function(req, res){
     if(!req.user) return res.json(false)
     var user = {
