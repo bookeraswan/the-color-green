@@ -4,7 +4,6 @@
        middlewear              =  require("../middlewear"),
        User                    =  require("../models/user");
 
-       var lastUser = {}
 
 router.get("/isLoggedin", function(req, res){
     if(req.user) res.json(true)
@@ -16,29 +15,20 @@ router.post("/login",(req, res, next) => {lastUser = req.body; next()}, passport
     res.json(req.user)
 })
 
-router.get("/lastapilogin", (req, res) => res.json(lastUser))
-
-router.get("/currentuser", function(req, res){
-    if(!req.user) return res.json(false)
-    var user = {
-        _id : req.user._id,
-        bio : req.user.bio || "",
-        image : req.user.image,
-        imageSm : req.user.profileIconImage,
-        username : req.user.username,
-        followers : req.user.followers.length,
-        following : req.user.following.length
-    }
-    if(req.query.with_posts == "true") sendAll(req, res, user)
-    else res.json(user)
-})
-
-function sendAll(req, res, sendObj){
-    User.findById(req.user._id)
-        .populate("posts")
-        .exec((err, user) => {
-            if(err || !user) return res.json(false)
-            var posts = user.posts.map(function(post){
+router.get("/user/:id", function(req, res){
+    User.findById(req.params.id).populate("posts").exec(function(err, foundUser){
+        if(err || !foundUser) return res.json(false)
+        var user = {
+            _id : foundUser._id,
+            bio : foundUser.bio || "",
+            image : foundUser.image,
+            imageSm : foundUser.profileIconImage,
+            username : foundUser.username,
+            followers : foundUser.followers.length,
+            following : foundUser.following.length
+        }
+        if(req.query.with_posts == "true"){
+            var posts = foundUser.posts.map(function(post){
                 return {
                     _id: post._id,
                     text: post.text,
@@ -47,9 +37,10 @@ function sendAll(req, res, sendObj){
                     comments: post.comments.length
                 }
             })
-            sendObj.posts = posts
-            res.json(sendObj)
-        })
-}
+            user.posts = posts
+        }
+        res.json(user)
+    })
+})
 
 module.exports = router
