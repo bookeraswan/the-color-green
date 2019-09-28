@@ -1,5 +1,7 @@
  const express                 =  require("express"),
        router                  =  express.Router(),
+       passport                = require("passport"),
+       middlewear              =  require("../middlewear"),
        User                    =  require("../models/user");
 
 router.get("/isLoggedin", function(req, res){
