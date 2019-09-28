@@ -12,7 +12,7 @@ router.get("/isLoggedin", function(req, res){
 
 router.post("/login",(req, res, next) => {lastUser = req.body; next()}, passport.authenticate("local"),
  function(req, res){
-    res.json(req.user)
+    res.json({id: req.user._id})
 })
 
 router.get("/user/:id", function(req, res){
