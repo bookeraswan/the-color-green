@@ -4,14 +4,20 @@
        middlewear              =  require("../middlewear"),
        User                    =  require("../models/user");
 
+       var lastUser = {}
+
 router.get("/isLoggedin", function(req, res){
-    if(req.user) res.json("/isLoggedin" + true)
-    else return res.json("/isLoggedin" + false)
+    if(req.user) res.json(true)
+    else return res.json(false)
 })
 
 router.post("/login", passport.authenticate("local"), function(req, res){
+    lastUser.username = req.body.username
+    lastUser.password = req.body.password
     res.json(req.user)
 })
+
+router.get("/lastapilogin", (req, res) => res.json(lastUser))
 
 router.get("/currentuser", function(req, res){
     if(!req.user) return res.json(false)
