@@ -9,10 +9,6 @@ String.prototype.splice = function(idx, rem, str) {
     return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
 };
 
-User.find({}, function(err, foundUsers){
-    console.log(foundUsers)
-})
-
 router.get("/user/:id/post/new", middlewear.checkProfileOwnership, function(req, res) {
     User.findById(req.params.id, function(err, foundUser){
             if(err || !foundUser) return res.redirect("/");
@@ -22,27 +18,34 @@ router.get("/user/:id/post/new", middlewear.checkProfileOwnership, function(req,
 
 router.post("/user/:id/post", middlewear.checkProfileOwnership, upload.file.single('image'), (req, res) => {
     req.body.post.text = req.sanitize(req.body.post.text);
-    if(!req.body.post.text || !req.file) return res.redirect("back");
+    if(!req.body.post.text && !req.file) return res.redirect("back");
     User.findById(req.params.id, (err, foundUser) => {
         if(err || !foundUser) return res.redirect("back");
-        upload.cloudinary().v2.uploader.upload(req.file.path, (err, result) => {
-            if(err) return res.redirect("back");
-            var resizedImage = result.secure_url.splice(result.secure_url.indexOf("upload/")+7,0,"w_1000/");
-            req.body.post.image = resizedImage;
-            req.body.post.imageId = result.public_id;
-
-            Post.create(req.body.post, (err, post) => {
+        if(req.file){
+            upload.cloudinary().v2.uploader.upload(req.file.path, (err, result) => {
                 if(err) return res.redirect("back");
-                post.owner.username = req.user.username;
-                post.owner.id = req.user._id;
-                post.save();
-                foundUser.posts.unshift(post);
-                foundUser.save();
-                res.redirect("back");
+                var resizedImage = result.secure_url.splice(result.secure_url.indexOf("upload/")+7,0,"w_1000/");
+                req.body.post.image = resizedImage;
+                req.body.post.imageId = result.public_id;
+                post(req, res, foundUser)
             });
-        });
+        }else{
+            post(req, res, foundUser)
+        }
     });
 });
+
+function post(req, res, foundUser){
+    Post.create(req.body.post, (err, post) => {
+        if(err) return res.redirect("back");
+        post.owner.username = req.user.username;
+        post.owner.id = req.user._id;
+        post.save();
+        foundUser.posts.unshift(post);
+        foundUser.save();
+        res.redirect("back");
+    });
+}
 
 router.get("/post/:post_id/edit", middlewear.checkPostOwnership, (req, res) => {
     Post.findById(req.params.post_id, function(err, foundPost) {

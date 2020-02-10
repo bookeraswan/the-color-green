@@ -79,9 +79,11 @@
                             <a href="/post/<%= post._id %>/edit"><i class="fas fa-cog"></i></a>
                         </div>
                       <% } %>
+                      <% if(post.image){ %>
                         <div class="post-image-container">
                             <img class="post-image" src="<%= post.image %>">
                         </div>
+                      <% } %>
                         <a href="/post/<%= post._id %>/comments">
                             <aside class="comments">
                                 <strong><i class="far fa-comment"></i> <%= post.comments.length %></strong>
@@ -89,6 +91,7 @@
                         </a>
                         <h3><em><%= post.owner.username %></em></h3>
                         <h5 class="created"><%= post.created.toDateString() %></h5>
+                        <% if(post.text){ %>
                           <p><%= post.text.substring(0, 290) %>
                                       <% if(true){ %>
                                           ...
@@ -97,6 +100,7 @@
                                           </a>
                                       <% } %>
                            </p>
+                        <% } %>
                     </div>
                 <% }); %>
             </div>

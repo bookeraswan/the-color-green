@@ -15,6 +15,13 @@ router.post("/login",(req, res, next) => {lastUser = req.body; next()}, passport
     res.json({id: req.user._id})
 })
 
+router.get("/user/:id/posts", function(req, res){
+    User.findById(req.params.id).populate("posts").exec(function(err, foundUser){
+        console.log(err)
+        res.json(foundUser.posts)
+    })
+})
+
 router.get("/user/:id", function(req, res){
     User.findById(req.params.id).populate("posts").exec(function(err, foundUser){
         if(err || !foundUser) return res.json(false)
@@ -39,6 +46,7 @@ router.get("/user/:id", function(req, res){
             })
             user.posts = posts
         }
+        console.log(req.headers)
         res.json(user)
     })
 })

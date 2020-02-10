@@ -11,9 +11,10 @@ router.route("/login")
         failureRedirect: "/login"
     }));
 
-router.get("/loginresponse", middlewear.isLoggedIn, (req, res) => 
+router.get("/loginresponse", middlewear.isLoggedIn, (req, res) => {
+    console.log(req.headers)
     res.redirect("/user/" + req.user._id)
-);
+});
 
 router.route("/signup")
     .get((req, res) => res.render("auth/signup"))

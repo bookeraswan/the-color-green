@@ -15,6 +15,8 @@ router.get("/", async function(req, res){
     Post.find({$or: followingArr}).sort({"created": -1}).exec(function(err, recentPosts){
         if(err || !recentPosts) return res.render("user/feed", {posts: []});
         recentPosts = recentPosts.splice(0, 10);
+        console.log(req.query.json)
+        if(req.query.json) return res.json(recentPosts)
         res.render("user/feed", {posts: recentPosts});
     });
 });
