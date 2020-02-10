@@ -51,4 +51,19 @@ router.get("/user/:id", function(req, res){
     })
 })
 
+router.get("/all-users", (req, res) => {
+    User.find({}, (err, users) => {
+        let newestUsers = []
+        for(let i = users.length-1; i > users.length - 10; i--){
+            if(!users[i]) break
+            newestUsers.push({
+                id: users[i]._id,
+                username: users[i].username,
+                image: users[i].profileIconImage
+            })
+        }
+        res.json(newestUsers)
+    })
+})
+
 module.exports = router
