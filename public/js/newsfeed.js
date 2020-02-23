@@ -20,7 +20,7 @@ function render(post){
       img         = create("img"),
       comments_a  = create("a").link(`/post/${post._id}/comments`),
       uname_h2    = create("h2"),
-      uname_a2    = create("a").link(`/user/${post.owner._id}`).txt(post.owner.username),
+      uname_a2    = create("a").link(`/user/${post.owner.id}`).txt(post.owner.username),
       h3          = create("h3").txt(new Date(post.created).toString().substring(0, 15)),
       p           = create("p").txt(post.text.substring(0, 290)),
       span        = create("span").class("readmore").txt("..."),
