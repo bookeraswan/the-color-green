@@ -7,8 +7,8 @@
         <!--<link rel="shortcut icon" type="image/x-icon" href="<%=// user.image %>" />-->
         <link rel="stylesheet" type="text/css"href="/fontawesome-free/css/all.css">
         <!-- <link rel="stylesheet" type="text/css"href="../styles/loader.css"> -->
-        <link rel="stylesheet" type="text/css"href="../styles/newsfeed.css">
-        <link rel="stylesheet" type="text/css"href="../styles/navbar.css">
+        <link rel="stylesheet" type="text/css"href="/styles/newsfeed.css">
+        <link rel="stylesheet" type="text/css"href="/styles/navbar.css">
     </head>
     <body>
       <style media="screen">
@@ -68,11 +68,14 @@
                 </div>
                 <% }); %>
             </div>
+            <% if(posts.length > 0){ %>
+              <button class="loadmore-btn">Load More</button>
+              <div class="loadmore_loader hidden"></div>
+              <hr>
+            <% } %>
         </section>
       </div>
-      <script type="text/javascript">
-        console.log("%cThe Color Green", "color: #0a0; font-size: 40px;");
-      </script>
       <script src="/js/loader.js" charset="utf-8"></script>
+      <script src="/js/newsfeed.js"></script>
     </body>
 </html>
