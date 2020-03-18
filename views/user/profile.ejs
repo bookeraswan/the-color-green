@@ -72,7 +72,7 @@
             <div id="new-post-btn">New Post</div>
             <% }; %>
             <div id="posts">
-                <% user.posts.forEach(function(post){ %>
+                <!-- <% user.posts.forEach(function(post){ %>
                     <div class="post">
                       <% if(currentUser && currentUser._id.equals(user._id)){ %>
                         <div class="edit-post-icon">
@@ -102,8 +102,10 @@
                            </p>
                         <% } %>
                     </div>
-                <% }); %>
+                <% }); %> -->
             </div>
+            <button class="loadmore-btn">Load More</button>
+            <div class="loadmore_loader hidden"></div>
         </div>
     <script type="text/javascript" src="/js/profile.js"></script>
     </body>

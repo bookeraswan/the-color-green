@@ -104,6 +104,24 @@ router.post("/user/:id/unfollow",middlewear.isLoggedIn, function(req, res){
     });
 });
 
+router.get("/user/:id/posts", (req, res) => {
+    let {offset, limit} = req.query
+    Post.find({"owner.id": req.params.id})
+        .sort({"created": -1})
+        .skip(Number(offset))
+        .limit(Number(limit))
+        .exec((err, posts) => {
+            if(err || !posts) res.json([])
+            let publicPosts = posts.map(post => {
+                let {owner, _id, comments:co, text, image, created} = post
+                let publicPost = {_id: _id, owner: owner,commentsLen: co.length, text: text, image: image, created: created}
+                console.log(publicPost)
+                return publicPost
+            })
+            res.json(publicPosts)
+        })
+})
+
 router.route("/user/:id")
     .get((req, res) => {
         User.findById(req.params.id).populate("posts")
