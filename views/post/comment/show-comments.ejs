@@ -19,23 +19,20 @@
                     <span id="data" style="opacity: 0;"><%= post._id %></span>
             </div>
         <% } %>
-
         <div id="comments">
-            <% post.comments.forEach(function(comment){ %>
-                <% if(currentUser && currentUser._id.equals(comment.owner.id)){ %>
-                    <div class="comment owner">
-                <% }else{ %>
-                    <div class="comment">
-                <% } %>
-                    <strong><a href="/user/<%= comment.owner.id %>"><%= comment.owner.username %></a></strong>
-                    <span><%= moment(comment.created).startOf('second').fromNow() %></span>
-                    <div class="comment-body">
-                        <p><%= comment.text %></p>
-                    </div>
-                </div>
-            <% }) %>
+            <!-- Comments will load here -->
         </div>
-        
+        <button class="loadmore-btn hidden">Load More</button>
+        <div class="loadmore_loader"></div>
+        <script>
+            const GlobalpostId = "<%- post._id %>" 
+            var GlobalcurrentUserId;
+        </script>
+        <% if(currentUser){ %>
+            <script>
+                GlobalcurrentUserId = "<%- currentUser._id %>"
+            </script>
+        <% } %>
         <script src="/js/framework.js"></script>
         <script src="/js/comments.js"></script>
     </body>

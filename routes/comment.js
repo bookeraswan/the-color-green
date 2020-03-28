@@ -5,6 +5,12 @@ var express             = require("express"),
     Post                = require("../models/post"),
     Comment             = require("../models/comment");
 
+router.get("/post/:post_id/comments", (req, res) => {
+    Post.findById(req.params.post_id, (err, post) => {
+        res.render("post/comment/show-comments", {post: post})
+    })
+})
+
 router.post("/api/post/:post_id/comment",middlewear.isLoggedIn, (req, res) => {
     req.body.text = req.sanitize(req.body.text);
     if(!req.body.text) return res.json("Error a comment needs text");
@@ -17,16 +23,40 @@ router.post("/api/post/:post_id/comment",middlewear.isLoggedIn, (req, res) => {
             newComment.save();
             foundPost.comments.unshift(newComment);
             foundPost.save();
-            res.json(newComment);
+            var comment = {
+                owner: newComment.owner,
+                _id: newComment._id,
+                text: newComment.text,
+                when: "just now"
+            }
+            res.json(comment);
         });
    });
 });
 
-router.get("/post/:post_id/comments", (req, res) => {
-    Post.findById(req.params.post_id).populate("comments").exec((err, foundPost) => {
-        if(err || !foundPost) return res.redirect("back");
-        res.render("post/comment/show-comments", {post: foundPost, moment: moment});
-    });
+router.get("/api/post/:post_id/comments", (req, res) => {
+    console.log(req.query.offset)
+    Post.findById(req.params.post_id)
+        .populate({
+            path: "comments",
+            options: {
+                limit: Number(req.query.limit || 1),
+                sort: { created: -1},
+                skip: Number(req.query.offset || 0)
+            }
+        })
+        .exec((err, foundPost) => {
+            if(err || !foundPost) return res.json({msg: "Post not found..."});
+            let comments = foundPost.comments.map(comment => {
+                return {
+                    _id:   comment._id,
+                    owner: comment.owner,
+                    text:  comment.text,
+                    when: moment(comment.created).startOf('second').fromNow()
+                }
+            })
+            res.json(comments)
+        });
 });
 
 module.exports = router;

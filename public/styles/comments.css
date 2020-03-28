@@ -6,8 +6,11 @@ body{
 }
 
 hr{
-    margin: 0;
     border: 1px solid #ddd;
+}
+
+.center{
+    text-align: center;
 }
 
 .post-container{
@@ -17,40 +20,54 @@ hr{
 
 #comments{
     margin: auto;
-    min-height: 200px;
-    font-family: monospace;
-    /* background-color: #ddd; */
+    min-height: 100px;
 }
 
 .comment{
-    margin: 30px;
-    width: 80vw;
-    background-color: #568d8f;
-    padding: 10px 20px;
-    font-size: 30px;
-    border-radius: 20px;
+    position: relative;
+    margin: 5px 10px;
+    padding: 20px 20px;
+    border-bottom: 1px solid #aaa;
 }
 
-.owner{
-    margin-left: 14vw;
+.replies{
+    font-family: monospace;
+    color:#0a0;
 }
 
-.comment strong a{
+.uname{
     text-decoration: none;
     color: #000;
+    font-weight: bold;
 }
 
-.comment strong a:hover{
+.uname:hover{
   text-decoration: underline;
 }
 
-.comment span{
-    float: right;
+.right h3{
+    font-size: calc(30px - 1vw);
+}
+
+.right{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    font-size: 20px;
 }
 
 .comment-body{
     max-width: 80%;
-    font-size: 40px;
+    font-size: 20px;
+}
+
+.edit-btn{
+    display: block;
+    margin-top: 1vw;
+    color: orange;
+    float: right;
+    font-size: 16px;
 }
 
 .add-comment{
@@ -72,3 +89,51 @@ hr{
     height: 50px;
     border-radius: 50%;
 }
+
+.loadmore-btn{
+    display: block;
+    padding: 10px;
+    background-color: transparent;
+    color: #051b00;
+    border: 2px solid #000;
+    margin: 40px auto;
+    font-size: 100px;
+    cursor: pointer;
+}
+.loadmore_loader{
+    display: block;
+    margin: 40px auto;
+    width: 100px;
+    height: 100px;
+    border-top: 4px solid #000;
+    border-left:4px solid #000;
+    border-radius: 50%;
+    animation: loader 750ms linear infinite;
+}
+.hidden{
+    display: none;
+}
+
+@media only screen and (min-device-width: 9in){
+    .edit-btn{
+        font-size: 12px;
+    }
+}
+
+@keyframes loader {
+    0%{
+        transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+@media only screen and (min-device-width: 6in){
+    .loadmore-btn{
+      font-size: 50px;
+    }
+  }
