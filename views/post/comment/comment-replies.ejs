@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+        <title>Comments</title>
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon (2).ico" />
+            <link rel="stylesheet" type="text/css"href="../../styles/comments.css">
+    </head>
+    <body>
+        <style>
+            em{
+                color: #555;
+                font-size: 16px;
+            }
+            .edit-main-comment{
+                display: block;
+                margin-left: 20px;
+                color: orange;
+            }
+        </style>
+    <div>
+        <h3>
+            <a class="uname" href="/user/<%= comment.owner.id %>"><%= comment.owner.username %></a>
+            <em> - <%= comment.when %></em>
+        </h3>
+        <p style="padding-left: 20px;"><%= comment.text %></p>
+        <% if(currentUser && currentUser._id.equals(comment.owner.id)){ %>
+            <button class="edit-main-comment">Edit</button>
+        <% } %>
+        <hr style="border: 2px solid #333;">
+    </div>
+        <% if(currentUser){ %>
+            <div class="add-comment">
+                <img src="<%= currentUser.image %>">
+                    <input class="comment-input" type="text" name="comment[text]" autocomplete="off" placeholder="add a public comment">
+            </div>
+        <% } %>
+        <div id="comments">
+            <!-- Comments will load here -->
+        </div>
+        <button class="loadmore-btn hidden">Load More</button>
+        <div class="loadmore_loader"></div>
+        <script>
+            const GlobalcommentId = "<%= comment._id %>"
+            var GlobalcurrentUserId;
+        </script>
+        <% if(currentUser){ %>
+            <script>
+                GlobalcurrentUserId = "<%- currentUser._id %>"
+            </script>
+        <% } %>
+        <script src="/js/framework.js"></script>
+        <script src="/js/replies.js"></script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Replies</title>
+        <link rel="stylesheet" href="/styles/comments.css">
+    </head>
+    <body>
+        <style>
+            em{
+                color: #555;
+                font-size: 16px;
+            }
+            .edit-main-comment{
+                display: block;
+                margin-left: 20px;
+                color: orange;
+            }
+        </style>
+        <div>
+            <h3>
+                <a class="uname" href="/user/<%= comment.owner.id %>"><%= comment.owner.username %></a>
+                <em> - <%= comment.when %></em>
+            </h3>
+            <p style="padding-left: 20px;"><%= comment.text %></p>
+            <button class="edit-main-comment">Edit</button>
+            <hr style="border: 2px solid #333;">
+        </div>
+        <% if(currentUser){ %>
+            <div class="add-comment">
+                <img src="<%= currentUser.image %>">
+                <input class="comment-input" type="text" name="comment[text]" autocomplete="off" placeholder="add a public comment">
+            </div>
+        <% } %>
+        <div id="comments"></div>
+        <button class="loadmore-btn hidden">Load More</button>
+        <div class="loadmore_loader"></div>
+        <script>
+            const GlobalcommentId = "<%= comment._id %>"
+            var GlobalcurrentUserId;
+        </script>
+        <% if(currentUser){ %>
+            <script>
+                GlobalcurrentUserId = "<%- currentUser._id %>"
+            </script>
+        <% } %>
+        <script src="/js/framework.js"></script>
+        <script src="/js/replies.js"></script>
+    </body>
+</html> -->
