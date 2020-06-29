@@ -49,7 +49,8 @@ function renderComment(res, appOrPre){
     let aside = create("aside", "right", comment)
     create("h3", null, aside, res.when)
     if(GlobalcurrentUserId && GlobalcurrentUserId === res.owner.id){
-        create("button", "edit-btn", aside, "Edit")
+        let btn = create("button", "edit-btn", aside)
+        create("a", null, btn, "Edit", `/comment/${res._id}/edit`)
     }
     S("#comments")[appOrPre](comment)
 }

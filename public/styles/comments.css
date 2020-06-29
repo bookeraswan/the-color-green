@@ -65,9 +65,13 @@ hr{
 .edit-btn{
     display: block;
     margin-top: 1vw;
-    color: orange;
     float: right;
     font-size: 16px;
+}
+
+.edit-btn a{
+    text-decoration: none;
+    color: orange;
 }
 
 .add-comment{

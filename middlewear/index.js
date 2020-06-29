@@ -1,5 +1,7 @@
-var User = require("../models/user"),
-    Post = require("../models/post");
+var User    = require("../models/user"),
+    Post    = require("../models/post"),
+    Comment = require("../models/comment"),
+    Reply   = require("../models/reply");
 
 var middlewear = {};
 
@@ -61,6 +63,24 @@ middlewear.checkProfileOwnership = function (req, res, next) {
     else{
         res.redirect("back");
     }
+};
+
+middlewear.checkCommentOwnership = function(req, res, next) {
+    if(!req.isAuthenticated()) return res.redirect("back")
+    Comment.findById(req.params.comment_id, (err, foundComment) => {
+        if(err || !foundComment || !foundComment.owner.id.equals(req.user._id)) 
+            return res.redirect("back")
+        next();
+    });
+};
+
+middlewear.checkReplyOwnership = function(req, res, next) {
+    if(!req.isAuthenticated()) return res.redirect("back")
+    Reply.findById(req.params.reply_id, (err, foundReply) => {
+        if(err || !foundReply || !foundReply.owner.id.equals(req.user._id)) 
+            return res.redirect("back")
+        next();
+    });
 };
 
 

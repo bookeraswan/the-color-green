@@ -15,6 +15,9 @@
             .edit-main-comment{
                 display: block;
                 margin-left: 20px;
+            }
+            .edit-main-comment a{
+                text-decoration: none;
                 color: orange;
             }
         </style>
@@ -25,7 +28,7 @@
         </h3>
         <p style="padding-left: 20px;"><%= comment.text %></p>
         <% if(currentUser && currentUser._id.equals(comment.owner.id)){ %>
-            <button class="edit-main-comment">Edit</button>
+            <button class="edit-main-comment"><a href="/comment/<%= comment._id %>/edit">Edit</a></button>
         <% } %>
         <hr style="border: 2px solid #333;">
     </div>

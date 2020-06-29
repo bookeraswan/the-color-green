@@ -110,12 +110,16 @@ router.get("/user/:id/posts", (req, res) => {
         .sort({"created": -1})
         .skip(Number(offset))
         .limit(Number(limit))
+        .populate("comments")
         .exec((err, posts) => {
             if(err || !posts) res.json([])
             let publicPosts = posts.map(post => {
                 let {owner, _id, comments:co, text, image, created} = post
-                let publicPost = {_id: _id, owner: owner,commentsLen: co.length, text: text, image: image, created: created}
-                console.log(publicPost)
+                var numComments = 0;
+                co.forEach(comment => {
+                    numComments += 1 + comment.replies.length
+                })
+                let publicPost = {_id: _id, owner: owner,commentsLen: numComments, text: text, image: image, created: created}
                 return publicPost
             })
             res.json(publicPosts)

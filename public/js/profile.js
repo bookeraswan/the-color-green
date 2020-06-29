@@ -1,4 +1,4 @@
-// const S      = s => document.querySelector(s);
+S      = s => document.querySelector(s) ? document.querySelector(s) : new FakeElement();
 const create = e => document.createElement(e);
 Element.prototype.class = function(c) {this.classList.add(c); return this}
 Element.prototype.link  = function(h) {this.href = h;         return this}
@@ -19,23 +19,48 @@ let followunfollowBtn = S("#follow_unfollow-btn");
 let followStatus      = S("#follow-status");
 let numFollowers      = S("#num-followers");
 
+const limit = 10
+
 if(postBtn){
-  imageButton.onclick = imageInput.click();
-  img.onclick = imageInput.click();
+  imageButton.onclick = () => imageInput.click();
+  img.onclick = () => imageInput.click();
 }
 
 Ajax({
   method: "get",
-  url: window.location.href + "/posts?limit=10"
+  url: window.location.href + `/posts?limit=${limit}`
 })
-.then(posts => JSON.parse(posts).forEach(renderPost))
+.then(posts => {
+  let postsArr = JSON.parse(posts)
+  if(!postsArr[0]){
+    let p = create("p")
+    p.textContent = "No posts yet :("
+    p.class("noposts")
+    S("#posts").append(p)
+    S(".loadmore-btn").remove()
+    S(".loadmore_loader").remove()
+  }
+  else postsArr.forEach(renderPost)
+
+  if(postsArr.length < limit && postsArr.length > 0){
+    let p = create("p")
+    p.textContent = "No more posts..."
+    p.class("noposts")
+    S("#posts").append(p)
+    S(".loadmore-btn").remove()
+    S(".loadmore_loader").remove()
+  }
+})
 
 S(".loadmore-btn").on("click", loadMore)
 
-postBtn.onif("click", postBtn, function(){
-  body.style.overflow = "hidden";
-  formContainer.style.transform = "scale(1)";
-});
+if(Global_Is_User){
+  postBtn.onif("click", postBtn, function(){
+    body.style.overflow = "hidden";
+    formContainer.style.transform = "scale(1)";
+  });
+}
+
 
 imageInput.onif("change", postBtn, function(){
   var reader = new FileReader();
@@ -55,7 +80,7 @@ newPostForm.onif("submit", postBtn, function(e){
   loader.style.display = "block";
 });
 
-followunfollowBtn.onif("click", followunfollowBtn, () => {
+followunfollowBtn.onif("click", !postBtn, () => {
   followStatus.textContent = "↻↻↻↻↻";
   Ajax({
     method: "post",
@@ -93,11 +118,22 @@ function loadMore(){
   S(".loadmore_loader").classList.toggle("hidden");
   Ajax({
     method: "get",
-    url: window.location.href + `/posts?limit=10&offset=${offset}`
+    url: window.location.href + `/posts?limit=${limit}&offset=${offset}`
   })
-  .then(posts => JSON.parse(posts).forEach(renderPost))
-  .then(() => {
-    this.classList.toggle("hidden");
+  .then(posts => {
+    let postsArr = JSON.parse(posts)
+    postsArr.forEach(renderPost)
+  })
+  .then(posts => {
+    if(posts > 0){
+      this.classList.toggle("hidden");
+    }
+    else{
+      let p = create("p")
+      p.textContent = "No more posts..."
+      p.class("noposts")
+      S("#posts").append(p)
+    }
     S(".loadmore_loader").classList.toggle("hidden");
   })
 }
@@ -151,4 +187,9 @@ function Ajax(params){
   XHR.setRequestHeader("content-type", "application/json");
   XHR.send(JSON.stringify(params.body))
   return promise
+}
+
+
+function FakeElement(){
+  this.__proto__ = Element.prototype
 }

@@ -11,6 +11,10 @@ var commentSchema = new mongoose.Schema({
          ref: "User"
       }
    },
+   parent: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post"
+   },
    replies: [
       {
           type: mongoose.Schema.Types.ObjectId,

@@ -6,6 +6,25 @@ var express             = require("express"),
     Reply               = require("../models/reply"),
     Comment             = require("../models/comment");
 
+
+// Post.find({})
+// .populate("comments")
+// .exec((err, posts) => {
+//     posts.forEach(post => {
+//         post.comments.forEach(comment => {
+//             comment.parent = post._id
+//             comment.replies.forEach(replyId => {
+//                 Reply.findById(replyId, (e, r) => {
+//                     r.parent.post = post._id
+//                     r.parent.comment = comment._id
+//                     r.save()
+//                 })
+//             })
+//             comment.save()
+//         })
+//     })
+// })
+
 router.get("/post/:post_id/comments", (req, res) => {
     Post.findById(req.params.post_id, (err, post) => {
         res.render("post/comment/show-comments", {post: post})
@@ -21,6 +40,7 @@ router.post("/api/post/:post_id/comment",middlewear.isLoggedIn, (req, res) => {
             if(err) return res.json(err);
             newComment.owner.username = req.user.username;
             newComment.owner.id = req.user._id;
+            newComment.parent = foundPost._id
             newComment.save();
             foundPost.comments.unshift(newComment);
             foundPost.save();
@@ -47,6 +67,8 @@ router.post("/api/comment/:comment_id/reply",middlewear.isLoggedIn, (req, res) =
         console.log(newReply)
         newReply.owner.username = req.user.username
             newReply.owner.id = req.user._id
+            newReply.parent.post = comment.parent
+            newReply.parent.comment = comment._id
             newReply.save()
             comment.replies.push(newReply)
             comment.save()
@@ -119,5 +141,55 @@ router.get("/api/comment/:comment_id/replies", (req, res) => {
             res.json(replies)
         });
 });
+
+router.get("/comment/:comment_id/edit", middlewear.checkCommentOwnership, (req, res) => {
+    Comment.findById(req.params.comment_id, (err, comment) =>{
+        if(err || !comment) return res.render("index/404")
+        res.render("post/comment/edit-comment", {comment: comment, commentType: "comment"})
+    })
+})
+
+router.put("/comment/:comment_id/update", middlewear.checkCommentOwnership, (req, res) => {
+    req.body.comment.text = req.sanitize(req.body.comment.text);
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, doc) => {
+        if(err || !doc) return res.redirect("back")
+        res.redirect(`/comment/${req.params.comment_id}/replies`)
+    })
+})
+
+router.get("/reply/:reply_id/edit", middlewear.checkReplyOwnership, (req, res) => {
+    Reply.findById(req.params.reply_id, (err, reply) =>{
+        if(err || !reply) return res.render("index/404")
+        res.render("post/comment/edit-comment", {comment: reply, commentType: "reply"})
+    })
+})
+
+router.put("/reply/:reply_id/update", middlewear.checkReplyOwnership, (req, res) => {
+    req.body.comment.text = req.sanitize(req.body.comment.text);
+    Reply.findByIdAndUpdate(req.params.reply_id, req.body.comment, (err, reply) => {
+        if(err || !reply) return res.redirect("back")
+        res.redirect(`/comment/${reply.parent.comment}/replies`)
+    })
+})
+
+router.get("/comment/:comment_id/delete", middlewear.checkCommentOwnership, (req, res) => {
+    Comment.findById(req.params.comment_id, (err, comment) => {
+        if(err || !comment) res.redirect("back")
+        res.render("post/comment/comment-delete", {comment: comment, commentType: "comment"})
+    })
+})
+
+router.get("/reply/:reply_id/delete", middlewear.checkReplyOwnership, (req, res) => {
+    Reply.findById(req.params.reply_id, (err, reply) => {
+        console.log("||||||||||||||||||||||||||||||")
+        console.log(err)
+        console.log("###################################################")
+        console.log(reply)
+        if(err || !reply) return res.redirect("back")
+        res.render("post/comment/comment-delete", {comment: reply, commentType: "reply"})
+    })
+})
+
+
 
 module.exports = router;

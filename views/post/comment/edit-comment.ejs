@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit</title>
+    </head>
+    <body>
+        <style>
+            h1{
+                text-align: center;
+            }
+            #comment-body{
+                display: block;
+                margin: 0 auto;
+                width: 90%;
+                font-size: 20px;
+            }
+            #btn-div{
+                margin: 20px auto;
+                width: 85%;
+            }
+            button{
+                padding: 10px;
+                font-size: 25px;
+            }
+            #U{
+                display: block;
+                margin: 10px auto;
+                color: green;
+            }
+            #D{
+                margin-right: 20px;
+                float: right;
+            }
+            #D a {
+                color: darkred;
+                text-decoration: none;
+            }
+        </style>
+        <h1>Edit <%= commentType %></h1>
+        <form action="/<%= commentType %>/<%= comment._id %>/update?_method=PUT" method="post">
+            <textarea name="comment[text]" id="comment-body" cols="30" rows="10"><%= comment.text %></textarea>
+            <button id="U">Update</button>
+        </form>
+        <button id="D"><a href="/<%= commentType %>/<%= comment._id %>/delete">Delete</a></button>
+    </body>
+</html>
