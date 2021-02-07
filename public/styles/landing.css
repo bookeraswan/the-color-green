@@ -1,25 +1,38 @@
 body{
-    background: #050 url("/images/leaf-compressed.jpeg") no-repeat fixed center;
+  margin: 0;
+    /* background: #050 url("/images/leaf-compressed.jpeg") no-repeat fixed center; */
+    background-color: #000;
+}
+
+header{
+  background-color: #000;
+  max-height: 100vh;
+}
+
+img{
+  display: block;
+  margin: 0 auto;
+  height: 100vh;
 }
 
 #thecolorgreen{
     text-align: center;
     font-size: 100px;
-    color: #0f0;
-    text-shadow:
-    10px 10px 5px #000;
+    color: rgb(0, 87, 0);
+    /* text-shadow:
+    10px 10px 5px #000; */
 }
 
 .description{
   font-size: 30px;
-  text-shadow: 1px 1px 1px rgb(170, 255, 181);
+  /* text-shadow: 1px 1px 1px rgb(170, 255, 181); */
   font-weight: bold;
-  color: #000;
+  color: rgb(95, 92, 65);
 }
 
 .thecolorgreen{
-  text-shadow: 1px 1px 1px rgb(136, 255, 152);
-  color: #0f0;
+  /* text-shadow: 1px 1px 1px rgb(136, 255, 152); */
+  color:rgb(0, 87, 0);
 }
 
 .signup{
