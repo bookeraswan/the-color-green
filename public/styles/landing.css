@@ -17,7 +17,7 @@ img{
 #thecolorgreen{
     text-align: center;
     font-size: 100px;
-    color: rgb(0, 87, 0);
+    color: #005700;
     /* text-shadow:
     10px 10px 5px #000; */
 }
@@ -31,7 +31,7 @@ img{
 
 .thecolorgreen{
   /* text-shadow: 1px 1px 1px rgb(136, 255, 152); */
-  color:rgb(0, 87, 0);
+  color:#005700;
 }
 
 .signup{
@@ -39,7 +39,8 @@ img{
   text-decoration: none;
   font-weight: bold;
   font-family: monospace;
-  background: #0f0 linear-gradient(#0f0, rgb(208, 255, 0));
+  /* background: #0f0 linear-gradient(#0f0, rgb(208, 255, 0)); */
+  background-color: #00ff11;
   border: none;
   border-radius: 10px;
 }
@@ -49,7 +50,8 @@ img{
   text-decoration: none;
   font-weight: bold;
   font-family: monospace;
-  background: #0f0 linear-gradient(#aaf, #056);
+  /* background: #0f0 linear-gradient(#aaf, #056); */
+  background-color: #007e19;
   border: none;
   border-radius: 10px;
 }

@@ -12,3 +12,11 @@ run       npm install       on thecolorgreen root directory in the terminal
       THECOLORGREEN_DATABASEURL
       THECOLORGREEN_CLOUDINARYAPIKEY
       THECOLORGREEN_CLOUDINARYAPISECRET
+
+
+color scheme:
+      icon:
+            light green: #00ff11
+            dark  green: #007e19
+      font:
+            dark   green: #005700

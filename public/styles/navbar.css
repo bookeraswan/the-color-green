@@ -4,7 +4,8 @@ nav{
     left: 0;
     right: 0;
     height: 100px;
-    background: #0a0 url("../images/leaf-nav.jpeg") no-repeat;
+    /* background: #0a0 url("../images/leaf-nav.jpeg") no-repeat; */
+    background-color: #000;
     background-size: cover;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -35,7 +36,7 @@ top: 0;
 right: 0;
 float: right;
 padding-left: 50px;
-background-color: #333;
+background-color: #000;
 width: 400px;
 min-height: 400px;
 z-index: 50;
@@ -83,11 +84,15 @@ font-family: serif;
 
 nav li a{
     text-decoration: none;
-    color: #000;
+    color: #007e19;
 }
 
 nav li a:hover{
-    color: #0d0;
+    color: #00ff11;
+}
+
+nav li i::before{
+    color: #007e19;
 }
 
 .search-container{
@@ -99,7 +104,7 @@ nav li a:hover{
     right: 0;
     left: 0;
     max-height: 600px;
-    background-color: #454;
+    background-color: #000;
     z-index: 20;
     text-align: center;
     transition: transform 250ms;
