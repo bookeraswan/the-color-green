@@ -1,7 +1,6 @@
 body{
   margin: 0;
-    /* background: #050 url("/images/leaf-compressed.jpeg") no-repeat fixed center; */
-    background-color: #000;
+  background-color: #000;
 }
 
 header{
@@ -12,7 +11,7 @@ header{
 img{
   display: block;
   margin: 0 auto;
-  height: 100vh;
+  height: 71.5vh;
 }
 
 #thecolorgreen{
@@ -63,8 +62,6 @@ img{
 }
 
 .signup-container{
-  position: -webkit-sticky;
-  position: sticky;
   top: 40px;
   text-align: right;
   width: 90%;
