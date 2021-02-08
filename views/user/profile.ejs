@@ -37,7 +37,7 @@
                                   <span id="follow-status">follow</span><i class="fas fa-user-friends"></i>
                                 </button>
                             <% }else{ %>
-                                <button id="follow_unfollow-btn" data-url="/user/<%= user._id %>/unfollow">
+                                <button id="follow_unfollow-btn" data-url="/user/<%= user._id %>/unfollow" class="inactive">
                                   <span id="follow-status">unfollow</span><i class="fas fa-user-friends"></i>
                                 </button>
                             <% } %>
@@ -107,9 +107,13 @@
             <button class="loadmore-btn">Load More</button>
             <div class="loadmore_loader hidden"></div>
         </div>
-    <script>
-      var Global_Is_User = <%=currentUser && currentUser._id.equals(user._id)%>;
-    </script>
+
+    
+    <% if(currentUser && currentUser._id.equals(user._id)){ %>
+      <script>var Global_Is_User = true;</script>
+    <% }else{ %>
+      <script>var Global_Is_User = false;</script>
+    <% } %>
     <script type="text/javascript" src="/js/profile.js"></script>
     </body>
 </html>

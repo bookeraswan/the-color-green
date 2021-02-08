@@ -1,4 +1,4 @@
-S      = s => document.querySelector(s) ? document.querySelector(s) : new FakeElement();
+S      = s => document.querySelector(s)
 const create = e => document.createElement(e);
 Element.prototype.class = function(c) {this.classList.add(c); return this}
 Element.prototype.link  = function(h) {this.href = h;         return this}
@@ -79,37 +79,40 @@ if(Global_Is_User){
   });
 }
 else{
-  followunfollowBtn.on("click", () => {
-    followStatus.textContent = "↻↻↻↻↻";
-    Ajax({
-      method: "post",
-      url: followunfollowBtn.dataset.url
-    })
-    .then(res =>{
-      var followers = Number(numFollowers.textContent);
-      var profile_id = /\/user\/(\w+)\/\w+/.exec(followunfollowBtn.dataset.url)[1];
-      if(res == "true"){
-        followunfollowBtn.classList.toggle("active")
-        if(/unfollow/.test(followunfollowBtn.dataset.url)){
-          followStatus.textContent = "follow"
-          if(followers > 0) numFollowers.textContent = --followers;
-          followunfollowBtn.dataset.url = `/user/${profile_id}/follow`
+  if(followunfollowBtn){
+    followunfollowBtn.on("click", () => {
+      followStatus.textContent = "↻↻↻↻↻";
+      Ajax({
+        method: "post",
+        url: followunfollowBtn.dataset.url
+      })
+      .then(res =>{
+        var followers = Number(numFollowers.textContent);
+        var profile_id = /\/user\/(\w+)\/\w+/.exec(followunfollowBtn.dataset.url)[1];
+        if(res == "true"){
+          followunfollowBtn.classList.toggle("active")
+          followunfollowBtn.classList.toggle("inactive")
+          if(/unfollow/.test(followunfollowBtn.dataset.url)){
+            followStatus.textContent = "follow"
+            if(followers > 0) numFollowers.textContent = --followers;
+            followunfollowBtn.dataset.url = `/user/${profile_id}/follow`
+          }
+          else {
+            followStatus.textContent = "unfollow"
+            numFollowers.textContent = ++followers;
+            followunfollowBtn.dataset.url = `/user/${profile_id}/unfollow`
+          }
+          return
         }
-        else {
-          followStatus.textContent = "unfollow"
-          numFollowers.textContent = ++followers;
-          followunfollowBtn.dataset.url = `/user/${profile_id}/unfollow`
-        }
-        return
-      }
-      followunfollowBtn.innerHTML = res;
-      followunfollowBtn.style.color = "#00a";
+        followunfollowBtn.innerHTML = res;
+        followunfollowBtn.style.color = "#00a";
+      })
+      .catch(err => {
+        followunfollowBtn.innerHTML = "something went wrong";
+        followunfollowBtn.style.color = "#a00";
+      })
     })
-    .catch(err => {
-      followunfollowBtn.innerHTML = "something went wrong";
-      followunfollowBtn.style.color = "#a00";
-    })
-  })
+  }
 }
 
 
