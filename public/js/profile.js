@@ -4,7 +4,6 @@ Element.prototype.class = function(c) {this.classList.add(c); return this}
 Element.prototype.link  = function(h) {this.href = h;         return this}
 Element.prototype.txt   = function(t) {this.textContent = t;    return this}
 Element.prototype.on    = function(e, cb){this.addEventListener(e, cb)}
-Element.prototype.onif  = function(e, con, cb){if(con){this.addEventListener(e, cb)}}
 
 let body              = S("body");
 let imageInput        = S(".image-input");
@@ -55,62 +54,65 @@ Ajax({
 S(".loadmore-btn").on("click", loadMore)
 
 if(Global_Is_User){
-  postBtn.onif("click", postBtn, function(){
+
+  postBtn.on("click", function(){
     body.style.overflow = "hidden";
     formContainer.style.transform = "scale(1)";
   });
+
+  imageInput.on("change", function(){
+    var reader = new FileReader();
+    img.file = this.files[0];
+    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+    reader.readAsDataURL(this.files[0]);
+  });
+  
+  exitBtn.on("click", function(){
+    body.style.overflowY = "scroll";
+    formContainer.style.transform = "scale(0)"
+  });
+  
+  newPostForm.on("submit", function(e){
+    formContainer.scrollTo(0, 0);
+    formContainer.style.overflow = "hidden";
+    loader.style.display = "block";
+  });
+}
+else{
+  followunfollowBtn.on("click", () => {
+    followStatus.textContent = "↻↻↻↻↻";
+    Ajax({
+      method: "post",
+      url: followunfollowBtn.dataset.url
+    })
+    .then(res =>{
+      var followers = Number(numFollowers.textContent);
+      var profile_id = /\/user\/(\w+)\/\w+/.exec(followunfollowBtn.dataset.url)[1];
+      if(res == "true"){
+        followunfollowBtn.classList.toggle("active")
+        if(/unfollow/.test(followunfollowBtn.dataset.url)){
+          followStatus.textContent = "follow"
+          if(followers > 0) numFollowers.textContent = --followers;
+          followunfollowBtn.dataset.url = `/user/${profile_id}/follow`
+        }
+        else {
+          followStatus.textContent = "unfollow"
+          numFollowers.textContent = ++followers;
+          followunfollowBtn.dataset.url = `/user/${profile_id}/unfollow`
+        }
+        return
+      }
+      followunfollowBtn.innerHTML = res;
+      followunfollowBtn.style.color = "#00a";
+    })
+    .catch(err => {
+      followunfollowBtn.innerHTML = "something went wrong";
+      followunfollowBtn.style.color = "#a00";
+    })
+  })
 }
 
 
-imageInput.onif("change", postBtn, function(){
-  var reader = new FileReader();
-  img.file = this.files[0];
-  reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-  reader.readAsDataURL(this.files[0]);
-});
-
-exitBtn.onif("click", postBtn, function(){
-  body.style.overflowY = "scroll";
-  formContainer.style.transform = "scale(0)"
-});
-
-newPostForm.onif("submit", postBtn, function(e){
-  formContainer.scrollTo(0, 0);
-  formContainer.style.overflow = "hidden";
-  loader.style.display = "block";
-});
-
-followunfollowBtn.onif("click", !postBtn, () => {
-  followStatus.textContent = "↻↻↻↻↻";
-  Ajax({
-    method: "post",
-    url: followunfollowBtn.dataset.url
-  })
-  .then(res =>{
-    var followers = Number(numFollowers.textContent);
-    var profile_id = /\/user\/(\w+)\/\w+/.exec(followunfollowBtn.dataset.url)[1];
-    if(res == "true"){
-      followunfollowBtn.classList.toggle("active")
-      if(/unfollow/.test(followunfollowBtn.dataset.url)){
-        followStatus.textContent = "follow"
-        if(followers > 0) numFollowers.textContent = --followers;
-        followunfollowBtn.dataset.url = `/user/${profile_id}/follow`
-      }
-      else {
-        followStatus.textContent = "unfollow"
-        numFollowers.textContent = ++followers;
-        followunfollowBtn.dataset.url = `/user/${profile_id}/unfollow`
-      }
-      return
-    }
-    followunfollowBtn.innerHTML = res;
-    followunfollowBtn.style.color = "#00a";
-  })
-  .catch(err => {
-    followunfollowBtn.innerHTML = "something went wrong";
-    followunfollowBtn.style.color = "#a00";
-  })
-})
 
 function loadMore(){
   let offset = S("#posts").children.length
